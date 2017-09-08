@@ -1,0 +1,5 @@
+cache-corpuscrawler/
+corpus/
+*.pyc
+*.pyo
+*~
