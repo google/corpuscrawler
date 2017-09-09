@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from corpuscrawler.util import write_paragraphs
+from corpuscrawler.util import crawl_udhr, write_paragraphs
 
 try:
     import xml.etree.cElementTree as etree
@@ -21,8 +21,17 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 
+variants = 'puter rumgr surmiran sursilv sutsilv vallader'.split()
+
 def crawl(crawler):
+    crawl_rm_udhr(crawler)
     crawl_quotidiana(crawler)
+
+
+def crawl_rm_udhr(crawler):
+    for variant in variants:
+        with crawler.open_output('udhr.txt', 'rm-' + variant) as out:
+            crawl_udhr(crawler, out, filename='udhr_roh_%s.txt' % variant)
 
 
 def crawl_quotidiana(crawler):

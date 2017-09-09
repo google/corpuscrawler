@@ -24,15 +24,15 @@ you might find _Corpus Crawler_ useful.
 
 | IETF BCP47      | Language              |  Tokens |
 | :-------------- | :-------------------- | ------: |
-| `ccp`           | Chakma                |    118K |
-| `gv`            | Manx Gaelic           |     88K |
+| `ccp`           | Chakma                |    120K |
+| `gv`            | Manx Gaelic           |     90K |
 | `my`            | Burmese               |    500K |
-| `rm-puter`      | Romansh (Puter)       |  1,297K |
-| `rm-rumgr`      | Romansh (Grischun)    |  5,604K |
-| `rm-surmiran`   | Romansh (Surmiran)    |  3,285K |
-| `rm-sursilv`    | Romansh (Sursilvan)   | 13,550K |
-| `rm-sutsilv`    | Romansh (Sutsilvan)   |  1,297K |
-| `rm-vallader`   | Romansh (Vallader)    |  6,345K |
+| `rm-puter`      | Romansh (Puter)       |  1,230K |
+| `rm-rumgr`      | Romansh (Grischun)    |  5,605K |
+| `rm-surmiran`   | Romansh (Surmiran)    |  3,287K |
+| `rm-sursilv`    | Romansh (Sursilvan)   | 13,552K |
+| `rm-sutsilv`    | Romansh (Sutsilvan)   |  1,230K |
+| `rm-vallader`   | Romansh (Vallader)    |  6,347K |
 
 
 If you’d like to add another language, or change anything else in the tool,

@@ -216,3 +216,15 @@ def write_paragraphs(et, out):
     else:
         for e in et:
             write_paragraphs(e, out)
+
+
+def crawl_udhr(crawler, out, filename):
+    url = 'http://www.unicode.org/udhr/d/' + filename
+    response = crawler.fetch(url)
+    assert response.status == 200, (response.status, url)
+    text = response.content.decode('utf-8').split('---', 1)[1]
+    out.write('# Location: %s\n' % url)
+    for paragraph in text.splitlines():
+        paragraph = paragraph.strip()
+        if len(paragraph) > 0:
+            out.write(paragraph.strip() + '\n')

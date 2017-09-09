@@ -16,10 +16,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 import os.path
 import re
 
-from corpuscrawler.util import crawl_bbc_news
+from corpuscrawler.util import crawl_bbc_news, crawl_udhr
 
 
 def crawl(crawler):
+    with crawler.open_output('udhr.txt') as out:
+        crawl_udhr(crawler, out, filename='udhr_mya.txt')
     with crawler.open_output('bbc.txt') as out:
         crawl_bbc_news(crawler, out, urlprefix='/burmese/')
 
