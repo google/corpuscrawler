@@ -25,7 +25,7 @@ you might find _Corpus Crawler_ useful.
 | IETF BCP47      | Language              |  Tokens |
 | :-------------- | :-------------------- | ------: |
 | `ccp`           | Chakma                |    120K |
-| `gv`            | Manx Gaelic           |     90K |
+| `gv`            | Manx Gaelic           |    149K |
 | `my`            | Burmese               |    500K |
 | `rm-puter`      | Romansh (Puter)       |  1,230K |
 | `rm-rumgr`      | Romansh (Grischun)    |  5,605K |

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # Copyright 2017 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -238,3 +240,32 @@ def crawl_udhr(crawler, out, filename):
         paragraph = paragraph.strip()
         if len(paragraph) > 0:
             out.write(paragraph.strip() + '\n')
+
+
+_HTML_ENTITIES = {
+    'Auml': 'Ä',
+    'Ccedil': 'Ç',
+    'Eacute': 'É',
+    'Euml': 'Ë',
+    'Iuml': 'Ï',
+    'Ouml': 'Ö',
+    'Uuml': 'Ü',
+    'auml': 'ä',
+    'ccedil': 'ç',
+    'eacute': 'é',
+    'euml': 'ë',
+    'icirc': 'î',
+    'iuml': 'ï',
+    'nbsp': ' ',
+    'ouml': 'ö',
+    'uuml': 'ü',
+    'pound': '£',
+    'quot': '"',
+}
+
+
+def replace_html_entities(html):
+    html = re.sub(r'&#([0-9]+);', lambda z:unichr(int(z.group(1))), html)
+    html = re.sub(r'&([a-zA-Z]+);',
+                  lambda z:_HTML_ENTITIES[z.group(1).lower()], html)
+    return html
