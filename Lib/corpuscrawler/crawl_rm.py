@@ -49,6 +49,7 @@ def crawl_quotidiana(crawler):
                 out = outputs[lang] = \
                     crawler.open_output('quotidiana.txt', lang)
             out.write('# Location: %s\n' % location)
+            out.write('# Genre: News\n')
             out.write('# Publication-Date: %s\n' % year)
             write_paragraphs(doc, out)
             out.write('#\n')

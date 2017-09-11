@@ -168,16 +168,16 @@ def crawl_bbc_news(crawler, out, urlprefix):
         if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
         if pubdate is None: pubdate = sitemap[url]
         out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1).split('- BBC')[0]).strip()
         if title: out.write(title + '\n')
         for paragraph in re.findall(r'<p>(.+?)</p>', html):
             out.write(striptags(paragraph).strip() + '\n')
-        out.write('#\n')
 
 
-def crawl_korero_html(crawler, out, project, filepath):
+def crawl_korero_html(crawler, out, project, genre, filepath):
     url = 'https://raw.githubusercontent.com/korero/%s/master/%s' % (
         project, filepath)
     fetchresult = crawler.fetch(url)
@@ -189,6 +189,8 @@ def crawl_korero_html(crawler, out, project, filepath):
     articles = doc.findall('./body/article')
     if len(articles) == 0:
         out.write('# Location: %s\n' % url)
+        if genre:
+            out.write('# Genre: %s\n' % genre)
         if license:
             out.write('# License: %s\n' % license)
         write_paragraphs(doc.find('body'), out)
@@ -204,7 +206,6 @@ def crawl_korero_html(crawler, out, project, filepath):
                 if pubdate is not None:
                     out.write('# Publication-Date: %s\n' % pubdate)
             write_paragraphs(article, out)
-            out.write('#\n')
 
 
 def write_paragraphs(et, out):
@@ -224,6 +225,7 @@ def crawl_udhr(crawler, out, filename):
     assert response.status == 200, (response.status, url)
     text = response.content.decode('utf-8').split('---', 1)[1]
     out.write('# Location: %s\n' % url)
+    out.write('# Genre: Legal\n')
     for paragraph in text.splitlines():
         paragraph = paragraph.strip()
         if len(paragraph) > 0:

@@ -20,6 +20,7 @@ def crawl(crawler):
     with crawler.open_output('korero.txt') as out:
         for book in ('fulbareng', 'pacchan', 'shikya_pudhi', 'tui_ebe_vili'):
             crawl_korero_html(crawler, out, project='corpora-ccp',
+                              genre='Literature',
                               filepath='ccp_%s.html' % book)
     with crawler.open_output('udhr.txt') as out:
         crawl_udhr(crawler, out, filename='udhr_ccp.txt')
