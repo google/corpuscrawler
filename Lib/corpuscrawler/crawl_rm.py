@@ -21,21 +21,18 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 
-variants = 'puter rumgr surmiran sursilv sutsilv vallader'.split()
-
 def crawl(crawler):
     crawl_rm_udhr(crawler)
     crawl_quotidiana(crawler)
 
 
 def crawl_rm_udhr(crawler):
-    for variant in variants:
-        with crawler.open_output('udhr.txt', 'rm-' + variant) as out:
-            crawl_udhr(crawler, out, filename='udhr_roh_%s.txt' % variant)
+    for variant in 'puter rumgr surmiran sursilv sutsilv vallader'.split():
+        out = crawler.get_output(language='rm-' + variant)
+        crawl_udhr(crawler, out, filename='udhr_roh_%s.txt' % variant)
 
 
 def crawl_quotidiana(crawler):
-    outputs = {}
     for year in range(1997, 2009):
         url = ('https://raw.githubusercontent.com/ProSvizraRumantscha/'
                'corpora/master/la_quotidiana/rm_quotidiana_%d.xml' % year)
@@ -44,14 +41,8 @@ def crawl_quotidiana(crawler):
             location = url + '#' + doc.attrib['id']
             lang = doc.attrib['{http://www.w3.org/XML/1998/namespace}lang']
             assert lang.split('-')[0] == 'rm', lang
-            out = outputs.get(lang)
-            if out is None:
-                out = outputs[lang] = \
-                    crawler.open_output('quotidiana.txt', lang)
+            out = crawler.get_output(language=lang)
             out.write('# Location: %s\n' % location)
             out.write('# Genre: News\n')
             out.write('# Publication-Date: %s\n' % year)
             write_paragraphs(doc, out)
-            out.write('#\n')
-    for out in outputs.values():
-        out.close()

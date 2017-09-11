@@ -17,11 +17,10 @@ from corpuscrawler.util import crawl_korero_html, crawl_udhr
 
 
 def crawl(crawler):
-    with crawler.open_output('korero.txt') as out:
+    out = crawler.get_output(language='gv')
+    crawl_udhr(crawler, out, filename='udhr_glv.txt')
+    crawl_korero_html(crawler, out, project='corpora-gv',
+                      genre='News', filepath='gv_news_1821.html')
+    for book in ('candide', 'coyrle_sodjey'):
         crawl_korero_html(crawler, out, project='corpora-gv',
-                          genre='News', filepath='gv_news_1821.html')
-        for book in ('candide', 'coyrle_sodjey'):
-            crawl_korero_html(crawler, out, project='corpora-gv',
-                              genre='Literature', filepath='gv_%s.html' % book)
-    with crawler.open_output('udhr.txt') as out:
-        crawl_udhr(crawler, out, filename='udhr_glv.txt')
+                          genre='Literature', filepath='gv_%s.html' % book)

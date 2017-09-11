@@ -29,7 +29,7 @@ def main():
     }
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--language', default='my', choices=sorted(crawls.keys()),
+        '--language', default='rm', choices=sorted(crawls.keys()),
         help='IETF BCP47 language code for the corpus to be crawled')
     parser.add_argument(
         '--output', default='./corpus',
@@ -39,6 +39,7 @@ def main():
         help='path to directory for caching fetched files')
     args = parser.parse_args()
 
-    crawler = Crawler(language=args.language, output=args.output,
-                      cache=args.cache)
+    crawler = Crawler(language=args.language, output_dir=args.output,
+                      cache_dir=args.cache)
     crawls[args.language](crawler)
+    crawler.close()

@@ -60,32 +60,40 @@ class URLOpener(urllib.FancyURLopener):
 
 
 class Crawler(object):
-    def __init__(self, language, output, cache):
+    def __init__(self, language, output_dir, cache_dir):
         assert len(language) >= 2
         self.language = language
-        self.output = output
-        self.cache = cache
+        self.cache_dir = cache_dir
+        self.output_dir = output_dir
+        self.outputs = {}  # bcp47 tag (eg. 'rm-puter') --> codecs.StreamWriter
         self.robotcheckers = {}
         self.urlopener = URLOpener()
         self.useragent_for_robots_txt = self.urlopener.version.split('/')[0]
         self.crawldelay = 2.0  # seconds between fetches
-        if not os.path.exists(cache):
-            os.makedirs(cache)
+        for path in (output_dir, cache_dir):
+            if not os.path.exists(path):
+                os.makedirs(path)
 
-    def open_output(self, filename, language=None):
+    def get_output(self, language=None):
         if language is None:
             language = self.language
-        langdir = os.path.join(self.output, language)
-        if not os.path.exists(langdir):
-            os.makedirs(langdir)
-        return codecs.open(os.path.join(langdir, filename), 'w', 'utf-8')
+        out = self.outputs.get(language)
+        if out is not None:
+            return out
+        outpath = os.path.join(self.output_dir, language + '.txt')
+        out = self.outputs[language] = codecs.open(outpath, 'w', 'utf-8')
+        return out
+
+    def close(self):
+        for writer in self.outputs.values():
+            writer.close()
 
     def fetch(self, url, redirections=None):
         if not self.is_fetch_allowed_by_robots_txt(url):
             return FetchResult(headers='', content='', status=403)
 
         digest = hashlib.sha256(url).digest()
-        filepath = os.path.join(self.cache,
+        filepath = os.path.join(self.cache_dir,
                                 "f" + base64.urlsafe_b64encode(digest))
         try:
             with open(filepath, 'r') as f:

@@ -20,8 +20,6 @@ from corpuscrawler.util import crawl_bbc_news, crawl_udhr
 
 
 def crawl(crawler):
-    with crawler.open_output('udhr.txt') as out:
-        crawl_udhr(crawler, out, filename='udhr_mya.txt')
-    with crawler.open_output('bbc.txt') as out:
-        crawl_bbc_news(crawler, out, urlprefix='/burmese/')
-
+    out = crawler.get_output(language='my')
+    crawl_udhr(crawler, out, filename='udhr_mya.txt')
+    crawl_bbc_news(crawler, out, urlprefix='/burmese/')
