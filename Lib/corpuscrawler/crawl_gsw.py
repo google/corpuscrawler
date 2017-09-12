@@ -19,7 +19,8 @@ from corpuscrawler.util import striptags, urljoin
 
 
 def crawl(crawler):
-    crawl_gsw_derbund(crawler)  # Berndeutsch
+    crawl_gsw_derbund(crawler)
+    crawl_gsw_seislerblog(crawler)
 
 
 def crawl_gsw_derbund(crawler):
@@ -43,7 +44,7 @@ def crawl_gsw_derbund(crawler):
             day, month, year = pubdate.groups()
             pubdate = '%04d-%02d-%02d' % (int(year), int(month), int(day))
         out.write('# Location: %s\n' % url)
-        out.write('# Genre: Literature\n')
+        out.write('# Genre: Blog\n')
         if pubdate is not None:
             out.write('# Publication-Date: %s\n' % pubdate)
         text = text.split('<div id="mainContent">')[1]
@@ -55,3 +56,34 @@ def crawl_gsw_derbund(crawler):
         for p in paras:
             if p:
                 out.write(p + '\n')
+
+
+def crawl_gsw_seislerblog(crawler):
+    urls = set()
+    for i in range(1, 16):
+        indexurl = ('http://www.freiburger-nachrichten.ch/blogs/seislerblog'
+                    '?page=%d' % i)
+        html = crawler.fetch(indexurl).content.decode('utf-8')
+        for url in re.findall(r'<a href="(/blogs/seislerblog/.+?)[\s"]', html):
+            urls.add(urljoin(indexurl, url))
+    out = crawler.get_output('gsw-u-sd-chfr')
+    for url in sorted(urls):
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Blog\n')
+        text = crawler.fetch(url).content.decode('utf-8')
+        pubdate = re.search(
+            r'<span class="date-created">([0-9]{1,2})\.([0-9]{2})\.'
+            '(20[0-9]{2})</span>', text)
+        if pubdate != None:
+            day, month, year = pubdate.groups()
+            pubdate = '%04d-%02d-%02d' % (int(year), int(month), int(day))
+            out.write('# Publication-Date: %s\n' % pubdate)
+        text = text.split('<h1>', 1)[-1].split('<section')[0]
+        text = text.replace('\n', ' ')
+        for tag in ('</p>', '</h1>', '</div>'):
+            text = text.replace(tag, '\n')
+        for p in [' '.join(striptags(t).strip().split())
+                  for t in text.splitlines()]:
+            if p and p != 'Kommentare':
+                out.write(p + '\n')
+ 
