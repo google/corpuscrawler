@@ -15,7 +15,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
-from corpuscrawler import crawl_ccp, crawl_gv, crawl_my, crawl_rm
+from corpuscrawler import crawl_ccp, crawl_gsw, crawl_gv, crawl_my, crawl_rm
 from corpuscrawler.util import Crawler
 
 
@@ -23,6 +23,7 @@ from corpuscrawler.util import Crawler
 def main():
     crawls = {
         'ccp': crawl_ccp.crawl,
+        'gsw': crawl_gsw.crawl,
         'gv': crawl_gv.crawl,
         'my': crawl_my.crawl,
         'rm': crawl_rm.crawl,

@@ -35,12 +35,12 @@ try:
     # Python 3
     from io import StringIO
     import urllib.robotparser as robotparser
-    from urllib.urlparse import urlparse
+    from urllib.urlparse import urlparse, urljoin
 except ImportError:
     # Python 2
     from cStringIO import StringIO
     import robotparser
-    from urlparse import urlparse
+    from urlparse import urlparse, urljoin
 
 
 FetchResult = collections.namedtuple('FetchResult',
