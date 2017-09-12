@@ -32,6 +32,11 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 try:
+    import htmlentitydefs
+except ImportError:
+    import html.entitites as htmlentitydefs
+
+try:
     # Python 3
     from io import StringIO
     import urllib.robotparser as robotparser
@@ -46,7 +51,7 @@ except ImportError:
 FetchResult = collections.namedtuple('FetchResult',
                                      ['headers', 'content', 'status'])
 
-_TAG_REGEX = re.compile(r'<.+?>')
+_TAG_REGEX = re.compile(r'\<.+?\>')
 def striptags(s):
     return _TAG_REGEX.sub('', s)
 
@@ -242,30 +247,9 @@ def crawl_udhr(crawler, out, filename):
             out.write(paragraph.strip() + '\n')
 
 
-_HTML_ENTITIES = {
-    'Auml': 'Ä',
-    'Ccedil': 'Ç',
-    'Eacute': 'É',
-    'Euml': 'Ë',
-    'Iuml': 'Ï',
-    'Ouml': 'Ö',
-    'Uuml': 'Ü',
-    'auml': 'ä',
-    'ccedil': 'ç',
-    'eacute': 'é',
-    'euml': 'ë',
-    'icirc': 'î',
-    'iuml': 'ï',
-    'nbsp': ' ',
-    'ouml': 'ö',
-    'uuml': 'ü',
-    'pound': '£',
-    'quot': '"',
-}
-
-
 def replace_html_entities(html):
+    entities = htmlentitydefs.name2codepoint
     html = re.sub(r'&#([0-9]+);', lambda z:unichr(int(z.group(1))), html)
     html = re.sub(r'&([a-zA-Z]+);',
-                  lambda z:_HTML_ENTITIES[z.group(1).lower()], html)
+                  lambda z:unichr(entities[z.group(1).lower()]), html)
     return html
