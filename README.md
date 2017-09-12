@@ -29,6 +29,8 @@ you might find _Corpus Crawler_ useful.
 | `gsw-u-sd-chbe.txt` | Swiss German (Bern)      |     73K |
 | `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)  |     42K |
 | `gv`                | Manx Gaelic              |    149K |
+| `mnw`               | Mon                      |    176K |
+| `mnw-t-d0-zawgyi`   | Mon (Zawgyi encoding)    |    147K |
 | `my`                | Burmese                  |    500K |
 | `rm-puter`          | Romansh (Puter)          |  1,230K |
 | `rm-rumgr`          | Romansh (Grischun)       |  5,605K |

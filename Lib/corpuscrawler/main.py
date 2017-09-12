@@ -15,18 +15,20 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
-from corpuscrawler import crawl_ccp, crawl_gsw, crawl_gv, crawl_my, crawl_rm
+from corpuscrawler import \
+    crawl_ccp, crawl_gsw, crawl_gv, crawl_mnw, crawl_my, crawl_rm
 from corpuscrawler.util import Crawler
 
 
 
 def main():
     crawls = {
-        'ccp': crawl_ccp.crawl,
-        'gsw': crawl_gsw.crawl,
-        'gv': crawl_gv.crawl,
-        'my': crawl_my.crawl,
-        'rm': crawl_rm.crawl,
+        'ccp': crawl_ccp.crawl,  # Chakma
+        'gsw': crawl_gsw.crawl,  # Swiss German
+        'gv': crawl_gv.crawl,    # Manx Gaelic
+        'mnw': crawl_mnw.crawl,  # Mon
+        'my': crawl_my.crawl,    # Burmese
+        'rm': crawl_rm.crawl,    # Romansh
     }
     parser = argparse.ArgumentParser()
     parser.add_argument(
