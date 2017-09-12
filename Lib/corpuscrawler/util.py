@@ -76,7 +76,7 @@ class Crawler(object):
         self.robotcheckers = {}
         self.urlopener = URLOpener()
         self.useragent_for_robots_txt = self.urlopener.version.split('/')[0]
-        self.crawldelay = 2.0  # seconds between fetches
+        self.crawldelay = 15.0  # seconds between fetches
         for path in (output_dir, cache_dir):
             if not os.path.exists(path):
                 os.makedirs(path)
