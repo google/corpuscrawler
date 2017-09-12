@@ -25,8 +25,9 @@ you might find _Corpus Crawler_ useful.
 | IETF BCP47          | Language                 |  Tokens |
 | :------------------ | :----------------------- | ------: |
 | `ccp`               | Chakma                   |    120K |
-| `gsw-u-sd-chbe.txt` | Swiss german (Berne)     |     73K |
-| `gsw-u-sd-chfr.txt` | Swiss german (Fribourg)  |     42K |
+| `gsw-u-sd-chag.txt` | Swiss German (Aargau)    |    102K |
+| `gsw-u-sd-chbe.txt` | Swiss German (Bern)      |     73K |
+| `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)  |     42K |
 | `gv`                | Manx Gaelic              |    149K |
 | `my`                | Burmese                  |    500K |
 | `rm-puter`          | Romansh (Puter)          |  1,230K |
@@ -45,5 +46,5 @@ please read the [contribution guidelines](./CONTRIBUTING.md) and send
 ## Running the Crawler
 
 ```sh
-./corpuscrawler --language=my --output=./corpus
+./corpuscrawler --language=rm --output=./corpus
 ```

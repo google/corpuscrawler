@@ -15,11 +15,12 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import json
 import re
-from corpuscrawler.util import striptags, urljoin
+from corpuscrawler.util import replace_html_entities, striptags, urljoin
 
 
 def crawl(crawler):
     crawl_gsw_derbund(crawler)
+    crawl_gsw_wettiger_nochrichte(crawler)
     crawl_gsw_seislerblog(crawler)
 
 
@@ -55,6 +56,35 @@ def crawl_gsw_derbund(crawler):
         paras = [' '.join(striptags(p).split()) for p in text.split('</p>')]
         for p in paras:
             if p:
+                out.write(p + '\n')
+
+
+def crawl_gsw_wettiger_nochrichte(crawler):
+    urls = crawler.fetch_sitemap(
+        'https://wettiger-nochrichte.net/sitemap.xml').keys()
+    out = crawler.get_output('gsw-u-sd-chag')
+    for url in sorted(urls):
+        if url.find('//wettiger-nochrichte.net/20') < 0:
+            continue
+        html = crawler.fetch(url).content.decode('utf-8')
+        pubdate = re.search(r'<time class="entry-date" datetime="(.+?)"', html)
+        html = html.split('class="post-content">')
+        html = html[1].split('<style')[0]
+        paragraphs = []
+        for p in re.split(r'</?(p|h1|h2).+?>', html):
+            p = ' '.join(replace_html_entities(striptags(p)).split())
+            if ((p not in ('', 'p', 'h2', 'h3')) and
+                    (not p.startswith('http')) and ('<' not in p) and
+                    (not p.endswith('by Wettiger Nochrichte')) and
+                    (not p.endswith('by LuFiLa')) and
+                    (not p.endswith('by Wettiger'))):
+                paragraphs.append(p)
+        if len(paragraphs) > 0:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate.group(1))
+            for p in paragraphs:
                 out.write(p + '\n')
 
 
