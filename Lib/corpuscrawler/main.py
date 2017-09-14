@@ -32,6 +32,7 @@ def main():
         'mnw': crawl_mnw.crawl,  # Mon
         'my': crawl_my.crawl,    # Burmese
         'rm': crawl_rm.crawl,    # Romansh
+        'shn': crawl_shn.crawl,  # Shan
     }
     parser = argparse.ArgumentParser()
     parser.add_argument(
