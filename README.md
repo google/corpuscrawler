@@ -2,8 +2,7 @@
 
 _Corpus Crawler_ is a tool for [Corpus
 Linguistics](https://en.wikipedia.org/wiki/Corpus_linguistics),
-focusing on languages that are not very well supported by modern
-language processing software.
+focusing on languages that are not very well supported by language technology.
 
 Modern linguistic research works by analyzing corpora, which are large
 samples of “real world” text. The crawler helps to build such corpora:
@@ -22,22 +21,22 @@ you might find _Corpus Crawler_ useful.
 
 ## Supported Languages
 
-| IETF BCP47          | Language                 |  Tokens |
-| :------------------ | :----------------------- | ------: |
-| `ccp`               | Chakma                   |    120K |
-| `gsw-u-sd-chag.txt` | Swiss German (Aargau)    |    102K |
-| `gsw-u-sd-chbe.txt` | Swiss German (Bern)      |     73K |
-| `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)  |     42K |
-| `gv`                | Manx Gaelic              |    149K |
-| `mnw`               | Mon                      |    176K |
-| `mnw-t-d0-zawgyi`   | Mon (Zawgyi encoding)    |    147K |
-| `my`                | Burmese                  |    500K |
-| `rm-puter`          | Romansh (Puter)          |  1,230K |
-| `rm-rumgr`          | Romansh (Grischun)       |  5,605K |
-| `rm-surmiran`       | Romansh (Surmiran)       |  3,287K |
-| `rm-sursilv`        | Romansh (Sursilvan)      | 13,552K |
-| `rm-sutsilv`        | Romansh (Sutsilvan)      |  1,230K |
-| `rm-vallader`       | Romansh (Vallader)       |  6,347K |
+| IETF BCP47          | Language                     |  Tokens |
+| :------------------ | :--------------------------- | ------: |
+| `ccp`               | Chakma                       |    120K |
+| `gsw-u-sd-chag.txt` | Swiss German (Aargau)        |    102K |
+| `gsw-u-sd-chbe.txt` | Swiss German (Bern)          |     73K |
+| `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
+| `gv`                | Manx Gaelic                  |    149K |
+| `mnw`               | Mon                          |    176K |
+| `my`                | Burmese                      |    486K |
+| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K |
+| `rm-puter`          | Romansh (Puter)              |  1,230K |
+| `rm-rumgr`          | Romansh (Grischun)           |  5,605K |
+| `rm-surmiran`       | Romansh (Surmiran)           |  3,287K |
+| `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K |
+| `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K |
+| `rm-vallader`       | Romansh (Vallader)           |  6,347K |
 
 
 If you’d like to add another language, or change anything else in the tool,

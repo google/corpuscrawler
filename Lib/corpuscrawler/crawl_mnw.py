@@ -24,8 +24,6 @@ def crawl(crawler):
     unicode_out = crawler.get_output(language='mnw')
     crawl_udhr(crawler, unicode_out, filename='udhr_mnw.txt')
     crawl_mon_news(crawler, unicode_out)
-    zawgyi_out = crawler.get_output(language='mnw-t-d0-zawgyi')
-    crawl_than_lwin_times(crawler, zawgyi_out)
 
 
 def crawl_mon_news(crawler, out):
@@ -76,35 +74,3 @@ def extract_mon_news_urls(html):
     return set([u.split('#')[0]
                 for u in re.findall(r'href="(%s.+?)"' % prefix, html)
                 if '%' in u])
-
-
-def crawl_than_lwin_times(crawler, out):
-    sitemap = crawler.fetch_sitemap('http://thanlwintimes.com/sitemap.xml')
-    for url in sorted(sitemap.keys()):
-        html = crawler.fetch(url).content.decode('utf-8')
-        pubdate = re.search(r'<meta itemprop="datePublished" content="(.+?)"',
-                            html)
-        if pubdate is None:
-            continue
-        # prepare for split; some texts use different tags
-        html = html.replace('</div><pre>', '</div><p>')
-        html = html.replace(
-            '</div><div class="td-post-content"><p>', '</div><p>')
-        if html.find('</div><p>') < 0:
-            continue
-        text = html.split('</div><p>')[1]
-        text = text.split('<div class=\'sfsi_Sicons ')[0]
-        text = text.split('</noscript>')[0]
-        text = text.replace('\n', ' ')
-        text = text.replace('</p>', '\n').replace('</div>', '\n')
-        paragraphs = []
-        for p in text.splitlines():
-            p = ' '.join(striptags(replace_html_entities(p)).split())
-            if p and ('>' not in p) and (p.find('"caption":') < 0):
-                paragraphs.append(p)
-        if len(paragraphs) > 0:
-            out.write('# Location: %s\n' % url)
-            out.write('# Genre: News\n')
-            out.write('# Publication-Date: %s\n' % pubdate.groups(1))
-            for p in paragraphs:
-                out.write(p + '\n')
