@@ -51,7 +51,7 @@ except ImportError:
 FetchResult = collections.namedtuple('FetchResult',
                                      ['headers', 'content', 'status'])
 
-_TAG_REGEX = re.compile(r'\<.+?\>')
+_TAG_REGEX = re.compile(r'\<.+?\>', flags=re.DOTALL)
 def striptags(s):
     return _TAG_REGEX.sub('', s)
 
