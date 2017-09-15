@@ -46,3 +46,26 @@ def crawl_panglong(crawler, out):
             html = crawler.fetch(url).content.decode('utf-8')
         except UnicodeDecodeError:  # a handful of documents are invalid utf8
             continue
+        pubdate = re.search(r'<meta itemprop="datePublished" content="(.+)?"',
+                            html)
+        if pubdate is not None:
+            pubdate = pubdate.group(1).strip()
+        title = re.search(r'<meta property="og:title" content="(.+?)"', html)
+        paras = []
+        if title is not None:
+            paras.append(title.group(1).strip())
+        if html.find('class="entry-content">') > 0:
+            text = html.split('class="entry-content">')[1]
+            text = text.split('<div')[0]
+            for p in text.split('</p>'):
+                p = ' '.join(striptags(replace_html_entities(p)).split())
+                if p:
+                    paras.append(p)
+        if len(paras) == 0:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        if pubdate:
+            out.write('# Publication-Date: %s\n' % pubdate)
+        for p in paras:
+            out.write(p + '\n')
