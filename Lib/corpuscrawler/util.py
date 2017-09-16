@@ -253,3 +253,7 @@ def replace_html_entities(html):
     html = re.sub(r'&([a-zA-Z]+);',
                   lambda z:unichr(entities[z.group(1).lower()]), html)
     return html
+
+
+def cleantext(html):
+    return ' '.join(replace_html_entities(striptags(html)).split())
