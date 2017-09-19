@@ -14,14 +14,14 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_bbc_news, crawl_udhr, \
-    replace_html_entities, striptags
+from corpuscrawler.util import cleantext, crawl_bbc_news, crawl_udhr
 
 
 def crawl(crawler):
     out = crawler.get_output(language='ha')
     crawl_udhr(crawler, out, filename='udhr_hau_NG.txt')
     crawl_naij(crawler, out)
+
 
 def crawl_naij(crawler, out):
     urls = crawler.fetch_sitemap(
@@ -32,12 +32,12 @@ def crawl_naij(crawler, out):
         doc = re.sub(r'<script>.+?</script>', '', doc, flags=re.DOTALL)
         pubdate = re.search(r'<meta itemprop="datePublished" content="(.+?)"',
                             doc).group(1)
-        title = replace_html_entities(
-            re.search(r'<h1.*?>(.+?)</h1>', doc).group(1))
+        title = cleantext(
+            re.search(r'<h1.*?>(.+?)</h1>', doc, re.DOTALL).group(1))
         article = '<article' + doc.split('<article')[1].split('<p>Source:')[0]
         paragraphs = [title]
         for text in article.split('</p>'):
-            text = ' '.join(striptags(replace_html_entities(text)).split())
+            text = cleantext(text)
             if text:
                 paragraphs.append(text)
         out.write('# Location: %s\n' % url)
