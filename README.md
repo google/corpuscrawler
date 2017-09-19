@@ -44,6 +44,7 @@ you might find _Corpus Crawler_ useful.
 | `so`                | Somali                       |         |
 | `sw`                | Swahili                      |         |
 | `ta`                | Tamil                        |         |
+| `ur`                | Urdu                         |         |
 
 
 You’re very welcome to join the project, for example to add another language.
