@@ -38,6 +38,7 @@ you might find _Corpus Crawler_ useful.
 | `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K |
 | `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K |
 | `rm-vallader`       | Romansh (Vallader)           |  6,347K |
+| `rw`                | Kinyarwanda                  |         |
 | `shn`               | Shan                         |    440K |
 
 

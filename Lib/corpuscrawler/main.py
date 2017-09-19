@@ -17,7 +17,7 @@ import argparse
 import sys
 from corpuscrawler import (
     crawl_ccp, crawl_gsw, crawl_gv, crawl_ha, crawl_kj,
-    crawl_mnw, crawl_my, crawl_rm, crawl_shn
+    crawl_mnw, crawl_my, crawl_rm, crawl_rw, crawl_shn
 )
 from corpuscrawler.util import Crawler
 
@@ -33,6 +33,7 @@ def main():
         'mnw': crawl_mnw.crawl,  # Mon
         'my': crawl_my.crawl,    # Burmese
         'rm': crawl_rm.crawl,    # Romansh
+        'rw': crawl_rw.crawl,    # Kinyarwanda
         'shn': crawl_shn.crawl,  # Shan
     }
     parser = argparse.ArgumentParser()
