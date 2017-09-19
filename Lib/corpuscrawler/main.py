@@ -18,7 +18,7 @@ import sys
 from corpuscrawler import (
     crawl_ccp, crawl_gsw, crawl_gv, crawl_ha, crawl_kj,
     crawl_mnw, crawl_my, crawl_rm, crawl_rw, crawl_shn,
-    crawl_ta
+    crawl_sw, crawl_ta
 )
 from corpuscrawler.util import Crawler
 
@@ -36,6 +36,7 @@ def main():
         'rm': crawl_rm.crawl,    # Romansh
         'rw': crawl_rw.crawl,    # Kinyarwanda
         'shn': crawl_shn.crawl,  # Shan
+        'sw': crawl_sw.crawl,    # Swahili
         'ta': crawl_ta.crawl,    # Tamil
     }
     parser = argparse.ArgumentParser()

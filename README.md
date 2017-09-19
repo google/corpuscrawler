@@ -40,6 +40,7 @@ you might find _Corpus Crawler_ useful.
 | `rm-vallader`       | Romansh (Vallader)           |  6,347K |
 | `rw`                | Kinyarwanda                  |         |
 | `shn`               | Shan                         |    440K |
+| `sw`                | Swahili                      |         |
 | `ta`                | Tamil                        |         |
 
 
