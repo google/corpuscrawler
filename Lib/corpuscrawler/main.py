@@ -16,6 +16,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
 from corpuscrawler import (
+    crawl_bm,
     crawl_ccp, crawl_gsw, crawl_gv, crawl_ha, crawl_kj, crawl_ky,
     crawl_mnw, crawl_my, crawl_rm, crawl_rw, crawl_shn, crawl_so,
     crawl_sw, crawl_ta, crawl_ur
@@ -26,6 +27,7 @@ from corpuscrawler.util import Crawler
 
 def main():
     crawls = {
+        'bm': crawl_bm.crawl,    # Bambara
         'ccp': crawl_ccp.crawl,  # Chakma
         'gsw': crawl_gsw.crawl,  # Swiss German
         'gv': crawl_gv.crawl,    # Manx Gaelic
