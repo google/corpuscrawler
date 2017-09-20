@@ -16,7 +16,7 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import cleantext, crawl_udhr, urlpath
+from corpuscrawler.util import cleantext, crawl_udhr, urlencode, urlpath
 
 
 def crawl(crawler):
@@ -39,7 +39,7 @@ def crawl_dimma_fo(crawler, out):
                 continue
             urls.add(u)
     for url in sorted(urls):
-        doc = crawler.fetch(url)
+        doc = crawler.fetch(urlencode(url))
         if doc.status != 200:
             continue
         html = doc.content.decode('utf-8')

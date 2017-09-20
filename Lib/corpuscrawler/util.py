@@ -43,12 +43,12 @@ try:
     # Python 3
     from io import StringIO
     import urllib.robotparser as robotparser
-    from urllib.urlparse import urlparse, urljoin
+    from urllib.urlparse import urljoin, urlparse, urlunparse
 except ImportError:
     # Python 2
     from cStringIO import StringIO
     import robotparser
-    from urlparse import urlparse, urljoin
+    from urlparse import urljoin, urlparse, urlunparse
 
 
 FetchResult = collections.namedtuple('FetchResult',
@@ -62,6 +62,14 @@ def striptags(s):
 def urlpath(url):
     "'http://example.org/foo/bar.html?baz#qux' --> '/foo/bar.hml'"
     return urlparse(url)[2]
+
+
+def urlencode(url):
+    p = list(urlparse(url))
+    p[1] = p[1].encode('idna')
+    for i in range(2, len(p)):
+        p[i] = urllib.quote(p[i].encode('utf-8'))
+    return urlunparse(p).encode('ascii')
 
 
 class Crawler(object):
