@@ -23,8 +23,11 @@ import mimetools
 import os
 import random
 import re
+import ssl
 import time
 import urllib
+import urllib2
+import zlib
 
 try:
     import xml.etree.cElementTree as etree
@@ -61,11 +64,6 @@ def urlpath(url):
     return urlparse(url)[2]
 
 
-class URLOpener(urllib.FancyURLopener):
-    # used as our User-Agent header, and for checking robots.txt
-    version = 'LinguisticCorpusCrawler/1.0'
-
-
 class Crawler(object):
     def __init__(self, language, output_dir, cache_dir):
         assert len(language) >= 2
@@ -74,8 +72,8 @@ class Crawler(object):
         self.output_dir = output_dir
         self.outputs = {}  # bcp47 tag (eg. 'rm-puter') --> codecs.StreamWriter
         self.robotcheckers = {}
-        self.urlopener = URLOpener()
-        self.useragent_for_robots_txt = self.urlopener.version.split('/')[0]
+        self.useragent = 'LinguisticCorpusCrawler/1.0'
+        self.useragent_for_robots_txt = self.useragent.split('/')[0]
         self.crawldelay = 15.0  # seconds between fetches
         for path in (output_dir, cache_dir):
             if not os.path.exists(path):
@@ -113,7 +111,9 @@ class Crawler(object):
         delay = random.uniform(self.crawldelay, self.crawldelay + 2)  # jitter
         time.sleep(delay)
         print(url)
-        response = self.urlopener.open(url)
+        request = urllib2.Request(url, headers={'User-Agent': self.useragent})
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        response = urllib2.urlopen(request, context=context)
         content = response.read()
         response.close()
         with open(filepath, 'w') as f:
@@ -127,7 +127,10 @@ class Crawler(object):
     def fetch_sitemap(self, url, processed=set()):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
         result = {}
-        sitemap = etree.fromstring(self.fetch(url).content)
+        content = self.fetch(url).content
+        if content.startswith(b'\x1F\x8B'):
+            content = zlib.decompress(content, zlib.MAX_WBITS|32)
+        sitemap = etree.fromstring(content)
         xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
         for s in sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns)):
             subsitemap = s.text.strip()
