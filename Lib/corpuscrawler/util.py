@@ -174,7 +174,7 @@ def crawl_bbc_news(crawler, out, urlprefix):
     # sitemap = {'http://www.bbc.com/burmese/world-41146701': None}
     sitemap = crawler.fetch_sitemap('http://www.bbc.com/sitemap.xml')
     pubdate_regex = re.compile(r'"dateModified":\s*"([0-9T:+\-]{25})"')
-    for url in sitemap:
+    for url in sorted(sitemap.keys()):
         if not urlpath(url).startswith(urlprefix):
             continue
         fetchresult = crawler.fetch(url)
