@@ -29,7 +29,7 @@ you might find _Corpus Crawler_ useful.
 | `gsw-u-sd-chbe.txt` | Swiss German (Bern)          |     73K |
 | `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
 | `gv`                | Manx Gaelic                  |    149K |
-| `ha`                | Hausa                        |  1,001K |
+| `ha`                | Hausa                        |  1,780K |
 | `kj`                | Kuanyama                     |  1,506K |
 | `ky`                | Kyrgyz                       |    507K |
 | `mnw`               | Mon                          |    475K |
