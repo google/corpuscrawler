@@ -30,7 +30,7 @@ you might find _Corpus Crawler_ useful.
 | `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
 | `gv`                | Manx Gaelic                  |    149K |
 | `ha`                | Hausa                        |  1,001K |
-| `kj`                | Kuanyama                     |    362K |
+| `kj`                | Kuanyama                     |  1,506K |
 | `ky`                | Kyrgyz                       |         |
 | `mnw`               | Mon                          |    475K |
 | `my`                | Burmese                      |    486K |
