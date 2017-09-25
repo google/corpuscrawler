@@ -25,6 +25,9 @@ def crawl(crawler):
 def crawl_kundana(crawler, out):
     urls = crawler.fetch_sitemap('https://kundana.com.na/sitemap.xml').keys()
     for url in sorted(urls):
+	# exclude banners, contact, logout, etc.
+        if re.search(r'kundana.com.na/\d{4}/\d{2}/', url) is None:
+            continue
         html = crawler.fetch(url).content.decode('utf-8')
         paragraphs = []
         pubdate = re.search(
