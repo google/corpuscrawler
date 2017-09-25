@@ -31,7 +31,7 @@ you might find _Corpus Crawler_ useful.
 | `gv`                | Manx Gaelic                  |    149K |
 | `ha`                | Hausa                        |  1,001K |
 | `kj`                | Kuanyama                     |  1,506K |
-| `ky`                | Kyrgyz                       |         |
+| `ky`                | Kyrgyz                       |    507K |
 | `mnw`               | Mon                          |    475K |
 | `my`                | Burmese                      |    486K |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K |
