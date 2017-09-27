@@ -33,6 +33,7 @@ you might find _Corpus Crawler_ useful.
 | `kj`                | Kuanyama                     |  1,506K |
 | `ky`                | Kyrgyz                       |    507K |
 | `mnw`               | Mon                          |    475K |
+| `mt`                | Maltese                      |         |
 | `my`                | Burmese                      |    486K |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K |
 | `rm-puter`          | Romansh (Puter)              |  1,230K |

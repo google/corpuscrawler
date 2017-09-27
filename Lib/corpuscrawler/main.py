@@ -18,7 +18,7 @@ import sys
 from corpuscrawler import (
     crawl_bm, crawl_ccp, crawl_fo, crawl_gsw, crawl_gv,
     crawl_ha, crawl_kj, crawl_ky,
-    crawl_mnw, crawl_my, crawl_rm, crawl_rw, crawl_shn, crawl_so,
+    crawl_mnw, crawl_mt, crawl_my, crawl_rm, crawl_rw, crawl_shn, crawl_so,
     crawl_sw, crawl_ta, crawl_ur
 )
 from corpuscrawler.util import Crawler
@@ -36,6 +36,7 @@ def main():
         'kj': crawl_kj.crawl,    # Kuanyama
         'ky': crawl_ky.crawl,    # Kyrgyz
         'mnw': crawl_mnw.crawl,  # Mon
+        'mt': crawl_mt.crawl,    # Maltese
         'my': crawl_my.crawl,    # Burmese
         'rm': crawl_rm.crawl,    # Romansh
         'rw': crawl_rw.crawl,    # Kinyarwanda
