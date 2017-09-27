@@ -121,16 +121,21 @@ class Crawler(object):
         print(url)
         request = urllib2.Request(url, headers={'User-Agent': self.useragent})
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        response = urllib2.urlopen(request, context=context)
+        try:
+            response = urllib2.urlopen(request, context=context)
+        except urllib2.HTTPError as err:
+            response = err
+        status = response.getcode()
         content = response.read()
         response.close()
-        with open(filepath, 'w') as f:
-            f.write(b'Status: %d\r\n' % response.getcode())
-            f.write(str(response.headers).rstrip())
-            f.write(b'\r\n\r\n\r\n')
-            f.write(content)
+        if status == 200 or status >= 400 and status <= 499:
+            with open(filepath, 'w') as f:
+                f.write(b'Status: %d\r\n' % response.getcode())
+                f.write(str(response.headers).rstrip())
+                f.write(b'\r\n\r\n\r\n')
+                f.write(content)
         return FetchResult(headers=response.headers, content=content,
-                           status=response.getcode())
+                           status=status)
 
     def fetch_sitemap(self, url, processed=set()):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
@@ -166,7 +171,8 @@ class Crawler(object):
         robots_txt_url = '%s://%s/robots.txt' % (scheme, netloc)
         checker = self.robotcheckers.get(robots_txt_url)
         if checker is None:
-            robots_txt = self.fetch(robots_txt_url)[0] or ''
+            doc = self.fetch(robots_txt_url)
+            robots_txt = doc.content if doc.status == 200 else ''
             checker = robotparser.RobotFileParser()
             checker.set_url(robots_txt_url)
             checker.parse(robots_txt)
@@ -267,4 +273,14 @@ def replace_html_entities(html):
 
 
 def cleantext(html):
-    return ' '.join(replace_html_entities(striptags(html)).split())
+    html = replace_html_entities(striptags(html))
+    # Some web sites insert zero-width spaces, possibly as byte order marks
+    # (from Microsoft Notepad) which their scripts failed to recognize as such.
+    html = html.replace('\u200B', '')
+    return ' '.join(html.split())
+
+
+def fixquotes(s):
+    s = (' ' + s).replace(" '", " ‘").replace("'", "’")
+    s = s.replace(' "', ' “').replace('"', '”')
+    return s.strip()
