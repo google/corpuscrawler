@@ -254,7 +254,9 @@ def write_paragraphs(et, out):
 def crawl_deutsche_welle(crawler, out, prefix):
     urls = set()
     for url in crawler.fetch_sitemap('http://www.dw.com/sitemap.xml'):
-        if urlpath(url).startswith(prefix):
+        path = urlpath(url)
+        if path.startswith(prefix) and \
+                (re.match(r'/[^/]+/\d{2}-.*', path) is None):  # German lessons
             urls.add(url)
     for url in sorted(urls):
         doc = crawler.fetch(url)
