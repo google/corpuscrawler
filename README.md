@@ -44,7 +44,7 @@ you might find _Corpus Crawler_ useful.
 | `rm-vallader`       | Romansh (Vallader)           |  6,347K |
 | `rw`                | Kinyarwanda                  |    616K |
 | `shn`               | Shan                         |    440K |
-| `so`                | Somali                       |         |
+| `so`                | Somali                       |    878K |
 | `sq`                | Albanian                     |         |
 | `sw`                | Swahili                      |         |
 | `ta`                | Tamil                        |         |
