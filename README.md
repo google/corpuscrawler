@@ -24,7 +24,7 @@ you might find _Corpus Crawler_ useful.
 | :------------------ | :--------------------------- | ------: |
 | `bm`                | Bambara                      |     30K |
 | `ccp`               | Chakma                       |    120K |
-| `fo`                | Faroese                      |         |
+| `fo`                | Faroese                      |    870K |
 | `gsw-u-sd-chag.txt` | Swiss German (Aargau)        |    102K |
 | `gsw-u-sd-chbe.txt` | Swiss German (Bern)          |     73K |
 | `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
