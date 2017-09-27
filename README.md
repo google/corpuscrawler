@@ -22,20 +22,29 @@ you might find _Corpus Crawler_ useful.
 
 | IETF BCP47 Code     | Language                     |  Tokens |
 | :------------------ | :--------------------------- | ------: |
+| `am`                | Amharic                      |         |
+| `bg`                | Bulgarian                    |         |
 | `bm`                | Bambara                      |     30K |
+| `bn`                | Bangla                       |         |
 | `ccp`               | Chakma                       |    120K |
+| `fa`                | Persian                      |         |
+| `fa-AF`             | Dari                         |         |
 | `fo`                | Faroese                      |    870K |
 | `gsw-u-sd-chag.txt` | Swiss German (Aargau)        |    102K |
 | `gsw-u-sd-chbe.txt` | Swiss German (Bern)          |     73K |
 | `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
 | `gv`                | Manx Gaelic                  |    149K |
 | `ha`                | Hausa                        |  1,780K |
+| `hi`                | Hindi                        |         |
+| `id`                | Indonesian                   |         |
 | `kj`                | Kuanyama                     |  1,506K |
 | `ky`                | Kyrgyz                       |    507K |
 | `mnw`               | Mon                          |    475K |
+| `mk`                | Macedonian                   |         |
 | `mt`                | Maltese                      |         |
 | `my`                | Burmese                      |    486K |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K |
+| `ps`                | Pashto                       |         |
 | `rm-puter`          | Romansh (Puter)              |  1,230K |
 | `rm-rumgr`          | Romansh (Grischun)           |  5,605K |
 | `rm-surmiran`       | Romansh (Surmiran)           |  3,287K |

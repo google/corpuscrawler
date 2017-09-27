@@ -16,10 +16,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
 from corpuscrawler import (
-    crawl_bm, crawl_ccp, crawl_fo, crawl_gsw, crawl_gv,
-    crawl_ha, crawl_kj, crawl_ky,
-    crawl_mnw, crawl_mt, crawl_my, crawl_rm, crawl_rw, crawl_shn, crawl_so,
-    crawl_sq, crawl_sw, crawl_ta, crawl_ur
+    crawl_am, crawl_bg, crawl_bm, crawl_bn, crawl_ccp,
+    crawl_fa, crawl_fo, crawl_gsw, crawl_gv, crawl_ha,
+    crawl_hi, crawl_id, crawl_kj, crawl_ky, crawl_mnw,
+    crawl_mk, crawl_mt, crawl_my, crawl_ps, crawl_rm,
+    crawl_rw, crawl_shn, crawl_so, crawl_sq, crawl_sw,
+    crawl_ta, crawl_ur
 )
 from corpuscrawler.util import Crawler
 
@@ -27,19 +29,27 @@ from corpuscrawler.util import Crawler
 
 def main():
     crawls = {
+        'am': crawl_am.crawl,    # Amharic
+        'bg': crawl_bg.crawl,    # Bulgarian
         'bm': crawl_bm.crawl,    # Bambara
+        'bn': crawl_bn.crawl,    # Bangla
         'ccp': crawl_ccp.crawl,  # Chakma
+        'fa': crawl_fa.crawl,    # Persian
         'fo': crawl_fo.crawl,    # Faroese
         'gsw': crawl_gsw.crawl,  # Swiss German
         'gv': crawl_gv.crawl,    # Manx Gaelic
         'ha': crawl_ha.crawl,    # Hausa
+        'hi': crawl_hi.crawl,    # Hindi
+        'id': crawl_id.crawl,    # Indonesian
         'kj': crawl_kj.crawl,    # Kuanyama
         'ky': crawl_ky.crawl,    # Kyrgyz
+        'mk': crawl_mk.crawl,    # Macedonian
         'mnw': crawl_mnw.crawl,  # Mon
         'mt': crawl_mt.crawl,    # Maltese
         'my': crawl_my.crawl,    # Burmese
         'rm': crawl_rm.crawl,    # Romansh
         'rw': crawl_rw.crawl,    # Kinyarwanda
+        'ps': crawl_ps.crawl,    # Pashto
         'shn': crawl_shn.crawl,  # Shan
         'so': crawl_so.crawl,    # Somali
         'sq': crawl_sq.crawl,    # Albanian
