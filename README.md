@@ -22,7 +22,7 @@ you might find _Corpus Crawler_ useful.
 
 | IETF BCP47 Code     | Language                     |  Tokens |
 | :------------------ | :--------------------------- | ------: |
-| `bm`                | Bambara                      |         |
+| `bm`                | Bambara                      |     30K |
 | `ccp`               | Chakma                       |    120K |
 | `fo`                | Faroese                      |         |
 | `gsw-u-sd-chag.txt` | Swiss German (Aargau)        |    102K |
