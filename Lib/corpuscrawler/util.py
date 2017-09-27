@@ -251,6 +251,39 @@ def write_paragraphs(et, out):
             write_paragraphs(e, out)
 
 
+def crawl_deutsche_welle(crawler, out, prefix):
+    urls = set()
+    for url in crawler.fetch_sitemap('http://www.dw.com/sitemap.xml'):
+        if urlpath(url).startswith(prefix):
+            urls.add(url)
+    for url in sorted(urls):
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
+        html = doc.content.decode('utf-8')
+        pubdate = re.search(r'articleChangeDateShort: "(\d{8})"', html)
+        if pubdate is not None:
+            pubdate = pubdate.group(1)
+            pubdate = '%s-%s-%s' % (pubdate[0:4], pubdate[4:6], pubdate[6:8])
+        title = re.search(r'<h1>(.+?)</h1>', html)
+        title = cleantext(title.group(1)) if title is not None else ''
+        intro = re.search(r'<p class="intro">(.+?)</p>', html)
+        intro = cleantext(intro.group(1)) if intro is not None else ''
+        text = html.split('<div class="longText">', 1)
+        text = text[1].split('</div>')[0] if len(text) == 2 else ''
+        text = text.split('<div')[0]
+        paras = [title, intro] + text.replace('</p>', '\n').splitlines()
+        paras = filter(None, [cleantext(p) for p in paras if p])
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        if pubdate:
+            out.write('# Publication-Date: %s\n' % pubdate)
+        for p in paras:
+            out.write(p + '\n')
+
+
 def crawl_udhr(crawler, out, filename):
     url = 'http://www.unicode.org/udhr/d/' + filename
     response = crawler.fetch(url)

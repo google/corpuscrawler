@@ -45,6 +45,7 @@ you might find _Corpus Crawler_ useful.
 | `rw`                | Kinyarwanda                  |         |
 | `shn`               | Shan                         |    440K |
 | `so`                | Somali                       |         |
+| `sq`                | Albanian                     |         |
 | `sw`                | Swahili                      |         |
 | `ta`                | Tamil                        |         |
 | `ur`                | Urdu                         |         |
