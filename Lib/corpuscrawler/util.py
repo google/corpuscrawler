@@ -204,9 +204,9 @@ def crawl_bbc_news(crawler, out, urlprefix):
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1).split('- BBC')[0]).strip()
-        if title: out.write(title + '\n')
+        if title: out.write(cleantext(title) + '\n')
         for paragraph in re.findall(r'<p>(.+?)</p>', html):
-            out.write(striptags(paragraph).strip() + '\n')
+            out.write(cleantext(paragraph) + '\n')
 
 
 def crawl_korero_html(crawler, out, project, genre, filepath):
@@ -300,6 +300,8 @@ def crawl_udhr(crawler, out, filename):
 def replace_html_entities(html):
     entities = htmlentitydefs.name2codepoint
     html = re.sub(r'&#([0-9]+);', lambda z:unichr(int(z.group(1))), html)
+    html = re.sub(
+        r'&#[xX]([0-9a-fA-F]+);', lambda z:unichr(int(z.group(1), 16)), html)
     html = re.sub(r'&([a-zA-Z]+);',
                   lambda z:unichr(entities[z.group(1).lower()]), html)
     return html
