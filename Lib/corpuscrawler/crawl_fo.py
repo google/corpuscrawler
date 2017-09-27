@@ -54,8 +54,10 @@ def crawl_dimma_fo(crawler, out):
         title = re.search(r'<h1>(.+?)</h1>', html, flags=re.DOTALL)
         if title != None:
             paragraphs.append(cleantext(title.group(1)))
-        text = content.split('<p>')[1].split('</p>')[0]
-        paragraphs.extend([cleantext(p) for p in text.split('<br />')])
+        text = content.split('<p>', 1)[1].split('</div>')[0]
+        text = text.replace('\n', ' ').replace('</p>', '\n')
+        text = text.replace('<br />', '\n')
+        paragraphs.extend([cleantext(p) for p in text.splitlines()])
         paragraphs = filter(None, paragraphs)
         if paragraphs:
             out.write('# Location: %s\n' % url)
