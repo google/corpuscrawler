@@ -24,9 +24,9 @@ def crawl(crawler):
 
 
 def crawl_newsbook_mt(crawler, out):
-    urls, blog_urls = set(), set()
+    urls = set()
     for section in ('internazzjonali', 'muzika', 'madwar-il-hajja',
-                    'teknologijja', 'vatikan', 'sports', 'kummerc', 'blogg'):
+                    'teknologijja', 'vatikan', 'sports', 'kummerc'):
         section_url = 'http://www.newsbook.com.mt/artikli/%s/' % section
         html = crawler.fetch(section_url).content.decode('utf-8')
         links = re.findall(r'/artikli/%s/(\d+)/' % section, html)
@@ -38,15 +38,13 @@ def crawl_newsbook_mt(crawler, out):
             html = crawler.fetch(toc_url).content.decode('utf-8')
             for u in re.findall('href="(/artikli/\d{4}/.+?)"', html):
                 url = urljoin(toc_url, u)
-                urls.add(url)
-                if section == 'blogg':
-                    blog_urls.add(url)
+                if url.find('/test') < 0:
+                    urls.add(url)
     for url in sorted(urls):
         doc = crawler.fetch(url)
         if doc.status != 200:
             continue
         html = doc.content.decode('utf-8')
-        genre = 'Blog' if url in blog_urls else 'News'
         title = re.search(r'<meta content="([^"]+?)" name="title"', html)
         if title is not None:
             title = cleantext(title.group(1))
@@ -62,7 +60,7 @@ def crawl_newsbook_mt(crawler, out):
         if not paras:
             continue
         out.write('# Location: %s\n' % url)
-        out.write('# Genre: %s\n' % genre)
+        out.write('# Genre: News\n')
         if pubdate:
             out.write('# Publication-Date: %s\n' % pubdate)
         for p in paras:
