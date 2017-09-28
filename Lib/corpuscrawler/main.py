@@ -16,15 +16,16 @@ from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
 from corpuscrawler import (
-    crawl_am, crawl_bg, crawl_bm, crawl_bn, crawl_ccp,
-    crawl_fa, crawl_fo, crawl_gsw, crawl_gv, crawl_ha,
-    crawl_hi, crawl_id, crawl_kj, crawl_ky, crawl_mnw,
-    crawl_mk, crawl_mt, crawl_my, crawl_ps, crawl_rm,
-    crawl_rw, crawl_shn, crawl_so, crawl_sq, crawl_sw,
-    crawl_ta, crawl_ur
+    crawl_am, crawl_bg, crawl_bm, crawl_bn, crawl_bs,
+    crawl_ccp, crawl_el, crawl_fa, crawl_fo, crawl_gsw,
+    crawl_gv, crawl_ha, crawl_hi, crawl_hr, crawl_id,
+    crawl_kj, crawl_ky, crawl_mnw, crawl_mk, crawl_mt,
+    crawl_my, crawl_pl, crawl_ps, crawl_rm, crawl_ro,
+    crawl_ru, crawl_rw, crawl_shn, crawl_sr, crawl_so,
+    crawl_sq, crawl_sw, crawl_ta, crawl_tr, crawl_uk,
+    crawl_ur,
 )
 from corpuscrawler.util import Crawler
-
 
 
 def main():
@@ -33,13 +34,16 @@ def main():
         'bg': crawl_bg.crawl,    # Bulgarian
         'bm': crawl_bm.crawl,    # Bambara
         'bn': crawl_bn.crawl,    # Bangla
+        'bs': crawl_bs.crawl,    # Bosnian
         'ccp': crawl_ccp.crawl,  # Chakma
+        'el': crawl_el.crawl,    # Greek
         'fa': crawl_fa.crawl,    # Persian
         'fo': crawl_fo.crawl,    # Faroese
         'gsw': crawl_gsw.crawl,  # Swiss German
         'gv': crawl_gv.crawl,    # Manx Gaelic
         'ha': crawl_ha.crawl,    # Hausa
         'hi': crawl_hi.crawl,    # Hindi
+        'hr': crawl_hr.crawl,    # Croatian
         'id': crawl_id.crawl,    # Indonesian
         'kj': crawl_kj.crawl,    # Kuanyama
         'ky': crawl_ky.crawl,    # Kyrgyz
@@ -47,14 +51,20 @@ def main():
         'mnw': crawl_mnw.crawl,  # Mon
         'mt': crawl_mt.crawl,    # Maltese
         'my': crawl_my.crawl,    # Burmese
-        'rm': crawl_rm.crawl,    # Romansh
-        'rw': crawl_rw.crawl,    # Kinyarwanda
+        'pl': crawl_pl.crawl,    # Polish
         'ps': crawl_ps.crawl,    # Pashto
+        'rm': crawl_rm.crawl,    # Romansh
+        'ro': crawl_ro.crawl,    # Romanian
+        'ru': crawl_ru.crawl,    # Russian
+        'rw': crawl_rw.crawl,    # Kinyarwanda
         'shn': crawl_shn.crawl,  # Shan
         'so': crawl_so.crawl,    # Somali
         'sq': crawl_sq.crawl,    # Albanian
+        'sr': crawl_sr.crawl,    # Serbian
         'sw': crawl_sw.crawl,    # Swahili
         'ta': crawl_ta.crawl,    # Tamil
+        'tr': crawl_tr.crawl,    # Turkish
+        'uk': crawl_uk.crawl,    # Ukrainian
         'ur': crawl_ur.crawl,    # Urdu
     }
     parser = argparse.ArgumentParser()
