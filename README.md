@@ -55,7 +55,7 @@ you might find _Corpus Crawler_ useful.
 | `shn`               | Shan                         |    440K |
 | `so`                | Somali                       |    878K |
 | `sq`                | Albanian                     |         |
-| `sw`                | Swahili                      |         |
+| `sw`                | Swahili                      |  1,285K |
 | `ta`                | Tamil                        |  1,568K |
 | `ur`                | Urdu                         |         |
 
