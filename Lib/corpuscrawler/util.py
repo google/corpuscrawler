@@ -140,7 +140,9 @@ class Crawler(object):
     def fetch_sitemap(self, url, processed=set()):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
         result = {}
-        content = self.fetch(url).content
+        doc = self.fetch(url)
+        assert doc.status == 200, (doc.status, url)
+        content = doc.content
         if content.startswith(b'\x1F\x8B'):
             content = zlib.decompress(content, zlib.MAX_WBITS|32)
         sitemap = etree.fromstring(content)
