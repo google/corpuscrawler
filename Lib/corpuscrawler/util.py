@@ -177,8 +177,16 @@ class Crawler(object):
             checker.set_url(robots_txt_url)
             checker.parse(robots_txt)
             self.robotcheckers[robots_txt_url] = checker
+
+        # Work around a RobotFileParser bug which makes it crash when
+        # an URL contains non-ASCII characters, even when they are perfectly
+        # escaped. (The library seems to make a hard-coded assumption that
+        # URLs are encoded in ISO 8859-1 instead of UTF-8 before being escaped;
+        # this had been true in the very early days of the web, but not
+        # anymore.) To work around this bug, we double-encode the URL
+        # for the purpose of robots checking; this prevents the crash.
         return checker.can_fetch(useragent=self.useragent_for_robots_txt,
-                                 url=url)
+                                 url=urlencode(url))
 
 
 # Normally we put site-specific logic into the language-specific scripts,
