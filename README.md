@@ -30,9 +30,9 @@ you might find _Corpus Crawler_ useful.
 | `fa`                | Persian                      |         |
 | `fa-AF`             | Dari                         |         |
 | `fo`                | Faroese                      |    870K |
-| `gsw-u-sd-chag.txt` | Swiss German (Aargau)        |    102K |
-| `gsw-u-sd-chbe.txt` | Swiss German (Bern)          |     73K |
-| `gsw-u-sd-chfr.txt` | Swiss German (Fribourg)      |     42K |
+| `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K |
+| `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K |
+| `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K |
 | `gv`                | Manx Gaelic                  |    149K |
 | `ha`                | Hausa                        |  1,780K |
 | `hi`                | Hindi                        |         |
