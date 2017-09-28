@@ -61,7 +61,7 @@ you might find _Corpus Crawler_ useful.
 | `ta`                | Tamil                        |  1,568K |
 | `taq`               | Tamasheq                     |     63K |
 | `ur`                | Urdu                         |  4,163K |
-| `yo`                | Yoruba                       |         |
+| `yo`                | Yoruba                       |     79K |
 
 You’re very welcome to join the project, for example to add another language.
 Please read the [contribution guidelines](./CONTRIBUTING.md) and send [pull
