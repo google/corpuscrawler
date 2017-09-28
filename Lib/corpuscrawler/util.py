@@ -324,7 +324,7 @@ def crawl_voice_of_nigeria(crawler, out, urlprefix):
         if pubdate is None:  # only a few pages with little content
             continue
         pubdate = cleantext(pubdate.group(1))
-        content = html.split('<p>', 1)[1].split('<footer', 1)[0]
+        content = re.split('<p[^>]*>', html, 1)[1].split('<footer', 1)[0]
         content = content.replace('\n', ' ').replace('</p>', '\n')
         paras = [title] + content.splitlines()
         paras = filter(None, [cleantext(p) for p in paras])
