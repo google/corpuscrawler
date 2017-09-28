@@ -57,6 +57,7 @@ you might find _Corpus Crawler_ useful.
 | `sq`                | Albanian                     |         |
 | `sw`                | Swahili                      |  1,285K |
 | `ta`                | Tamil                        |  1,568K |
+| `taq`               | Tamasheq                     |     63K |
 | `ur`                | Urdu                         |  4,163K |
 
 
