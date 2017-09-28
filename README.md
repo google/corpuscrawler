@@ -20,48 +20,59 @@ you might find _Corpus Crawler_ useful.
 
 ## Supported Languages
 
-| IETF BCP47 Code     | Language                     |  Tokens |
-| :------------------ | :--------------------------- | ------: |
-| `am`                | Amharic                      |         |
-| `bg`                | Bulgarian                    |         |
-| `bm`                | Bambara                      |     30K |
-| `bn`                | Bangla                       |         |
-| `ccp`               | Chakma                       |    120K |
-| `fa`                | Persian                      |         |
-| `fa-AF`             | Dari                         |         |
-| `fo`                | Faroese                      |    870K |
-| `fuv`               | Nigerian Fulfulde            |     13K |
-| `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K |
-| `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K |
-| `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K |
-| `gv`                | Manx Gaelic                  |    149K |
-| `ha`                | Hausa                        |  1,780K |
-| `hi`                | Hindi                        |         |
-| `id`                | Indonesian                   |         |
-| `ig`                | Igbo                         |     12K |
-| `kj`                | Kuanyama                     |  1,506K |
-| `ky`                | Kyrgyz                       |    507K |
-| `mnw`               | Mon                          |    475K |
-| `mk`                | Macedonian                   |         |
-| `mt`                | Maltese                      |         |
-| `my`                | Burmese                      |    486K |
-| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K |
-| `ps`                | Pashto                       |         |
-| `rm-puter`          | Romansh (Puter)              |  1,230K |
-| `rm-rumgr`          | Romansh (Grischun)           |  5,605K |
-| `rm-surmiran`       | Romansh (Surmiran)           |  3,287K |
-| `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K |
-| `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K |
-| `rm-vallader`       | Romansh (Vallader)           |  6,347K |
-| `rw`                | Kinyarwanda                  |    616K |
-| `shn`               | Shan                         |    440K |
-| `so`                | Somali                       |    878K |
-| `sq`                | Albanian                     |         |
-| `sw`                | Swahili                      |  1,285K |
-| `ta`                | Tamil                        |  1,568K |
-| `taq`               | Tamasheq                     |     63K |
-| `ur`                | Urdu                         |  4,163K |
-| `yo`                | Yoruba                       |     79K |
+| IETF BCP47 Code     | Language                     |   Tokens |
+| :------------------ | :--------------------------- | -------: |
+| `am`                | Amharic                      |    649K¹ |
+| `bg`                | Bulgarian                    |  1,085K¹ |
+| `bm`                | Bambara                      |     30K  |
+| `bn`                | Bangla                       |    583K¹ |
+| `bs`                | Bosnian                      |    361K¹ |
+| `ccp`               | Chakma                       |    120K  |
+| `el`                | Greek                        |    377K¹ |
+| `fa`                | Persian                      |  1,786K¹ |
+| `fa-AF`             | Dari                         |      0K¹ |
+| `fo`                | Faroese                      |    870K  |
+| `fuv`               | Nigerian Fulfulde            |     13K  |
+| `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K  |
+| `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K  |
+| `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K  |
+| `gv`                | Manx Gaelic                  |    149K  |
+| `ha`                | Hausa                        |  1,780K  |
+| `hi`                | Hindi                        |    883K¹ |
+| `hr`                | Croatian                     |    356K¹ |
+| `id`                | Indonesian                   |    689K¹ |
+| `ig`                | Igbo                         |     12K  |
+| `kj`                | Kuanyama                     |  1,506K  |
+| `ky`                | Kyrgyz                       |    890K¹ |
+| `mnw`               | Mon                          |    475K  |
+| `mk`                | Macedonian                   |    740K¹ |
+| `mt`                | Maltese                      |    631K¹ |
+| `my`                | Burmese                      |    486K  |
+| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K  |
+| `pl`                | Polish                       |    271K¹ |
+| `ps`                | Pashto                       |  1,079K¹ |
+| `rm-puter`          | Romansh (Puter)              |  1,230K  |
+| `rm-rumgr`          | Romansh (Grischun)           |  5,605K  |
+| `rm-surmiran`       | Romansh (Surmiran)           |  3,287K  |
+| `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K  |
+| `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K  |
+| `rm-vallader`       | Romansh (Vallader)           |  6,347K  |
+| `ro`                | Romanian                     |    669K¹ |
+| `ru`                | Russian                      |    379K¹ |
+| `rw`                | Kinyarwanda                  |    616K  |
+| `shn`               | Shan                         |    440K  |
+| `so`                | Somali                       |    878K  |
+| `sq`                | Albanian                     |  1,309K¹ |
+| `sw`                | Swahili                      |  1,548K¹ |
+| `ta`                | Tamil                        |  1,568K  |
+| `taq`               | Tamasheq                     |     63K  |
+| `tr`                | Turkish                      |    305K¹ |
+| `uk`                | Ukrainian                    |    238K¹ |
+| `ur`                | Urdu                         |  4,163K  |
+| `yo`                | Yoruba                       |     79K  |
+
+¹ Crawl still in progress; final number will be larger.
+
 
 You’re very welcome to join the project, for example to add another language.
 Please read the [contribution guidelines](./CONTRIBUTING.md) and send [pull
