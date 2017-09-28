@@ -309,6 +309,53 @@ def crawl_udhr(crawler, out, filename):
             out.write(paragraph.strip() + '\n')
 
 
+def crawl_voice_of_nigeria(crawler, out, urlprefix):
+    assert urlprefix.startswith('/'), urlprefix
+    assert urlprefix.endswith('/'), urlprefix
+    site = urljoin('http://von.gov.ng/', urlprefix)
+    for url in sorted(find_wordpress_urls(crawler, site)):
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
+        html = doc.content.decode('utf-8')
+        title = re.search(r'<h1[^>]*>(.+?)</h1>', html, re.DOTALL).group(1)
+        pubdate = re.search(
+            r'<meta itemprop="dateModified" content="(.+?)"', html)
+        if pubdate is None:  # only a few pages with little content
+            continue
+        pubdate = cleantext(pubdate.group(1))
+        content = html.split('<p>', 1)[1].split('<footer', 1)[0]
+        content = content.replace('\n', ' ').replace('</p>', '\n')
+        paras = [title] + content.splitlines()
+        paras = filter(None, [cleantext(p) for p in paras])
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        if pubdate:
+            out.write('# Publication-Date: %s\n' % pubdate)
+        out.write('\n'.join(paras) + '\n')
+
+
+def find_wordpress_urls(crawler, site):
+    urls = set()
+    mainpage = crawler.fetch(site).content.decode('utf-8')
+    for category in re.findall(r'/(category/[^/"]+/)">', mainpage):
+        caturl = urljoin(site, category)
+        catdoc = crawler.fetch(caturl)
+        assert catdoc.status == 200, (catdoc.status, caturl)
+        pages = [int(n) for n in re.findall(r'/page/(\d)+/', catdoc.content)]
+        for page in range(1, 1 + max([0] + pages)):
+            pgurl = urljoin(caturl, 'page/%d/' % page) if page > 1 else caturl
+            pgdoc = crawler.fetch(pgurl)
+            assert pgdoc.status == 200, (pgdoc.status, pgurl)
+            pgcontent = pgdoc.content.decode('utf-8')
+            for url in re.findall(r'"(%s[^/"]+/)"' % site, pgcontent):
+                if not url.endswith('/feed/'):
+                    urls.add(url)
+    return urls
+
+
 def replace_html_entities(html):
     entities = htmlentitydefs.name2codepoint
     html = re.sub(r'&#([0-9]+);', lambda z:unichr(int(z.group(1))), html)

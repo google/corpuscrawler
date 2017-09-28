@@ -30,6 +30,7 @@ you might find _Corpus Crawler_ useful.
 | `fa`                | Persian                      |         |
 | `fa-AF`             | Dari                         |         |
 | `fo`                | Faroese                      |    870K |
+| `fuv`               | Nigerian Fulfulde            |     13K |
 | `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K |
 | `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K |
 | `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K |
@@ -37,6 +38,7 @@ you might find _Corpus Crawler_ useful.
 | `ha`                | Hausa                        |  1,780K |
 | `hi`                | Hindi                        |         |
 | `id`                | Indonesian                   |         |
+| `ig`                | Igbo                         |     12K |
 | `kj`                | Kuanyama                     |  1,506K |
 | `ky`                | Kyrgyz                       |    507K |
 | `mnw`               | Mon                          |    475K |
@@ -59,7 +61,7 @@ you might find _Corpus Crawler_ useful.
 | `ta`                | Tamil                        |  1,568K |
 | `taq`               | Tamasheq                     |     63K |
 | `ur`                | Urdu                         |  4,163K |
-
+| `yo`                | Yoruba                       |         |
 
 You’re very welcome to join the project, for example to add another language.
 Please read the [contribution guidelines](./CONTRIBUTING.md) and send [pull

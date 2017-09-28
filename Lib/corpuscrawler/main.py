@@ -17,13 +17,13 @@ import argparse
 import sys
 from corpuscrawler import (
     crawl_am, crawl_bg, crawl_bm, crawl_bn, crawl_bs,
-    crawl_ccp, crawl_el, crawl_fa, crawl_fo, crawl_gsw,
-    crawl_gv, crawl_ha, crawl_hi, crawl_hr, crawl_id,
-    crawl_kj, crawl_ky, crawl_mnw, crawl_mk, crawl_mt,
-    crawl_my, crawl_pl, crawl_ps, crawl_rm, crawl_ro,
-    crawl_ru, crawl_rw, crawl_shn, crawl_sr, crawl_so,
-    crawl_sq, crawl_sw, crawl_ta, crawl_taq, crawl_tr,
-    crawl_uk, crawl_ur,
+    crawl_ccp, crawl_el, crawl_fa, crawl_fo, crawl_fuv,
+    crawl_gsw, crawl_gv, crawl_ha, crawl_hi, crawl_hr,
+    crawl_id, crawl_ig, crawl_kj, crawl_ky, crawl_mnw,
+    crawl_mk, crawl_mt, crawl_my, crawl_pl, crawl_ps,
+    crawl_rm, crawl_ro, crawl_ru, crawl_rw, crawl_shn,
+    crawl_sr, crawl_so, crawl_sq, crawl_sw, crawl_ta,
+    crawl_taq, crawl_tr, crawl_uk, crawl_ur, crawl_yo,
 )
 from corpuscrawler.util import Crawler
 
@@ -39,12 +39,14 @@ def main():
         'el': crawl_el.crawl,    # Greek
         'fa': crawl_fa.crawl,    # Persian
         'fo': crawl_fo.crawl,    # Faroese
+        'fuv': crawl_fuv.crawl,  # Nigerian Fulfulde
         'gsw': crawl_gsw.crawl,  # Swiss German
         'gv': crawl_gv.crawl,    # Manx Gaelic
         'ha': crawl_ha.crawl,    # Hausa
         'hi': crawl_hi.crawl,    # Hindi
         'hr': crawl_hr.crawl,    # Croatian
         'id': crawl_id.crawl,    # Indonesian
+        'ig': crawl_ig.crawl,    # Igbo
         'kj': crawl_kj.crawl,    # Kuanyama
         'ky': crawl_ky.crawl,    # Kyrgyz
         'mk': crawl_mk.crawl,    # Macedonian
@@ -67,6 +69,7 @@ def main():
         'tr': crawl_tr.crawl,    # Turkish
         'uk': crawl_uk.crawl,    # Ukrainian
         'ur': crawl_ur.crawl,    # Urdu
+        'yo': crawl_yo.crawl,    # Yoruba
     }
     parser = argparse.ArgumentParser()
     parser.add_argument(
