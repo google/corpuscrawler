@@ -15,10 +15,11 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 
-from corpuscrawler.util import crawl_bbc_news, crawl_udhr
+from corpuscrawler.util import crawl_bbc_news, crawl_deutsche_welle, crawl_udhr
 
 
 def crawl(crawler):
     out = crawler.get_output(language='sw')
     crawl_udhr(crawler, out, filename='udhr_swh.txt')
     crawl_bbc_news(crawler, out, urlprefix='/swahili/')
+    crawl_deutsche_welle(crawler, out, prefix='/sw/')
