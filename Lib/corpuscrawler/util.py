@@ -296,6 +296,39 @@ def crawl_deutsche_welle(crawler, out, prefix):
             out.write(p + '\n')
 
 
+def crawl_sputnik_news(crawler, out, host):
+    sitemap_url = 'https://%s/sitemap_article_index.xml' % host
+    for url in sorted(crawler.fetch_sitemap(sitemap_url)):
+        response = crawler.fetch(url)
+        assert response.status == 200, (response.status, url)
+        html = response.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html).group(1)
+        pubdate = re.search(
+            r'<meta content="([^"]+)" itemprop="datePublished"', html)
+        if pubdate is None:
+            continue
+        pubdate = pubdate.group(1)
+        lead = re.search(
+            r'<div itemprop="description" class="b-article__lead">(.+?)</div>',
+            html, re.DOTALL)
+        lead = lead.group(1) if lead is not None else ''
+        body = re.search(
+            r'<div itemprop="articleBody" class="b-article__text">(.+?)</div>',
+            html, re.DOTALL)
+        if body is not None:
+            body = body.group(1).replace('\n', ' ').replace('</p>', '\n')
+        else:
+            body = ''
+        paras = [title, lead] + body.splitlines()
+        paras = filter(None, [cleantext(p) for p in paras])
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        out.write('# Publication-Date: %s\n' % cleantext(pubdate))
+        out.write('\n'.join(paras) + '\n')
+
+
 def crawl_udhr(crawler, out, filename):
     url = 'http://www.unicode.org/udhr/d/' + filename
     response = crawler.fetch(url)

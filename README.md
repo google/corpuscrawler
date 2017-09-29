@@ -23,6 +23,7 @@ you might find _Corpus Crawler_ useful.
 | IETF BCP47 Code     | Language                     |   Tokens |
 | :------------------ | :--------------------------- | -------: |
 | `am`                | Amharic                      |    649K¹ |
+| `be`                | Belarusian                   |    161K¹ |
 | `bg`                | Bulgarian                    |  1,085K¹ |
 | `bm`                | Bambara                      |     30K  |
 | `bn`                | Bangla                       |    583K¹ |
