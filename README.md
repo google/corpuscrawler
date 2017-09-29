@@ -3,19 +3,22 @@
 _Corpus Crawler_ is a tool for [Corpus
 Linguistics](https://en.wikipedia.org/wiki/Corpus_linguistics).
 
-Modern linguistic research works by analyzing corpora, which are large
-samples of “real world” text. This crawler helps to build corpora: it
-follows links to web pages that are known to be written in a certain
-language; it removes boilerplate and HTML markup; finally, it writes
-its output into plaintext files.  The crawler adheres to the [Robots
-Exclusion
-Standard](https://en.wikipedia.org/wiki/Robots_exclusion_standard) and
-is intentionally slow, so it does not cause much load on the crawled
-web sites.
+Modern linguistic research works on language corpora, which are large samples of
+“real world” text.  This crawler helps to build such corpora: it follows links
+to publicly accessible web pages known to be written in a certain language; it
+removes boilerplate and HTML markup; finally, it writes its output into
+plaintext files.  The crawler implements the [Robots Exclusion
+Standard](https://en.wikipedia.org/wiki/Robots_exclusion_standard), and it is
+intentionally slow so it does not cause much load on the crawled web sites.
 
-This is not an official Google product. But if you’re a linguist or
-plan to write software for spell checking or other language processing,
-you might find _Corpus Crawler_ useful.
+This is not an official Google product.  But if you’re a linguistic researcher,
+or if you’re writing a spell checker (or similar language-processing software)
+for an “exotic” language, you might find _Corpus Crawler_ useful.
+
+To build corpora for not-yet-supported languages, please read the
+[contribution guidelines](./CONTRIBUTING.md) and send us [GitHub pull
+requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
+
 
 
 ## Supported Languages
@@ -73,11 +76,6 @@ you might find _Corpus Crawler_ useful.
 | `yo`                | Yoruba                       |     79K  |
 
 ¹ Crawl still in progress; final number will be larger.
-
-
-You’re very welcome to join the project, for example to add another language.
-Please read the [contribution guidelines](./CONTRIBUTING.md) and send [pull
-requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
 
 
 ## Running the Crawler
