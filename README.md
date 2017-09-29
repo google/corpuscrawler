@@ -22,15 +22,15 @@ you might find _Corpus Crawler_ useful.
 
 | IETF BCP47 Code     | Language                     |   Tokens |
 | :------------------ | :--------------------------- | -------: |
-| `am`                | Amharic                      |    649K¹ |
-| `be`                | Belarusian                   |    161K¹ |
-| `bg`                | Bulgarian                    |  1,085K¹ |
+| `am`                | Amharic                      |   1,148¹ |
+| `be`                | Belarusian                   |    162K¹ |
+| `bg`                | Bulgarian                    |  1,805K¹ |
 | `bm`                | Bambara                      |     30K  |
-| `bn`                | Bangla                       |    583K¹ |
-| `bs`                | Bosnian                      |    361K¹ |
+| `bn`                | Bangla                       |  1,144K¹ |
+| `bs`                | Bosnian                      |  1,033K¹ |
 | `ccp`               | Chakma                       |    120K  |
-| `el`                | Greek                        |    377K¹ |
-| `fa`                | Persian                      |  1,786K¹ |
+| `el`                | Greek                        |  1,048K¹ |
+| `fa`                | Persian                      |  2,958K¹ |
 | `fa-AF`             | Dari                         |      0K¹ |
 | `fo`                | Faroese                      |    870K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
@@ -39,36 +39,36 @@ you might find _Corpus Crawler_ useful.
 | `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K  |
 | `gv`                | Manx Gaelic                  |    149K  |
 | `ha`                | Hausa                        |  1,780K  |
-| `hi`                | Hindi                        |    883K¹ |
-| `hr`                | Croatian                     |    356K¹ |
-| `id`                | Indonesian                   |    689K¹ |
+| `hi`                | Hindi                        |  1,197K¹ |
+| `hr`                | Croatian                     |    930K¹ |
+| `id`                | Indonesian                   |  1,264K¹ |
 | `ig`                | Igbo                         |     12K  |
 | `kj`                | Kuanyama                     |  1,506K  |
-| `ky`                | Kyrgyz                       |    890K¹ |
+| `ky`                | Kyrgyz                       |  1,151K¹ |
 | `mnw`               | Mon                          |    475K  |
-| `mk`                | Macedonian                   |    740K¹ |
-| `mt`                | Maltese                      |    631K¹ |
+| `mk`                | Macedonian                   |  1,355K¹ |
+| `mt`                | Maltese                      |  1,045K¹ |
 | `my`                | Burmese                      |    486K  |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K  |
-| `pl`                | Polish                       |    271K¹ |
-| `ps`                | Pashto                       |  1,079K¹ |
+| `pl`                | Polish                       |    644K¹ |
+| `ps`                | Pashto                       |  1,549K¹ |
 | `rm-puter`          | Romansh (Puter)              |  1,230K  |
 | `rm-rumgr`          | Romansh (Grischun)           |  5,605K  |
 | `rm-surmiran`       | Romansh (Surmiran)           |  3,287K  |
 | `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K  |
 | `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K  |
 | `rm-vallader`       | Romansh (Vallader)           |  6,347K  |
-| `ro`                | Romanian                     |    669K¹ |
-| `ru`                | Russian                      |    379K¹ |
+| `ro`                | Romanian                     |  1,766K¹ |
+| `ru`                | Russian                      |  1,148K¹ |
 | `rw`                | Kinyarwanda                  |    616K  |
 | `shn`               | Shan                         |    440K  |
 | `so`                | Somali                       |    878K  |
-| `sq`                | Albanian                     |  1,309K¹ |
-| `sw`                | Swahili                      |  1,548K¹ |
+| `sq`                | Albanian                     |  1,763K¹ |
+| `sw`                | Swahili                      |  2,029K¹ |
 | `ta`                | Tamil                        |  1,568K  |
 | `taq`               | Tamasheq                     |     63K  |
-| `tr`                | Turkish                      |    305K¹ |
-| `uk`                | Ukrainian                    |    238K¹ |
+| `tr`                | Turkish                      |    744K¹ |
+| `uk`                | Ukrainian                    |    639K¹ |
 | `ur`                | Urdu                         |  4,163K  |
 | `yo`                | Yoruba                       |     79K  |
 
