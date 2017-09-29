@@ -25,7 +25,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 
 | IETF BCP47 Code     | Language                     |   Tokens |
 | :------------------ | :--------------------------- | -------: |
-| `am`                | Amharic                      |   1,148¹ |
+| `am`                | Amharic                      |  1,220K¹ |
 | `be`                | Belarusian                   |    162K¹ |
 | `bg`                | Bulgarian                    |  1,805K¹ |
 | `bm`                | Bambara                      |     30K  |
