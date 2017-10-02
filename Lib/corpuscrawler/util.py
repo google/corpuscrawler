@@ -440,7 +440,7 @@ def replace_html_entities(html):
     html = re.sub(
         r'&#[xX]([0-9a-fA-F]+);', lambda z:unichr(int(z.group(1), 16)), html)
     html = re.sub(r'&([a-zA-Z]+);',
-                  lambda z:unichr(entities[z.group(1).lower()]), html)
+                  lambda z:unichr(entities.get(z.group(1).lower(), 0x20)), html)
     return html
 
 
