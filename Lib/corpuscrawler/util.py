@@ -18,6 +18,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import base64
 import collections
 import codecs
+import datetime
 import hashlib
 import mimetools
 import os
@@ -25,6 +26,7 @@ import random
 import re
 import ssl
 import time
+import unicodedata
 import urllib
 import urllib2
 import zlib
@@ -296,6 +298,48 @@ def crawl_deutsche_welle(crawler, out, prefix):
             out.write(p + '\n')
 
 
+def crawl_radio_free_asia(crawler, out, edition):
+    urls = set()
+    article_re = re.compile(
+        r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html)"' % edition)
+    for year in range(1998, datetime.datetime.today().year + 1):
+        for page_num in range(0, 100000, 30):
+            archive_url = (
+                'http://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
+                % (edition, page_num, year))
+            response = crawler.fetch(archive_url)
+            assert response.status == 200, (response.status, url)
+            html = response.content.decode('utf-8')
+            teaser = html.split('<div class="listingBar">')[0]
+            for t in teaser.split('class="sectionteaser"')[1:]:
+                urls.update(article_re.findall(t))
+            if html.find('class="next"') < 0:
+                break
+
+    for url in sorted(urls):
+        response = crawler.fetch(url)
+        assert response.status == 200, (response.status, url)
+        html = response.content.decode('utf-8')
+        title = re.search(r'<title>(.+)</title>', html)
+        pubdate = re.search(r'"datePublished": "([^"]+)"', html)
+        title, pubdate = cleantext(title.group(1)), cleantext(pubdate.group(1))
+        teaser = re.search(r'<div id="storyteaser">(.+?)</div>', html,
+                           re.DOTALL)
+        teaser = teaser.group(1).splitlines() if teaser else []
+        text = html.split('<div id="storytext">', 1)[1]
+        text = re.sub(r'<audio.+?</audio>', ' ', text)
+        text = text.split('<ul class="audio">')[0]
+        text = text.split('<div class="copyright">')[0]
+        text = text.split('</div><!-- story_text -->')[0]
+        text = text.replace('\n', ' ').replace('\r', ' ').replace('</p>', '\n')
+        paras = [cleantext(p) for p in [title] + teaser + text.splitlines()]
+        paras = filter(None, paras)
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        out.write('# Publication-Date: %s\n' % pubdate)
+        out.write('\n'.join(paras) + '\n')
+
+
 def crawl_sputnik_news(crawler, out, host):
     sitemap_url = 'https://%s/sitemap_article_index.xml' % host
     for url in sorted(crawler.fetch_sitemap(sitemap_url)):
@@ -404,7 +448,7 @@ def cleantext(html):
     # Some web sites insert zero-width spaces, possibly as byte order marks
     # (from Microsoft Notepad) which their scripts failed to recognize as such.
     html = html.replace('\u200B', '')
-    return ' '.join(html.split())
+    return unicodedata.normalize('NFC', ' '.join(html.split()))
 
 
 def fixquotes(s):

@@ -48,6 +48,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `ig`                | Igbo                         |     12K  |
 | `kj`                | Kuanyama                     |  1,506K  |
 | `ky`                | Kyrgyz                       |  1,151K¹ |
+| `lo`                | Lao                          |  2,056K  |
 | `mnw`               | Mon                          |    475K  |
 | `mk`                | Macedonian                   |  1,355K¹ |
 | `mt`                | Maltese                      |  1,045K¹ |
