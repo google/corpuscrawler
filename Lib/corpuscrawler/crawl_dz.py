@@ -39,6 +39,8 @@ def crawl_kuensel(crawler, out):
         text = text.replace('\n', ' ').replace('</p>', '\n')
         paras = [cleantext(p) for p in [title] + text.splitlines()]
         paras = filter(None, paras)
+        if any(p.startswith('Search for') for p in paras):
+            continue
         out.write('# Location: %s\n' % url)
         out.write('# Genre: News\n')
         if pubdate:

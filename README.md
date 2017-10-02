@@ -1,23 +1,24 @@
 # Corpus Crawler
 
-_Corpus Crawler_ is a tool for [Corpus
-Linguistics](https://en.wikipedia.org/wiki/Corpus_linguistics).
+_Corpus Crawler_ is a tool for
+[Corpus Linguistics](https://en.wikipedia.org/wiki/Corpus_linguistics).
 
 Modern linguistic research works on language corpora, which are large samples of
 “real world” text.  This crawler helps to build such corpora: it follows links
 to publicly accessible web pages known to be written in a certain language; it
 removes boilerplate and HTML markup; finally, it writes its output into
-plaintext files.  The crawler implements the [Robots Exclusion
-Standard](https://en.wikipedia.org/wiki/Robots_exclusion_standard), and it is
-intentionally slow so it does not cause much load on the crawled web sites.
+plaintext files.  The crawler implements the
+[Robots Exclusion Standard](https://en.wikipedia.org/wiki/Robots_exclusion_standard),
+and it is intentionally slow so it does not cause much load on the crawled
+web sites.
 
 This is not an official Google product.  But if you’re a linguistic researcher,
 or if you’re writing a spell checker (or similar language-processing software)
 for an “exotic” language, you might find _Corpus Crawler_ useful.
 
 To build corpora for not-yet-supported languages, please read the
-[contribution guidelines](./CONTRIBUTING.md) and send us [GitHub pull
-requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
+[contribution guidelines](./CONTRIBUTING.md) and send us
+[GitHub pull requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
 
 
 
@@ -32,7 +33,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `bn`                | Bangla                       |  1,144K¹ |
 | `bs`                | Bosnian                      |  1,033K¹ |
 | `ccp`               | Chakma                       |    120K  |
-| `dz`                | Dzongkha                     |     24K¹ |
+| `dz`                | Dzongkha                     |     35K  |
 | `el`                | Greek                        |  1,048K¹ |
 | `fa`                | Persian                      |  2,958K¹ |
 | `fa-AF`             | Dari                         |    451K¹ |
