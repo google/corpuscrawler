@@ -298,17 +298,18 @@ def crawl_deutsche_welle(crawler, out, prefix):
             out.write(p + '\n')
 
 
-def crawl_radio_free_asia(crawler, out, edition):
+def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
     urls = set()
     article_re = re.compile(
         r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html)"' % edition)
-    for year in range(1998, datetime.datetime.today().year + 1):
+    for year in range(start_year, datetime.datetime.today().year + 1):
         for page_num in range(0, 100000, 30):
             archive_url = (
                 'http://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
                 % (edition, page_num, year))
             response = crawler.fetch(archive_url)
-            assert response.status == 200, (response.status, url)
+            if response.status != 200:
+                continue
             html = response.content.decode('utf-8')
             teaser = html.split('<div class="listingBar">')[0]
             for t in teaser.split('class="sectionteaser"')[1:]:
