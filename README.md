@@ -32,6 +32,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `bn`                | Bangla                       |  1,144K¹ |
 | `bs`                | Bosnian                      |  1,033K¹ |
 | `ccp`               | Chakma                       |    120K  |
+| `dz`                | Dzongkha                     |     24K¹ |
 | `el`                | Greek                        |  1,048K¹ |
 | `fa`                | Persian                      |  2,958K¹ |
 | `fa-AF`             | Dari                         |    451K¹ |

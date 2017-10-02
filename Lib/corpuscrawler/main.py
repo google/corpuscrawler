@@ -17,8 +17,8 @@ import argparse
 import sys
 from corpuscrawler import (
     crawl_am, crawl_be, crawl_bg, crawl_bm, crawl_bn,
-    crawl_bo, crawl_bs,
-    crawl_ccp, crawl_el, crawl_fa, crawl_fo, crawl_fuv,
+    crawl_bo, crawl_bs, crawl_ccp, crawl_dz, crawl_el,
+    crawl_fa, crawl_fo, crawl_fuv,
     crawl_gsw, crawl_gv, crawl_ha, crawl_hi, crawl_hr,
     crawl_id, crawl_ig, crawl_kj, crawl_kk, crawl_ky, crawl_lo, crawl_mnw,
     crawl_mk, crawl_mt, crawl_my, crawl_pl, crawl_ps,
@@ -39,6 +39,7 @@ def main():
         'bo': crawl_bo.crawl,    # Tibetan
         'bs': crawl_bs.crawl,    # Bosnian
         'ccp': crawl_ccp.crawl,  # Chakma
+        'dz': crawl_dz.crawl,    # Dzongkha
         'el': crawl_el.crawl,    # Greek
         'fa': crawl_fa.crawl,    # Persian
         'fo': crawl_fo.crawl,    # Faroese
