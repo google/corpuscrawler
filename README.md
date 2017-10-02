@@ -47,6 +47,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `id`                | Indonesian                   |  1,264K¹ |
 | `ig`                | Igbo                         |     12K  |
 | `kj`                | Kuanyama                     |  1,506K  |
+| `kk`                | Kazakh                       |    667K  |
 | `ky`                | Kyrgyz                       |  1,151K¹ |
 | `lo`                | Lao                          |  2,056K  |
 | `mnw`               | Mon                          |    475K  |
