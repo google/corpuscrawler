@@ -61,7 +61,7 @@ To build corpora for not-yet-supported languages, please read the
 | `my`                | Burmese                      |    486K  |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K  |
 | `pl`                | Polish                       |    644K¹ |
-| `ps`                | Pashto                       |  1,549K¹ |
+| `ps`                | Pashto                       |  8,735K  |
 | `rm-puter`          | Romansh (Puter)              |  1,230K  |
 | `rm-rumgr`          | Romansh (Grischun)           |  5,605K  |
 | `rm-surmiran`       | Romansh (Surmiran)           |  3,287K  |

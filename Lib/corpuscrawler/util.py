@@ -263,10 +263,12 @@ def write_paragraphs(et, out):
             write_paragraphs(e, out)
 
 
-def crawl_deutsche_welle(crawler, out, prefix):
+def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
     urls = set()
     for url in crawler.fetch_sitemap('http://www.dw.com/sitemap.xml'):
         path = urlpath(url)
+        if need_percent_in_url and '%' not in path:
+            continue
         if path.startswith(prefix) and \
                 (re.match(r'/[^/]+/\d{2}-.*', path) is None):  # German lessons
             urls.add(url)

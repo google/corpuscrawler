@@ -20,4 +20,4 @@ from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
 def crawl(crawler):
     out = crawler.get_output(language='ps')
     crawl_udhr(crawler, out, filename='udhr_pbu.txt')
-    crawl_deutsche_welle(crawler, out, prefix='/ps/')
+    crawl_deutsche_welle(crawler, out, prefix='/ps/', need_percent_in_url=True)
