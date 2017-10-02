@@ -34,7 +34,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `ccp`               | Chakma                       |    120K  |
 | `el`                | Greek                        |  1,048K¹ |
 | `fa`                | Persian                      |  2,958K¹ |
-| `fa-AF`             | Dari                         |      0K¹ |
+| `fa-AF`             | Dari                         |    451K¹ |
 | `fo`                | Faroese                      |    870K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
 | `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K  |
