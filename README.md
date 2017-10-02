@@ -52,7 +52,7 @@ requests](https://help.github.com/categories/collaborating-with-issues-and-pull-
 | `lo`                | Lao                          |  2,056K  |
 | `mnw`               | Mon                          |    475K  |
 | `mk`                | Macedonian                   |  1,355K¹ |
-| `mt`                | Maltese                      |  1,045K¹ |
+| `mt`                | Maltese                      |  2,796K  |
 | `my`                | Burmese                      |    486K  |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K  |
 | `pl`                | Polish                       |    644K¹ |
