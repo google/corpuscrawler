@@ -26,6 +26,8 @@ To build corpora for not-yet-supported languages, please read the
 
 | IETF BCP47 Code     | Language                     |   Tokens |
 | :------------------ | :--------------------------- | -------: |
+| `ae`                | Avestan                      |     38K  |
+| `ae-Latn`           | Avestan (Latin)              |     38K  |
 | `am`                | Amharic                      |  1,220K¹ |
 | `be`                | Belarusian                   |  1,502K  |
 | `bg`                | Bulgarian                    |  1,805K¹ |
