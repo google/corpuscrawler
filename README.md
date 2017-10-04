@@ -24,68 +24,73 @@ To build corpora for not-yet-supported languages, please read the
 
 ## Supported Languages
 
-| IETF BCP47 Code     | Language                     |   Tokens |
+| IETF BCP47 Code     | Language                     |  Tokens¹ |
 | :------------------ | :--------------------------- | -------: |
-| `ae`                | Avestan                      |     38K  |
-| `ae-Latn`           | Avestan (Latin)              |     38K  |
-| `am`                | Amharic                      |  1,220K¹ |
-| `be`                | Belarusian                   |  1,502K  |
-| `bg`                | Bulgarian                    |  1,805K¹ |
-| `bm`                | Bambara                      |     30K  |
-| `bn`                | Bangla                       |  1,144K¹ |
-| `bo`                | Tibetan                      |      3K¹ |
-| `bs`                | Bosnian                      |  1,033K¹ |
-| `ccp`               | Chakma                       |    120K  |
-| `dz`                | Dzongkha                     |     35K  |
-| `el`                | Greek                        |  1,048K¹ |
-| `fa`                | Persian                      |  2,958K¹ |
-| `fa-AF`             | Dari                         |    451K¹ |
-| `fo`                | Faroese                      |    870K  |
+| `ae`                | Avestan                      |     35K² |
+| `ae-Latn`           | Avestan (Latin)              |     35K² |
+| `am`                | Amharic                      |  2,162K² |
+| `az`                | Azeri                        |    511K² |
+| `be`                | Belarusian                   |  1,494K  |
+| `bg`                | Bulgarian                    |  8,902K² |
+| `bm`                | Bambara                      |     31K  |
+| `bn`                | Bangla                       |  4,846K² |
+| `bo`                | Tibetan                      |  3,269K² |
+| `bs`                | Bosnian                      |  9,093K² |
+| `ccp`               | Chakma                       |     79K  |
+| `cs`                | Czech                        |  2,430K² |
+| `dz`                | Dzongkha                     |     62K  |
+| `el`                | Greek                        |  1,005K² |
+| `fa`                | Persian                      |  8,150K² |
+| `fa-AF`             | Dari                         |  4,898K² |
+| `fo`                | Faroese                      |    867K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
 | `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K  |
 | `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K  |
 | `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K  |
-| `gv`                | Manx Gaelic                  |    149K  |
-| `ha`                | Hausa                        |  1,780K  |
-| `hi`                | Hindi                        |  1,197K¹ |
-| `hr`                | Croatian                     |    930K¹ |
-| `id`                | Indonesian                   |  1,264K¹ |
-| `ig`                | Igbo                         |     12K  |
-| `kj`                | Kuanyama                     |  1,506K  |
-| `kk`                | Kazakh                       |    667K  |
-| `km`                | Khmer                        |      2K¹ |
-| `ku`                | Kurdish                      |    987K¹ |
-| `ky`                | Kyrgyz                       |  1,151K¹ |
-| `lo`                | Lao                          |  2,056K  |
-| `mnw`               | Mon                          |    475K  |
-| `mk`                | Macedonian                   |  1,355K¹ |
-| `mt`                | Maltese                      |  2,796K  |
-| `my`                | Burmese                      |    486K  |
-| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    153K  |
-| `pl`                | Polish                       |    644K¹ |
-| `ps`                | Pashto                       |  8,735K  |
-| `rm-puter`          | Romansh (Puter)              |  1,230K  |
-| `rm-rumgr`          | Romansh (Grischun)           |  5,605K  |
-| `rm-surmiran`       | Romansh (Surmiran)           |  3,287K  |
-| `rm-sursilv`        | Romansh (Sursilvan)          | 13,552K  |
-| `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,230K  |
-| `rm-vallader`       | Romansh (Vallader)           |  6,347K  |
-| `ro`                | Romanian                     |  1,766K¹ |
-| `ru`                | Russian                      |  1,148K¹ |
-| `rw`                | Kinyarwanda                  |    616K  |
-| `shn`               | Shan                         |    440K  |
-| `so`                | Somali                       |    878K  |
-| `sq`                | Albanian                     |  1,763K¹ |
-| `sw`                | Swahili                      |  2,029K¹ |
-| `ta`                | Tamil                        |  1,568K  |
-| `taq`               | Tamasheq                     |     63K  |
-| `tr`                | Turkish                      |    744K¹ |
-| `ug`                | Uyghur                       |    117K¹ |
-| `uk`                | Ukrainian                    |    639K¹ |
-| `ur`                | Urdu                         |  4,163K  |
-| `yo`                | Yoruba                       |     79K  |
+| `gv`                | Manx Gaelic                  |    153K  |
+| `ha`                | Hausa                        |  1,800K  |
+| `hi`                | Hindi                        |  2,334K² |
+| `hr`                | Croatian                     |  7,971K² |
+| `id`                | Indonesian                   |    723K² |
+| `ig`                | Igbo                         |     13K  |
+| `kj`                | Kuanyama                     |  1,492K  |
+| `kk`                | Kazakh                       |    670K  |
+| `km`                | Khmer                        |  8,542K² |
+| `ku`                | Kurdish                      |  1,620K² |
+| `ky`                | Kyrgyz                       |  4,492K² |
+| `lo`                | Lao                          |  4,456K  |
+| `mk`                | Macedonian                   |  1,469K² |
+| `mnw`               | Mon                          |  1,856K  |
+| `mt`                | Maltese                      |  3,393K  |
+| `my`                | Burmese                      |  1,015K  |
+| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    599K  |
+| `pl`                | Polish                       |    673K² |
+| `ps`                | Pashto                       |  7,400K  |
+| `rm-puter`          | Romansh (Puter)              |  1,080K  |
+| `rm-rumgr`          | Romansh (Grischun)           |  4,870K  |
+| `rm-surmiran`       | Romansh (Surmiran)           |  2,580K  |
+| `rm-sursilv`        | Romansh (Sursilvan)          | 11,814K  |
+| `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,023K  |
+| `rm-vallader`       | Romansh (Vallader)           |  5,609K  |
+| `ro`                | Romanian                     | 14,092K  |
+| `ru`                | Russian                      |  6,322K² |
+| `rw`                | Kinyarwanda                  |    618K  |
+| `shn`               | Shan                         |  1,481K  |
+| `so`                | Somali                       |    883K  |
+| `sq`                | Albanian                     | 10,194K |
+| `sr-Latn`          | Serbian (Latin)               |    373K |
+| `sw`                | Swahili                      |  8,949K  |
+| `ta`                | Tamil                        |  1,435K  |
+| `taq`               | Tamasheq                     |     66K  |
+| `tr`                | Turkish                      |  7,131K² |
+| `ug`                | Uyghur                       |  4,504K² |
+| `uk`                | Ukrainian                    |  5,017K² |
+| `ur`                | Urdu                         |  3,652K  |
+| `yo`                | Yoruba                       |     80K  |
 
-¹ Crawl still in progress; final number will be larger.
+¹ To count tokens, we use an [ICU word break iterator](http://userguide.icu-project.org/boundaryanalysis#TOC-Count-the-words-in-a-document-C-only-:) and count all tokens whose break status is not `UBRK_WORD_NONE`.
+
+² Crawl is still in progress; the final number will be larger.
 
 
 ## Running the Crawler
