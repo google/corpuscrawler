@@ -324,10 +324,13 @@ def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
 
     for url in sorted(urls):
         response = crawler.fetch(url)
-        assert response.status == 200, (response.status, url)
+        if response.status != 200:
+            continue
         html = response.content.decode('utf-8')
         title = re.search(r'<title>(.+)</title>', html)
         pubdate = re.search(r'"datePublished": "([^"]+)"', html)
+        if not title or not pubdate:
+            continue
         title, pubdate = cleantext(title.group(1)), cleantext(pubdate.group(1))
         teaser = re.search(r'<div id="storyteaser">(.+?)</div>', html,
                            re.DOTALL)
