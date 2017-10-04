@@ -276,7 +276,10 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
         doc = crawler.fetch(url)
         if doc.status != 200:
             continue
-        html = doc.content.decode('utf-8')
+        try:
+            html = doc.content.decode('utf-8')
+        except UnicodeDecodeError:
+            continue
         pubdate = re.search(r'articleChangeDateShort: "(\d{8})"', html)
         if pubdate is not None:
             pubdate = pubdate.group(1)
