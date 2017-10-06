@@ -353,7 +353,8 @@ def crawl_sputnik_news(crawler, out, host):
     sitemap_url = 'https://%s/sitemap_article_index.xml' % host
     for url in sorted(crawler.fetch_sitemap(sitemap_url)):
         response = crawler.fetch(url)
-        assert response.status == 200, (response.status, url)
+        if response.status != 200:
+            continue
         html = response.content.decode('utf-8')
         title = re.search(r'<title>(.+?)</title>', html).group(1)
         pubdate = re.search(
