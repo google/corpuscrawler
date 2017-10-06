@@ -26,8 +26,8 @@ To build corpora for not-yet-supported languages, please read the
 
 | IETF BCP47 Code     | Language                     |  Tokens¹ |
 | :------------------ | :--------------------------- | -------: |
-| `ae`                | Avestan                      |     35K² |
-| `ae-Latn`           | Avestan (Latin)              |     35K² |
+| `ae`                | Avestan                      |    129K  |
+| `ae-Latn`           | Avestan (Latin)              |    141K  |
 | `am`                | Amharic                      |  2,206K  |
 | `az`                | Azeri                        |    511K² |
 | `be`                | Belarusian                   |  1,494K  |
@@ -35,12 +35,12 @@ To build corpora for not-yet-supported languages, please read the
 | `bm`                | Bambara                      |     31K  |
 | `bn`                | Bangla                       |  4,846K² |
 | `bo`                | Tibetan                      |  3,269K² |
-| `bs`                | Bosnian                      |  9,093K² |
+| `bs`                | Bosnian                      |  9,093K  |
 | `ccp`               | Chakma                       |     79K  |
 | `cs`                | Czech                        |  2,430K² |
 | `dz`                | Dzongkha                     |     62K  |
 | `el`                | Greek                        |  1,005K² |
-| `fa`                | Persian                      |  8,150K² |
+| `fa`                | Persian                      |  9,238K  |
 | `fa-AF`             | Dari                         |  4,898K² |
 | `fo`                | Faroese                      |    867K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
@@ -50,7 +50,7 @@ To build corpora for not-yet-supported languages, please read the
 | `gv`                | Manx Gaelic                  |    153K  |
 | `ha`                | Hausa                        |  1,800K  |
 | `hi`                | Hindi                        |  2,334K² |
-| `hr`                | Croatian                     |  7,971K² |
+| `hr`                | Croatian                     |  8,292K  |
 | `id`                | Indonesian                   |    723K² |
 | `ig`                | Igbo                         |     13K  |
 | `kj`                | Kuanyama                     |  1,492K  |
@@ -77,8 +77,8 @@ To build corpora for not-yet-supported languages, please read the
 | `rw`                | Kinyarwanda                  |    618K  |
 | `shn`               | Shan                         |  1,481K  |
 | `so`                | Somali                       |    883K  |
-| `sq`                | Albanian                     | 10,194K |
-| `sr-Latn`          | Serbian (Latin)               |    373K |
+| `sq`                | Albanian                     | 10,194K  |
+| `sr-Latn`           | Serbian (Latin)              |     373K |
 | `sw`                | Swahili                      |  8,949K  |
 | `ta`                | Tamil                        |  1,435K  |
 | `taq`               | Tamasheq                     |     66K  |
