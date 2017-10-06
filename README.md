@@ -85,7 +85,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ta`                | Tamil                        |  1,435K  |
 | `taq`               | Tamasheq                     |     66K  |
 | `tr`                | Turkish                      |  7,131K² |
-| `ug`                | Uyghur                       |  4,504K² |
+| `ug`                | Uyghur                       |  9,493K  |
 | `uk`                | Ukrainian                    |  5,017K² |
 | `ur`                | Urdu                         |  3,652K  |
 | `yo`                | Yoruba                       |     80K  |
