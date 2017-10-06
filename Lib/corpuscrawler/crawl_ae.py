@@ -16,6 +16,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 import unicodedata
+from corpuscrawler.util import cleantext
 
 
 def crawl(crawler):
@@ -31,34 +32,60 @@ def crawl_titus_avestan(crawler, out, out_latin):
         doc = crawler.fetch(url)
         assert doc.status == 200, (doc.status, url)
         html = doc.content.decode('utf-8')
-        for docid, doc in enumerate(html.split('<span id=subtitle>')[2:]):
-            doc = doc.replace('<SUP>\u030A</SUP>', '\u030A')
-            doc = doc.replace('<SUP>v</SUP>', '\u1D5B')
-            title = re.search(r'<a id=subtitle[^>]*>(.+?)</a>', doc).group(1)
-            out.write('# Location: %s#%d\n' % (url, docid + 1))
-            out_latin.write('# Location: %s#%d\n' % (url, docid + 1))
-            paras = [unicodedata.normalize('NFC', title.strip())]
-            for text in doc.split('<span id=h4>')[1:]:
-                words = []
-                for word in re.findall(r'<[aA] [^>]+>(.+?)</[aA]>', text):
-                    if ('<' not in word and ' ' not in word
-                            and word != '&nbsp;'):  # and word != 'TITUS'):
-                        word = unicodedata.normalize('NFC', word.strip())
-                        words.append(word)
-                words = filter(None, words)
-                if words:
-                    paras.append(' '.join(words))
+        for chapter_id, chapter in enumerate(
+                re.split('<span id=(?:h3|subtitle)>', html)[1:]):
+            chapter = chapter.replace('<SUP>\u030A</SUP>', '\u030A')
+            chapter = chapter.replace('<SUP>v</SUP>', '\u1D5B')
+            chapter = chapter.replace('β', '\uA7B5')  # LATIN SMALL LETTER BETA
+            chapter = chapter.replace('δ', 'ẟ')  # LATIN SMALL LETTER DELTA
+            title = re.search(r'<a id=subtitle[^>]*>(.+?)</a>', chapter)
+            text = [title.group(1) if title else '']
+            for paragraph in chapter.split('Paragraph')[1:]:
+                cur_paragraph = []
+                for verse in paragraph.split('Verse')[1:]:
+                    verse = cleantext(verse.split('>', 1)[1])
+                    verse = verse.split('This')[0]
+                    verse = re.sub(r'(\s*:+\s*)',
+                                   lambda m: ' ' + m.group(1).strip() + ' ',
+                                   verse)
+                    verse = re.sub('\.{2,}', '…', verse)
+                    for c in '+*^':
+                        verse = verse.replace(c, ' ')
+                    verse = re.sub(r'[\s\.\d]+\)[\s\.]', ') ', verse)
+                    verse = re.sub(r'[\s\.\d]+\]\.*', '] ', verse)
+                    verse = re.sub(r'\{[^}]+\}', ' ', verse)
+                    verse = re.sub(r'\(~[^)]+\)', ' ', verse)
+                    verse = re.sub(r'[\s\.\d]*(:+)[\s\.\d]*',
+                                   lambda m: m.group(1) + ' ', verse)
+                    words = [w.strip('0123456789.') for w in verse.split()]
+                    verse = cleantext(' '.join(words)).lower()
+                    verse = verse.replace(': :', '::')
+                    cur_paragraph.append(verse)
+                p = ' '.join(cur_paragraph)
+                p = re.sub(r'[^:]::[^:]', '. ', p)
+                p = re.sub(r'[^:]::$', '. ', p) + ' '
+                sentences = []
+                for s in p.split('. '):
+                    if len(s) > 1:
+                        s = ' '.join(s.split())
+                        sentences.append(s[0].title() + s[1:] + '. ')
+                p = '. '.join(sentences).strip()
+                p = p.replace('. .', '.')
+                text.append(unicodedata.normalize('NFC', p))
+            paras = filter(None, text)
+            out.write('# Location: %s#%d\n' % (url, chapter_id + 1))
+            out_latin.write('# Location: %s#%d\n' % (url, chapter_id + 1))
+            out_latin.write('\n'.join(paras) + '\n')
             out.write(untransliterate('\n'.join(paras)) + '\n')
-            latin = '\n'.join(paras) 
-            latin = latin.replace('β', '\uA7B5')  # LATIN SMALL LETTER BETA
-            latin = latin.replace('δ', 'ẟ')  # LATIN SMALL LETTER DELTA
-            out_latin.write(latin + '\n')
 
 
 _TRANSLIT = {
     ' ': ' ',
     '[': '[',
     ']': ']',
+    ':': '\U00010B3A', # TINY TWO DOTS OVER ONE DOT PUNCTUATION
+    ';': '\U00010B3B', # SMALL TWO DOTS OVER ONE DOT PUNCTUATION
+    '…': '\U00010B39',  # AVESTAN ABBREVIATION MARK
     'a': '\U00010B00',
     'ā': '\U00010B01',
     'å': '\U00010B02',
@@ -117,7 +144,6 @@ _TRANSLIT = {
     'š́': '\U00010B33',
     'ṣ̌': '\U00010B34',
     'h': '\U00010B35',
-    '.': '\U00010B39',  # AVESTAN ABBREVIATION MARK
 }
 
 
@@ -128,7 +154,24 @@ for latin, _ in _TRANSLITS:
 
 
 def untransliterate(s):
-    s = s.lower()
+    s = s.lower() + ' '
+
+    # strong end of section = 2x LARGE TWO RINGS OVER ONE RING PUNCTUATION
+    s = re.sub(r':::+ ', '\U00010B3E\U00010B3E ', s)
+
+    # end of section = LARGE TWO RINGS OVER ONE RING PUNCTUATION
+    s = re.sub(r'::', 'U00010B3E', s)
+
+    s = s.replace('.', '\U00010B3C')  # LARGE TWO DOTS OVER ONE DOT PUNCTUATION
+    s = s.replace(' ', '. ')
+    s = re.sub(r'([\[\]\(\);:,…])\.', lambda m: m.group(1), s)
+    s = s.replace('\U00010B3A.', '\U00010B3A')
+    s = s.replace('\U00010B3B.', '\U00010B3B')
+    s = s.replace('\U00010B3C.', '\U00010B3C')
+    s = s.replace('\U00010B3D.', '\U00010B3D')
+    s = s.replace('\U00010B3E.', '\U00010B3E')
+
     for latin, avestan in _TRANSLITS:
         s = s.replace(latin, avestan)
-    return s
+
+    return s.strip()
