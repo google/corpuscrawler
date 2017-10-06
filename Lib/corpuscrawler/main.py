@@ -24,7 +24,7 @@ from corpuscrawler import (
     crawl_ku, crawl_ky, crawl_lo, crawl_mnw,
     crawl_mk, crawl_mt, crawl_my, crawl_pl, crawl_ps,
     crawl_rm, crawl_ro, crawl_ru, crawl_rw, crawl_shn,
-    crawl_sr, crawl_so, crawl_sq, crawl_sw, crawl_ta,
+    crawl_so, crawl_sq, crawl_sr, crawl_sv, crawl_sw, crawl_ta,
     crawl_taq, crawl_tr, crawl_ug, crawl_uk, crawl_ur, crawl_yo,
 )
 from corpuscrawler.util import Crawler
@@ -74,6 +74,7 @@ def main():
         'so': crawl_so.crawl,    # Somali
         'sq': crawl_sq.crawl,    # Albanian
         'sr': crawl_sr.crawl,    # Serbian
+        'sv': crawl_sv.crawl,    # Swedish
         'sw': crawl_sw.crawl,    # Swahili
         'ta': crawl_ta.crawl,    # Tamil
         'taq': crawl_taq.crawl,  # Tamasheq
