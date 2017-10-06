@@ -29,7 +29,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ae`                | Avestan                      |    129K  |
 | `ae-Latn`           | Avestan (Latin)              |    141K  |
 | `am`                | Amharic                      |  2,206K  |
-| `az`                | Azeri                        |    511K² |
+| `az`                | Azerbaijani                  |    511K² |
 | `be`                | Belarusian                   |  1,494K  |
 | `bg`                | Bulgarian                    | 10,718K  |
 | `bm`                | Bambara                      |     31K  |

@@ -16,16 +16,17 @@ from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
 from corpuscrawler import (
-    crawl_ae, crawl_am, crawl_be, crawl_bg, crawl_bm,
-    crawl_bn, crawl_bo, crawl_bs, crawl_ccp, crawl_cs,
-    crawl_dz, crawl_el, crawl_fa, crawl_fo, crawl_fuv,
-    crawl_gsw, crawl_gv, crawl_ha, crawl_hi, crawl_hr,
-    crawl_id, crawl_ig, crawl_kj, crawl_kk, crawl_km,
-    crawl_ku, crawl_ky, crawl_lo, crawl_mnw,
+    crawl_ae, crawl_am, crawl_az, crawl_be, crawl_bg,
+    crawl_bm, crawl_bn, crawl_bo, crawl_bs, crawl_ccp,
+    crawl_cs, crawl_dz, crawl_el, crawl_fa, crawl_fo,
+    crawl_fuv, crawl_gsw, crawl_gv, crawl_ha, crawl_hi,
+    crawl_hr,  crawl_id, crawl_ig, crawl_kj, crawl_kk,
+    crawl_km, crawl_ku, crawl_ky, crawl_lo, crawl_mnw,
     crawl_mk, crawl_mt, crawl_my, crawl_pl, crawl_ps,
     crawl_rm, crawl_ro, crawl_ru, crawl_rw, crawl_shn,
-    crawl_so, crawl_sq, crawl_sr, crawl_sv, crawl_sw, crawl_ta,
-    crawl_taq, crawl_tr, crawl_ug, crawl_uk, crawl_ur, crawl_yo,
+    crawl_so, crawl_sq, crawl_sr, crawl_sv, crawl_sw,
+    crawl_ta, crawl_taq, crawl_tr, crawl_ug, crawl_uk,
+    crawl_ur, crawl_yo,
 )
 from corpuscrawler.util import Crawler
 
@@ -34,6 +35,7 @@ def main():
     crawls = {
         'ae': crawl_ae.crawl,    # Avestan
         'am': crawl_am.crawl,    # Amharic
+        'az': crawl_az.crawl,    # Azerbaijani
         'be': crawl_be.crawl,    # Belarusian
         'bg': crawl_bg.crawl,    # Bulgarian
         'bm': crawl_bm.crawl,    # Bambara
