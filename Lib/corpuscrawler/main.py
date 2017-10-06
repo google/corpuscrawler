@@ -16,9 +16,9 @@ from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 import sys
 from corpuscrawler import (
-    crawl_ae, crawl_am, crawl_be, crawl_bg, crawl_bm, crawl_bn,
-    crawl_bo, crawl_bs, crawl_ccp, crawl_dz, crawl_el,
-    crawl_fa, crawl_fo, crawl_fuv,
+    crawl_ae, crawl_am, crawl_be, crawl_bg, crawl_bm,
+    crawl_bn, crawl_bo, crawl_bs, crawl_ccp, crawl_cs,
+    crawl_dz, crawl_el, crawl_fa, crawl_fo, crawl_fuv,
     crawl_gsw, crawl_gv, crawl_ha, crawl_hi, crawl_hr,
     crawl_id, crawl_ig, crawl_kj, crawl_kk, crawl_km,
     crawl_ky, crawl_lo, crawl_mnw,
@@ -41,6 +41,7 @@ def main():
         'bo': crawl_bo.crawl,    # Tibetan
         'bs': crawl_bs.crawl,    # Bosnian
         'ccp': crawl_ccp.crawl,  # Chakma
+        'cs': crawl_cs.crawl,    # Czech
         'dz': crawl_dz.crawl,    # Dzongkha
         'el': crawl_el.crawl,    # Greek
         'fa': crawl_fa.crawl,    # Persian
