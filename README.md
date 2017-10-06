@@ -34,7 +34,7 @@ To build corpora for not-yet-supported languages, please read the
 | `bg`                | Bulgarian                    | 10,718K  |
 | `bm`                | Bambara                      |     31K  |
 | `bn`                | Bangla                       |  4,846K² |
-| `bo`                | Tibetan                      |  3,269K² |
+| `bo`                | Tibetan                      | 10,718K  |
 | `bs`                | Bosnian                      |  9,093K  |
 | `ccp`               | Chakma                       |     79K  |
 | `cs`                | Czech                        |  2,430K² |
