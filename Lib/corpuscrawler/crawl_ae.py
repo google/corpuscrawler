@@ -160,7 +160,7 @@ def untransliterate(s):
     s = re.sub(r':::+ ', '\U00010B3E\U00010B3E ', s)
 
     # end of section = LARGE TWO RINGS OVER ONE RING PUNCTUATION
-    s = re.sub(r'::', 'U00010B3E', s)
+    s = re.sub(r'::', '\U00010B3E', s)
 
     s = s.replace('.', '\U00010B3C')  # LARGE TWO DOTS OVER ONE DOT PUNCTUATION
     s = s.replace(' ', '. ')
