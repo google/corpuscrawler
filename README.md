@@ -31,7 +31,7 @@ To build corpora for not-yet-supported languages, please read the
 | `am`                | Amharic                      |  2,206K  |
 | `az`                | Azeri                        |    511K² |
 | `be`                | Belarusian                   |  1,494K  |
-| `bg`                | Bulgarian                    |  8,902K² |
+| `bg`                | Bulgarian                    | 10,718K  |
 | `bm`                | Bambara                      |     31K  |
 | `bn`                | Bangla                       |  4,846K² |
 | `bo`                | Tibetan                      |  3,269K² |
