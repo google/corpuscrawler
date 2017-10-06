@@ -14,10 +14,8 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_udhr
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='sv')
-    crawl_udhr(crawler, out, filename='udhr_swe.txt')
-    crawler.crawl_sverigesradio(out, program_id=4916)
+    out = crawler.get_output(language='fit')
+    crawler.crawl_sverigesradio(out, program_id=1017)

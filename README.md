@@ -42,6 +42,7 @@ To build corpora for not-yet-supported languages, please read the
 | `el`                | Greek                        |  1,005K² |
 | `fa`                | Persian                      |  9,238K  |
 | `fa-AF`             | Dari                         |  4,898K² |
+| `fit`               | Tornedalen Finnish           |    107K² |
 | `fo`                | Faroese                      |    867K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
 | `gsw-u-sd-chag`     | Swiss German (Aargau)        |    102K  |
@@ -79,7 +80,7 @@ To build corpora for not-yet-supported languages, please read the
 | `so`                | Somali                       |    883K  |
 | `sq`                | Albanian                     | 10,194K  |
 | `sr-Latn`           | Serbian (Latin)              |    373K² |
-| `sv`                | Swedish                      |    236K² |
+| `sv`                | Swedish                      |    236K  |
 | `sw`                | Swahili                      |  8,949K  |
 | `ta`                | Tamil                        |  1,435K  |
 | `taq`               | Tamasheq                     |     66K  |

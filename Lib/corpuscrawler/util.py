@@ -192,6 +192,52 @@ class Crawler(object):
         return checker.can_fetch(useragent=self.useragent_for_robots_txt,
                                  url=urlencode(url))
 
+    def crawl_sverigesradio(self, out, program_id):
+        sitemap = self.fetch_sitemap(
+            'http://sverigesradio.se/sida/sitemap.aspx')
+        urlpart = 'programid=%d&' % program_id
+        for url in sorted(sitemap):
+            if url.find(urlpart) < 0:
+                continue
+            page = self.fetch(url)
+            if page.status != 200:
+                continue
+            html = page.content.decode('utf-8').replace('<P>', '<p>')
+            title = re.search(r'<h1>(.+?)</h1>', html, re.DOTALL)
+            title = cleantext(title) if title else ''
+            if html.find('<div class="episode-details__body">') > 0:
+              text = html.split('<div class="episode-details__body">', 1)[1]
+            else:
+              text = html.replace('<P>', '<p>').split('<p>', 1)[1]
+            for separator in (
+                    '<p class="byline"',
+                    '<h2 class="label',
+                    '<div class="article-details__buttons',
+                    '<div class="article-details__menu',
+                    '<div class="article-details__polls',
+                    '<div class="article-details__related',
+                    '<div class="article-details__share',
+                    '<div class="episode-details__buttons"',
+                    '<div class="episode-details__menu',
+                    '<div class="episode-details__polls',
+                    '<div class="article-details__related',
+                    '<div class="episode-details__share"',
+                    '<div class="puff-audio-medium__footer"',
+                    '<div class="puff-medium__footer"'):
+                text = text.split(separator, 1)[0]
+            if text.find('function isValidBrowser') >= 0:
+                continue
+            text = text.replace('\n', ' ').replace('\r', ' ')
+            for tag in ('</p>', '</div>', '</li>', '<br>', '<br/>', '<br />'):
+                text = text.replace(tag, '\n').replace(tag.upper(), '\n')
+            paras = [cleantext(p) for p in [title] + text.splitlines()]
+            paras = filter(None, paras)
+            if not paras:
+                continue
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            out.write('\n'.join(paras) + '\n')
+
 
 # Normally we put site-specific logic into the language-specific scripts,
 # but a couple sites have large amounts of text in many underserved languages,
