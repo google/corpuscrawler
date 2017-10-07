@@ -388,7 +388,9 @@ def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
         text = text.split('</div><!-- story_text -->')[0]
         text = text.replace('\n', ' ').replace('\r', ' ').replace('</p>', '\n')
         paras = [cleantext(p) for p in [title] + teaser + text.splitlines()]
-        paras = filter(None, paras)
+        paras = [p for p in paras
+                 if p and p.find('var ') < 0 and p.find('autoPlay') < 0
+                 and p.find('playerFile') < 0]
         out.write('# Location: %s\n' % url)
         out.write('# Genre: News\n')
         out.write('# Publication-Date: %s\n' % pubdate)
