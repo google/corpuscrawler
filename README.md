@@ -57,7 +57,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ig`                | Igbo                         |     13K  |
 | `kj`                | Kuanyama                     |  1,492K  |
 | `kk`                | Kazakh                       |    670K  |
-| `km`                | Khmer                        |  8,542K² |
+| `km`                | Khmer                        | 20,908K  |
 | `ku`                | Kurdish                      |  1,620K² |
 | `ky`                | Kyrgyz                       |  4,492K² |
 | `lo`                | Lao                          |  4,456K  |
