@@ -42,6 +42,7 @@ To build corpora for not-yet-supported languages, please read the
 | `el`                | Greek                        |  1,005K² |
 | `fa`                | Persian                      |  9,238K  |
 | `fa-AF`             | Dari                         |  4,898K² |
+| `fi`                | Finnish                      |    619K² |
 | `fit`               | Tornedalen Finnish           |    292K  |
 | `fo`                | Faroese                      |    867K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
