@@ -29,11 +29,11 @@ To build corpora for not-yet-supported languages, please read the
 | `ae`                | Avestan                      |    129K  |
 | `ae-Latn`           | Avestan (Latin)              |    141K  |
 | `am`                | Amharic                      |  2,206K  |
-| `az`                | Azerbaijani                  |    511K² |
+| `az`                | Azerbaijani                  |  3,413K  |
 | `be`                | Belarusian                   |  1,494K  |
 | `bg`                | Bulgarian                    | 10,718K  |
 | `bm`                | Bambara                      |     31K  |
-| `bn`                | Bangla                       |  4,846K² |
+| `bn`                | Bangla                       |  7,258K  |
 | `bo`                | Tibetan                      | 10,718K  |
 | `bs`                | Bosnian                      |  9,093K  |
 | `ccp`               | Chakma                       |     79K  |
@@ -41,8 +41,8 @@ To build corpora for not-yet-supported languages, please read the
 | `dz`                | Dzongkha                     |     62K  |
 | `el`                | Greek                        |  1,005K² |
 | `fa`                | Persian                      |  9,238K  |
-| `fa-AF`             | Dari                         |  4,898K² |
-| `fi`                | Finnish                      |    619K² |
+| `fa-AF`             | Dari                         |  7,363K  |
+| `fi`                | Finnish                      |  4,058K² |
 | `fit`               | Tornedalen Finnish           |    292K  |
 | `fo`                | Faroese                      |    867K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
@@ -53,12 +53,12 @@ To build corpora for not-yet-supported languages, please read the
 | `ha`                | Hausa                        |  1,800K  |
 | `hi`                | Hindi                        |  2,334K² |
 | `hr`                | Croatian                     |  8,292K  |
-| `id`                | Indonesian                   |    723K² |
+| `id`                | Indonesian                   |  6,634K  |
 | `ig`                | Igbo                         |     13K  |
 | `kj`                | Kuanyama                     |  1,492K  |
 | `kk`                | Kazakh                       |    670K  |
 | `km`                | Khmer                        | 20,908K  |
-| `ku`                | Kurdish                      |  1,620K² |
+| `ku`                | Kurdish                      |  2,479K  |
 | `ky`                | Kyrgyz                       |  4,492K² |
 | `lo`                | Lao                          |  4,456K  |
 | `mk`                | Macedonian                   |  1,469K² |
