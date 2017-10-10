@@ -81,7 +81,7 @@ To build corpora for not-yet-supported languages, please read the
 | `so`                | Somali                       |    874K  |
 | `sq`                | Albanian                     | 10,104K  |
 | `sr-Latn`           | Serbian (Latin)              |    369K² |
-| `sv`                | Swedish                      |    236K  |
+| `sv`                | Swedish                      |    236K² |
 | `sw`                | Swahili                      |  8,817K  |
 | `ta`                | Tamil                        |  1,413K  |
 | `taq`               | Tamasheq                     |     66K  |

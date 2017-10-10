@@ -20,4 +20,5 @@ from corpuscrawler.util import crawl_udhr
 def crawl(crawler):
     out = crawler.get_output(language='sv')
     crawl_udhr(crawler, out, filename='udhr_swe.txt')
+    crawler.crawl_sverigesradio(out, program_id=83)
     crawler.crawl_sverigesradio(out, program_id=4916)
