@@ -147,7 +147,10 @@ class Crawler(object):
         content = doc.content
         if content.startswith(b'\x1F\x8B'):
             content = zlib.decompress(content, zlib.MAX_WBITS|32)
-        sitemap = etree.fromstring(content)
+        try:
+            sitemap = etree.fromstring(content)
+        except etree.ParseError:
+            return {}
         xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
         for s in sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns)):
             subsitemap = s.text.strip()
