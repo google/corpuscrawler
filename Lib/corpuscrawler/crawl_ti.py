@@ -13,11 +13,14 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from corpuscrawler.util import crawl_udhr
+import os.path
 import re
+
+from corpuscrawler.util import crawl_udhr
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='bm')
-    crawl_udhr(crawler, out, filename='udhr_bam.txt')
-    crawler.crawl_voice_of_america(out, host='voabambara.com')
+    out = crawler.get_output(language='ti')
+    crawl_udhr(crawler, out, filename='udhr_tir.txt')
+    crawler.crawl_voice_of_america(out, host='tigrigna.voanews.com',
+                                   ignore_ascii=True)

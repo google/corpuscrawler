@@ -241,6 +241,54 @@ class Crawler(object):
             out.write('# Genre: News\n')
             out.write('\n'.join(paras) + '\n')
 
+    def crawl_voice_of_america(self, out, host, ignore_ascii=False):
+        site = 'https://%s' % host
+        sitemap = self.fetch_sitemap(urljoin(site, 'sitemap.xml'))
+        for url in sorted(sitemap.keys()):
+            doc = self.fetch(url)
+            if doc.status != 200:
+                continue
+            try:
+                html = doc.content.decode('utf-8')
+            except UnicodeDecodeError:
+                continue
+            title = re.search(r'<title>(.+?)</title>', html)
+            title = title.group(1) if title else ''
+            pubdate = re.search(
+                r'<div class="published">\s*<span class="date"\s*>\s*'
+                r'<time datetime="(.+?)"', html)
+            pubdate = cleantext(pubdate.group(1)) if pubdate else ''
+            if pubdate.startswith('1900'):
+                pubdate = ''
+            description = re.search(
+                r'<meta name="description" content="(.+?)"', html)
+            description = description.group(1) if description else ''
+            if description == title:
+                description = ''
+            paragraphs = [title, description]
+            if html.find('<div class="intro content-offset">') > 0:
+                intro = html.split('<div class="intro content-offset">', 1)[1]
+                intro = intro.split('</div')[0]
+                intro = intro.replace('</p>', '\n').replace('</P>', '\n')
+                paragraphs.extend(intro.splitlines())
+            if html.find('<div class="wsw">') > 0:
+                content = html.split('<div class="wsw">', 1)[1]
+                content = content.split('<div')[0]
+                content = content.replace('</p>', '\n').replace('</P>', '\n')
+                paragraphs.extend(content.splitlines())
+            paragraphs = filter(None, [cleantext(p) for p in paragraphs])
+            paragraphs = [p for p in paragraphs if not p.startswith('VOA')]
+            if ignore_ascii:
+                paragraphs = [p for p in paragraphs
+                              if not (ord(p[0]) >= 0x30 and ord(p[0]) <= 0xff)]
+            print(url, len(paragraphs))
+            if len(paragraphs) > 0:
+                out.write('# Location: %s\n' % url)
+                out.write('# Genre: News\n')
+                if pubdate:
+                    out.write('# Publication-Date: %s\n' % pubdate)
+                out.write('\n'.join(paragraphs) + '\n')
+
 
 # Normally we put site-specific logic into the language-specific scripts,
 # but a couple sites have large amounts of text in many underserved languages,

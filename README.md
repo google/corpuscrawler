@@ -85,6 +85,7 @@ To build corpora for not-yet-supported languages, please read the
 | `sw`                | Swahili                      |  8,817K  |
 | `ta`                | Tamil                        |  1,413K  |
 | `taq`               | Tamasheq                     |     66K  |
+| `ti`                | Tigrinya                     |     26K² |
 | `tr`                | Turkish                      |  7,005K² |
 | `ug`                | Uyghur                       |  9,493K  |
 | `uk`                | Ukrainian                    |  4,942K² |
