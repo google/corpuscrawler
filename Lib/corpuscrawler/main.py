@@ -18,10 +18,10 @@ import sys
 from corpuscrawler import (
     crawl_ae, crawl_am, crawl_az, crawl_be, crawl_bg,
     crawl_bm, crawl_bn, crawl_bo, crawl_bs, crawl_ccp,
-    crawl_cs, crawl_dz, crawl_el, crawl_fa, crawl_fi,
-    crawl_fit, crawl_fo,
-    crawl_fuv, crawl_gsw, crawl_gv, crawl_ha, crawl_hi,
-    crawl_hr,  crawl_id, crawl_ig, crawl_ja, crawl_kj, crawl_kk,
+    crawl_cs, crawl_de, crawl_dz, crawl_el, crawl_es,
+    crawl_fa, crawl_fi, crawl_fit, crawl_fo, crawl_fuv,
+    crawl_gsw, crawl_gv, crawl_ha, crawl_hi, crawl_hr,
+    crawl_id, crawl_ig, crawl_ja, crawl_kj, crawl_kk,
     crawl_km, crawl_ku, crawl_ky, crawl_lo, crawl_mnw,
     crawl_mk, crawl_mt, crawl_my, crawl_pl, crawl_ps,
     crawl_rm, crawl_ro, crawl_ru, crawl_rw, crawl_shn,
@@ -45,8 +45,10 @@ def main():
         'bs': crawl_bs.crawl,    # Bosnian
         'ccp': crawl_ccp.crawl,  # Chakma
         'cs': crawl_cs.crawl,    # Czech
+        'de': crawl_de.crawl,    # German
         'dz': crawl_dz.crawl,    # Dzongkha
         'el': crawl_el.crawl,    # Greek
+        'es': crawl_es.crawl,    # Spanish
         'fa': crawl_fa.crawl,    # Persian
         'fi': crawl_fi.crawl,    # Finnish
         'fit': crawl_fit.crawl,  # Tornedalen Finnish

@@ -38,8 +38,10 @@ To build corpora for not-yet-supported languages, please read the
 | `bs`                | Bosnian                      |  8,993K  |
 | `ccp`               | Chakma                       |     79K  |
 | `cs`                | Czech                        |  3,141K  |
+| `de`                | German                       |    238K² |
 | `dz`                | Dzongkha                     |     61K  |
 | `el`                | Greek                        |    995K² |
+| `es`                | Spanish                      |  7,912K² |
 | `fa`                | Persian                      |  9,114K  |
 | `fa-AF`             | Dari                         |  7,363K  |
 | `fi`                | Finnish                      |  4,058K² |
