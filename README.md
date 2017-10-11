@@ -55,6 +55,7 @@ To build corpora for not-yet-supported languages, please read the
 | `hr`                | Croatian                     |  8,188K  |
 | `id`                | Indonesian                   |  6,634K  |
 | `ig`                | Igbo                         |     13K  |
+| `ja`                | Japanese                     |  2,116K  |
 | `kj`                | Kuanyama                     |  1,474K  |
 | `kk`                | Kazakh                       |    642K  |
 | `km`                | Khmer                        | 20,908K  |
