@@ -281,7 +281,6 @@ class Crawler(object):
             if ignore_ascii:
                 paragraphs = [p for p in paragraphs
                               if not (ord(p[0]) >= 0x30 and ord(p[0]) <= 0xff)]
-            print(url, len(paragraphs))
             if len(paragraphs) > 0:
                 out.write('# Location: %s\n' % url)
                 out.write('# Genre: News\n')
