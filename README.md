@@ -40,7 +40,7 @@ To build corpora for not-yet-supported languages, please read the
 | `cs`                | Czech                        |  3,141K  |
 | `de`                | German                       |    238K² |
 | `dz`                | Dzongkha                     |     61K  |
-| `el`                | Greek                        |    995K² |
+| `el`                | Greek                        |  5,470K  |
 | `es`                | Spanish                      |  7,912K² |
 | `fa`                | Persian                      |  9,114K  |
 | `fa-AF`             | Dari                         |  7,363K  |
@@ -83,7 +83,7 @@ To build corpora for not-yet-supported languages, please read the
 | `shn`               | Shan                         |  1,435K  |
 | `so`                | Somali                       |    874K  |
 | `sq`                | Albanian                     | 10,104K  |
-| `sr-Latn`           | Serbian (Latin)              |    369K² |
+| `sr-Latn`           | Serbian (Latin)              | 10,143K  |
 | `sv`                | Swedish                      |    236K² |
 | `sw`                | Swahili                      |  8,817K  |
 | `ta`                | Tamil                        |  1,413K  |
