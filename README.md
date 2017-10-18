@@ -44,7 +44,7 @@ To build corpora for not-yet-supported languages, please read the
 | `es`                | Spanish                      |  7,912K² |
 | `fa`                | Persian                      |  9,114K  |
 | `fa-AF`             | Dari                         |  7,363K  |
-| `fi`                | Finnish                      |  4,058K² |
+| `fi`                | Finnish                      |  4,837K  |
 | `fit`               | Tornedalen Finnish           |    292K  |
 | `fo`                | Faroese                      |    851K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
@@ -53,7 +53,7 @@ To build corpora for not-yet-supported languages, please read the
 | `gsw-u-sd-chfr`    | Swiss German (Fribourg)      |     42K  |
 | `gv`                | Manx Gaelic                  |    152K  |
 | `ha`                | Hausa                        |  1,775K  |
-| `hi`                | Hindi                        |  2,303K² |
+| `hi`                | Hindi                        | 10,004K  |
 | `hr`                | Croatian                     |  8,188K  |
 | `id`                | Indonesian                   |  6,634K  |
 | `ig`                | Igbo                         |     13K  |
