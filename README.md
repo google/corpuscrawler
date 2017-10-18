@@ -81,6 +81,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ru`                | Russian                      |  6,216K² |
 | `rw`                | Kinyarwanda                  |    605K  |
 | `shn`               | Shan                         |  1,435K  |
+| `sn`                | Shona                        |  2,542K  |
 | `so`                | Somali                       |    874K  |
 | `sq`                | Albanian                     | 10,104K  |
 | `sr-Latn`           | Serbian (Latin)              | 10,143K  |
