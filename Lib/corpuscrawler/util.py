@@ -207,11 +207,11 @@ class Crawler(object):
                 continue
             html = page.content.decode('utf-8').replace('<P>', '<p>')
             title = re.search(r'<h1>(.+?)</h1>', html, re.DOTALL)
-            title = cleantext(title) if title else ''
+            title = title.group(1) if title else None
             if html.find('<div class="episode-details__body">') > 0:
-              text = html.split('<div class="episode-details__body">', 1)[1]
+                text = html.split('<div class="episode-details__body">', 1)[1]
             else:
-              text = html.replace('<P>', '<p>').split('<p>', 1)[1]
+                text = html.replace('<P>', '<p>').split('<p>', 1)[1]
             for separator in (
                     '<p class="byline"',
                     '<h2 class="label',
@@ -233,7 +233,7 @@ class Crawler(object):
             text = text.replace('\n', ' ').replace('\r', ' ')
             for tag in ('</p>', '</div>', '</li>', '<br>', '<br/>', '<br />'):
                 text = text.replace(tag, '\n').replace(tag.upper(), '\n')
-            paras = [cleantext(p) for p in [title] + text.splitlines()]
+            paras = [cleantext(p) for p in [title] + text.splitlines() if p]
             paras = filter(None, paras)
             if not paras:
                 continue
