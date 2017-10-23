@@ -105,6 +105,7 @@ class Crawler(object):
 
     def fetch(self, url, redirections=None):
         if not self.is_fetch_allowed_by_robots_txt(url):
+            print('Skipped:        %s' % url)
             return FetchResult(headers='', content='', status=403)
 
         digest = hashlib.sha256(url).digest()
@@ -112,15 +113,17 @@ class Crawler(object):
                                 "f" + base64.urlsafe_b64encode(digest))
         try:
             with open(filepath, 'r') as f:
+                print('Cache-Hit:      %s' % url)
                 headers, content = f.read().split(b'\r\n\r\n\r\n', 1)
                 headers = mimetools.Message(StringIO(headers))
                 status = int(headers.get('Status', '200'))
                 return FetchResult(headers, content, status)
         except IOError:
             pass
+
+        print('Downloading:    %s' % url)
         delay = random.uniform(self.crawldelay, self.crawldelay + 2)  # jitter
         time.sleep(delay)
-        print(url)
         request = urllib2.Request(url, headers={'User-Agent': self.useragent})
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         try:
