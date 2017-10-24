@@ -69,7 +69,7 @@ To build corpora for not-yet-supported languages, please read the
 | `mt`                | Maltese                      |  3,331K  |
 | `my`                | Burmese                      |  1,007K  |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  |
-| `pl`                | Polish                       |    661K² |
+| `pl`                | Polish                       |  7,148K  |
 | `ps`                | Pashto                       |  7,343K  |
 | `rm-puter`          | Romansh (Puter)              |  1,068K  |
 | `rm-rumgr`          | Romansh (Grischun)           |  4,794K  |
@@ -90,7 +90,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ta`                | Tamil                        |  1,413K  |
 | `taq`               | Tamasheq                     |     66K  |
 | `ti`                | Tigrinya                     |    803K  |
-| `tr`                | Turkish                      |  7,005K² |
+| `tr`                | Turkish                      | 13,846K  |
 | `ug`                | Uyghur                       |  9,493K  |
 | `uk`                | Ukrainian                    |  4,942K² |
 | `ur`                | Urdu                         |  3,622K  |
