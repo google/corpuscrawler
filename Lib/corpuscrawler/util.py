@@ -142,7 +142,7 @@ class Crawler(object):
         return FetchResult(headers=response.headers, content=content,
                            status=status)
 
-    def fetch_sitemap(self, url, processed=set()):
+    def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
         result = {}
         doc = self.fetch(url)
@@ -157,9 +157,13 @@ class Crawler(object):
         xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
         for s in sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns)):
             subsitemap = s.text.strip()
-            if subsitemap not in processed:  # prevent infinite recursion
-                processed.add(subsitemap)
-                result.update(self.fetch_sitemap(subsitemap, processed))
+            # prevent infinite recursion
+            if subsitemap in processed:
+                continue
+            if not subsitemap_filter(subsitemap):
+                continue
+            processed.add(subsitemap)
+            result.update(self.fetch_sitemap(subsitemap, processed))
         locpath, lastmodpath = '{%s}loc' % xmlns, '{%s}lastmod' % xmlns
         for urlinfo in sitemap.findall('{%s}url' % xmlns):
             location = urlinfo.find(locpath)
@@ -364,7 +368,10 @@ def write_paragraphs(et, out):
 
 def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
     urls = set()
-    for url in crawler.fetch_sitemap('http://www.dw.com/sitemap.xml'):
+    for url in crawler.fetch_sitemap(
+        'http://www.dw.com/sitemap.xml',
+        subsitemap_filter=lambda s: s.startswith('http://www.dw.com%s' % prefix),
+    ):
         path = urlpath(url)
         if need_percent_in_url and '%' not in path:
             continue
