@@ -16,8 +16,8 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import base64
-import collections
 import codecs
+import collections
 import datetime
 import hashlib
 import mimetools
@@ -25,6 +25,7 @@ import os
 import random
 import re
 import ssl
+import struct
 import time
 import unicodedata
 import urllib
@@ -551,13 +552,22 @@ def find_wordpress_urls(crawler, site):
     return urls
 
 
+def unichar(i):
+    try:
+        return unichr(i)
+    except ValueError:
+        # non-BMP codepoint in narrow Python build
+        return struct.pack('i', i).decode('utf-32')
+
+
 def replace_html_entities(html):
     entities = htmlentitydefs.name2codepoint
-    html = re.sub(r'&#([0-9]+);', lambda z:unichr(int(z.group(1))), html)
-    html = re.sub(
-        r'&#[xX]([0-9a-fA-F]+);', lambda z:unichr(int(z.group(1), 16)), html)
+    html = re.sub(r'&#([0-9]+);',
+                  lambda z:unichar(int(z.group(1))), html)
+    html = re.sub(r'&#[xX]([0-9a-fA-F]+);',
+                  lambda z:unichar(int(z.group(1), 16)), html)
     html = re.sub(r'&([a-zA-Z]+);',
-                  lambda z:unichr(entities.get(z.group(1).lower(), 0x20)), html)
+                  lambda z:unichar(entities.get(z.group(1).lower(), 0x20)), html)
     return html
 
 
