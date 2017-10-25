@@ -15,7 +15,8 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 
-from corpuscrawler.util import cleantext, crawl_bbc_news, crawl_udhr, urlpath
+from corpuscrawler.util import (
+    cleantext, crawl_bbc_news, crawl_udhr, extract, urlpath)
 
 
 def crawl(crawler):
@@ -38,8 +39,10 @@ def crawl_azattyk_org(crawler, out):
         if pubdate is not None:
             pubdate = cleantext(pubdate.group(1)).replace(' ', 'T')
         title = re.search(r'<title>(.+?)</title>', html).group(1)
-        text = html.split('content-offset">', 1)[1].split('</div>')[0]
-        paras = [title] + text.replace('<br />', '\n').splitlines()
+        text = extract('content-offset">', '</div>', html)
+        if not text:
+            continue
+        paras = [title] + re.sub(r'<br\s*?/?>', '\n', text).splitlines()
         paras = filter(None, [cleantext(p) for p in paras])
         paras = [p for p in paras if not p.startswith('http')]
         if not paras:

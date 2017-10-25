@@ -569,6 +569,11 @@ def cleantext(html):
     return unicodedata.normalize('NFC', ' '.join(html.split()))
 
 
+def extract(before, after, html):
+    s = html.split(before, 1)
+    return s[1].split(after)[0] if len(s) == 2 else None
+
+
 def fixquotes(s):
     s = (' ' + s).replace(" '", " ‘").replace("'", "’")
     s = s.replace(' "', ' “').replace('"', '”')
