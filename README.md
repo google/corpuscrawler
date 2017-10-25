@@ -64,7 +64,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ku`                | Kurdish                      |  2,479K  |
 | `ky`                | Kyrgyz                       |  4,380K² |
 | `lo`                | Lao                          |  4,384K  |
-| `mk`                | Macedonian                   |  1,449K² |
+| `mk`                | Macedonian                   | 10,422K  |
 | `mnw`               | Mon                          |  1,836K  |
 | `mt`                | Maltese                      |  3,331K  |
 | `my`                | Burmese                      |  1,007K  |
@@ -92,7 +92,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ti`                | Tigrinya                     |    803K  |
 | `tr`                | Turkish                      | 13,846K  |
 | `ug`                | Uyghur                       |  9,493K  |
-| `uk`                | Ukrainian                    |  4,942K² |
+| `uk`                | Ukrainian                    | 12,921K  |
 | `ur`                | Urdu                         |  3,622K  |
 | `yo`                | Yoruba                       |     80K  |
 
