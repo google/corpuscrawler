@@ -38,19 +38,19 @@ To build corpora for not-yet-supported languages, please read the
 | `bs`                | Bosnian                      |  8,993K  |
 | `ccp`               | Chakma                       |     79K  |
 | `cs`                | Czech                        |  3,141K  |
-| `de`                | German                       |    238K² |
+| `de`                | German                       |  7,894K² |
 | `dz`                | Dzongkha                     |     61K  |
 | `el`                | Greek                        |  5,470K  |
-| `es`                | Spanish                      |  7,912K² |
+| `es`                | Spanish                      | 13,511K² |
 | `fa`                | Persian                      |  9,114K  |
 | `fa-AF`             | Dari                         |  7,363K  |
 | `fi`                | Finnish                      |  4,837K  |
 | `fit`               | Tornedalen Finnish           |    292K  |
 | `fo`                | Faroese                      |    851K  |
 | `fuv`               | Nigerian Fulfulde            |     13K  |
-| `gsw-u-sd-chag`    | Swiss German (Aargau)        |     99K  |
-| `gsw-u-sd-chbe`    | Swiss German (Bern)          |     73K  |
-| `gsw-u-sd-chfr`    | Swiss German (Fribourg)      |     42K  |
+| `gsw-u-sd-chag`     | Swiss German (Aargau)        |     99K  |
+| `gsw-u-sd-chbe`     | Swiss German (Bern)          |     73K  |
+| `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K  |
 | `gv`                | Manx Gaelic                  |    152K  |
 | `ha`                | Hausa                        |  1,775K  |
 | `hi`                | Hindi                        | 10,004K  |
@@ -85,7 +85,7 @@ To build corpora for not-yet-supported languages, please read the
 | `so`                | Somali                       |    874K  |
 | `sq`                | Albanian                     | 10,104K  |
 | `sr-Latn`           | Serbian (Latin)              | 10,143K  |
-| `sv`                | Swedish                      |    236K² |
+| `sv`                | Swedish                      | 23,803K² |
 | `sw`                | Swahili                      |  8,817K  |
 | `ta`                | Tamil                        |  1,413K  |
 | `taq`               | Tamasheq                     |     66K  |
