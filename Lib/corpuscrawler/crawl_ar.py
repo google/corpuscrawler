@@ -14,7 +14,8 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
+from corpuscrawler.util import crawl_bbc_news, crawl_deutsche_welle, \
+     crawl_sputnik_news, crawl_udhr
 
 
 def crawl(crawler):
@@ -25,3 +26,5 @@ def crawl_modern_standard_arabic(crawler):
     out = crawler.get_output(language='ar')
     crawl_udhr(crawler, out, filename='udhr_arb.txt')
     crawl_deutsche_welle(crawler, out, prefix='/ar/')
+    crawl_sputnik_news(crawler, out, host='arabic.sputniknews.com')
+    crawl_bbc_news(crawler, out, urlprefix='/arabic/')
