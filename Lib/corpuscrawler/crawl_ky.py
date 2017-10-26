@@ -38,10 +38,8 @@ def crawl_azattyk_org(crawler, out):
         pubdate = re.search(r'"dateModified":"([^"]+)"', html)
         if pubdate is not None:
             pubdate = cleantext(pubdate.group(1)).replace(' ', 'T')
-        title = re.search(r'<title>(.+?)</title>', html).group(1)
+        title = extract('<title>', '</title>', html)
         text = extract('content-offset">', '</div>', html)
-        if not text:
-            continue
         paras = [title] + re.sub(r'<br\s*?/?>', '\n', text).splitlines()
         paras = filter(None, [cleantext(p) for p in paras])
         paras = [p for p in paras if not p.startswith('http')]
