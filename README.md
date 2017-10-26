@@ -25,7 +25,7 @@ To build corpora for not-yet-supported languages, please read the
 ## Supported Languages
 
 | IETF BCP47 Code     | Language                     |  Tokens¹                                                                           |
-| :------------------ | :--------------------------- | ---------------------------------------------------------------------------------- |
+| :------------------ | :--------------------------- | ---------------------------------------------------------------------------------: |
 | `ae`                | Avestan                      |    129K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ae.txt)                |
 | `ae-Latn`           | Avestan (Latin)              |    141K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ae-Latn.txt)           |
 | `am`                | Amharic                      |  2,170K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/am.txt)                |
