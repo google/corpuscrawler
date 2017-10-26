@@ -40,6 +40,8 @@ def crawl_azattyk_org(crawler, out):
             pubdate = cleantext(pubdate.group(1)).replace(' ', 'T')
         title = extract('<title>', '</title>', html)
         text = extract('content-offset">', '</div>', html)
+        if not title or not text:
+            continue
         paras = [title] + re.sub(r'<br\s*?/?>', '\n', text).splitlines()
         paras = filter(None, [cleantext(p) for p in paras])
         paras = [p for p in paras if not p.startswith('http')]
