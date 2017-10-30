@@ -21,7 +21,5 @@ from corpuscrawler.util import crawl_bbc_news, crawl_udhr
 
 def crawl(crawler):
     out = crawler.get_output(language='gd')
-    # UDHR not on the Unicode site yet, but is translated:
-    # http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=gls
-    #crawl_udhr(crawler, out, filename='udhr_gls.txt')
+    crawl_udhr(crawler, out, filename='udhr_gla.txt')
     crawl_bbc_news(crawler, out, urlprefix='/naidheachdan/')
