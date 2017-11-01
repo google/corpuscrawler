@@ -20,6 +20,10 @@ import sys
 
 from corpuscrawler.util import crawl_udhr, urlpath
 
+try:
+    import xml.etree.cElementTree as etree
+except ImportError:
+    import xml.etree.ElementTree as etree
 
 def crawl(crawler):
     out = crawler.get_output(language='ga')
@@ -35,10 +39,48 @@ def _rtenuacht_path(url):
     return rtenuacht or rnagnuacht
 
 
+def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True):
+    """'http://example.org/sitemap.xml' --> {url: lastmod}"""
+    result = {}
+    doc = crawler.fetch(url)
+    assert doc.status == 200, (doc.status, url)
+    content = doc.content
+    if content.startswith(b'\x1F\x8B'):
+        content = zlib.decompress(content, zlib.MAX_WBITS|32)
+    try:
+        sitemap = etree.fromstring(content)
+    except etree.ParseError:
+        return {}
+    xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
+    submap1 = sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns))
+    submap2 = sitemap.findall('sitemap/loc')
+    for s in submap1 + submap2:
+        subsitemap = s.text.strip()
+        # prevent infinite recursion
+        if subsitemap in processed:
+            continue
+        processed.add(subsitemap)
+        result.update(crawler.fetch_sitemap(subsitemap, processed))
+    locpath, lastmodpath = 'loc', 'lastmod'
+    for urlinfo in sitemap.findall('url') + sitemap.findall('{%s}url' % xmlns):
+        location = urlinfo.find(locpath)
+        if location is None:
+            continue
+        location = location.text.strip()
+        if not url_filter(location):
+            continue
+        lastmod = urlinfo.find(lastmodpath)
+        if lastmod is not None:
+            lastmod = lastmod.text.strip()
+            if len(lastmod) == 0:
+                lastmod = None
+        result[location] = lastmod
+    return result
+
 def crawl_nuachtrte(crawler, out):
-    sitemap = crawler.fetch_sitemap(
-        'http://www.rte.ie/sitemap-20000.xml',
-        subsitemap_filter=lambda s: _rtenuacht_path(s)
+    sitemap = _fetch_rte_sitemap(crawler,
+        'http://www.rte.ie/sitemap.xml',
+        url_filter=lambda s: _rtenuacht_path(s)
         )
     pubdate_regex = re.compile(r'name="DC.date" (?:scheme="DCTERMS.URI" )?content="([0-9T:+\-]{19,25})"')
     for url in sorted(sitemap.keys()):
