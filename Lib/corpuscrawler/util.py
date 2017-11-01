@@ -155,7 +155,9 @@ class Crawler(object):
         except etree.ParseError:
             return {}
         xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
-        for s in sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns)):
+        submap1 = sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns))
+        submap2 = sitemap.findall('sitemap/loc')
+        for s in submap1 + submap2:
             subsitemap = s.text.strip()
             # prevent infinite recursion
             if subsitemap in processed:
