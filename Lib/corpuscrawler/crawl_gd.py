@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright 2017 Google Inc. All rights reserved.
 # Copyright 2017 Jim O'Regan
 #
@@ -23,3 +24,23 @@ def crawl(crawler):
     out = crawler.get_output(language='gd')
     crawl_udhr(crawler, out, filename='udhr_gla.txt')
     crawl_bbc_news(crawler, out, urlprefix='/naidheachdan/')
+    _crawl_dasg(crawler, out)
+
+def _crawl_dasg(crawler, out):
+    base = 'https://dasg.ac.uk/text/'
+    listdoc = crawler.fetch(base)
+    assert listdoc.status() == 200
+    listcontent = listdoc.content.decode('utf-8')
+    links = set()
+    for doclink in re.findall('<a href="([^\.]*).txt">', listcontent):
+        links.add('%s%s.txt' % (base, doclink))
+    for url in links:
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
+        text = doc.content.decode('utf-8')
+        text = re.sub(r'<eng>([^<]*)<gai>', '', text)
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Fiction\n')
+        out.write(text + '\n')
+
