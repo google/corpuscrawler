@@ -47,6 +47,8 @@ def _scrape_maoritelevision(crawler, out):
         doc = crawler.fetch(url)
         if doc.status != 200:
             continue
+        if 'a-motu/rereatea-midday-news' in url:
+            continue
         html = doc.content.decode('utf-8')
         if 'lang="mi"' not in html:
             continue
