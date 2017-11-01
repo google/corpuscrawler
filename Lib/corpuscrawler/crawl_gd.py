@@ -23,13 +23,13 @@ from corpuscrawler.util import crawl_bbc_news, crawl_udhr
 def crawl(crawler):
     out = crawler.get_output(language='gd')
     crawl_udhr(crawler, out, filename='udhr_gla.txt')
-    crawl_bbc_news(crawler, out, urlprefix='/naidheachdan/')
     _crawl_dasg(crawler, out)
+    crawl_bbc_news(crawler, out, urlprefix='/naidheachdan/')
 
 def _crawl_dasg(crawler, out):
     base = 'https://dasg.ac.uk/text/'
     listdoc = crawler.fetch(base)
-    assert listdoc.status() == 200
+    assert listdoc.status == 200, (listdoc.status, base)
     listcontent = listdoc.content.decode('utf-8')
     links = set()
     for doclink in re.findall('<a href="([^\.]*).txt">', listcontent):
@@ -40,6 +40,9 @@ def _crawl_dasg(crawler, out):
             continue
         text = doc.content.decode('utf-8')
         text = re.sub(r'<eng>([^<]*)<gai>', '', text)
+        text = re.sub(r'\r\n\[DA [0-9]+\]\r\n', '', text)
+        text = re.sub(r'\r\n\[TD [0-9]+\]\r\n', '', text)
+        text = re.sub(r'\r\n\[Bàn\]\r\n', '', text)
         out.write('# Location: %s\n' % url)
         out.write('# Genre: Fiction\n')
         out.write(text + '\n')
