@@ -68,11 +68,12 @@ def _scrape_maoritelevision(crawler, out):
         if english: english = 'http://www.maoritelevision.com%s' % english.group(1)
         if english: out.write('# English: %s\n' % english)
         tags = set()
-        tagshtml = html.split('<ul class="tags">')[1].split('</ul>')[0]
-        for tag in re.findall(r'<a href="(?:[^"]*)">([^<]*)</a>', tagshtml):
-            tags.add(cleantext(tag))
-        if len(tags) is not 0:
-            out.write('# Tags: %s' % ', '.join(tags))
+        if '<ul class="tags">' in html:
+            tagshtml = html.split('<ul class="tags">')[1].split('</ul>')[0]
+            for tag in re.findall(r'<a href="(?:[^"]*)">([^<]*)</a>', tagshtml):
+                tags.add(cleantext(tag))
+            if len(tags) is not 0:
+                out.write('# Tags: %s\n' % ', '.join(tags))
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1).split('| Māori')[0]).strip()
         if title: out.write(cleantext(title) + '\n')
