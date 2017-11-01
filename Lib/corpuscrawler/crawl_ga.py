@@ -18,7 +18,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import re
 import sys
 
-from corpuscrawler.util import crawl_udhr, urlpath
+from corpuscrawler.util import crawl_udhr, urlpath, striptags, cleantext
 
 try:
     import xml.etree.cElementTree as etree
@@ -39,7 +39,7 @@ def _rtenuacht_path(url):
     return rtenuacht or rnagnuacht
 
 
-def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True):
+def _fetch_rte_sitemap(crawler, url, processed=set()):
     """'http://example.org/sitemap.xml' --> {url: lastmod}"""
     result = {}
     doc = crawler.fetch(url)
@@ -72,8 +72,6 @@ def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True)
         if location is None:
             continue
         location = location.text.strip()
-        if not url_filter(location):
-            continue
         lastmod = urlinfo.find(lastmodpath)
         if lastmod is not None:
             try:
@@ -85,13 +83,21 @@ def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True)
         result[location] = lastmod
     return result
 
+def _rte_writable_paragraph(text):
+    if text == '':
+        return False
+    if text.startswith('© RTÉ '):
+        return False
+    if text.startswith('By using this website, you consent'):
+        return False
+    return True
+
 def crawl_nuachtrte(crawler, out):
-    sitemap = _fetch_rte_sitemap(crawler,
-        'http://www.rte.ie/sitemap.xml',
-        url_filter=lambda s: _rtenuacht_path(s)
-        )
+    sitemap = _fetch_rte_sitemap(crawler, 'http://www.rte.ie/sitemap.xml')
     pubdate_regex = re.compile(r'name="DC.date" (?:scheme="DCTERMS.URI" )?content="([0-9T:+\-]{19,25})"')
     for url in sorted(sitemap.keys()):
+        if not _rtenuacht_path(url):
+            continue
         fetchresult = crawler.fetch(url)
         if fetchresult.status != 200:
             continue
@@ -107,7 +113,11 @@ def crawl_nuachtrte(crawler, out):
         if title: title = striptags(title.group(1).split('- RTÉ')[0]).strip()
         if title: out.write(cleantext(title) + '\n')
         for paragraph in re.findall(r'<p>(.+?)</p>', html):
-            out.write(cleantext(paragraph) + '\n')
+            cleaned = cleantext(paragraph)
+            if _rte_writable_paragraph(cleaned):
+                out.write(cleaned + '\n')
+            else:
+                continue
 
 
         
