@@ -38,51 +38,6 @@ def _rtenuacht_path(url):
     rnagnuacht = urlpath(url).startswith('/rnag/nuacht-gaeltachta')
     return rtenuacht or rnagnuacht
 
-
-def _fetch_rte_sitemap(crawler, url, processed=set()):
-    """'http://example.org/sitemap.xml' --> {url: lastmod}"""
-    result = {}
-    doc = crawler.fetch(url)
-    if doc.status != 200:
-        return None
-    content = doc.content
-    if content.startswith(b'\x1F\x8B'):
-        content = zlib.decompress(content, zlib.MAX_WBITS|32)
-    try:
-        sitemap = etree.fromstring(content)
-    except etree.ParseError:
-        return {}
-    xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'  # XML namespace
-    submap1 = sitemap.findall('{%s}sitemap/{%s}loc' % (xmlns, xmlns))
-    submap2 = sitemap.findall('sitemap/loc')
-    for s in submap1 + submap2:
-        subsitemap = s.text.strip()
-        # prevent infinite recursion
-        if subsitemap in processed:
-            continue
-        processed.add(subsitemap)
-        nextiter = _fetch_rte_sitemap(crawler, subsitemap, processed)
-        if nextiter is not None:
-            result.update(nextiter)
-        else:
-            break
-    locpath, lastmodpath = 'loc', 'lastmod'
-    for urlinfo in sitemap.findall('url') + sitemap.findall('{%s}url' % xmlns):
-        location = urlinfo.find(locpath)
-        if location is None:
-            continue
-        location = location.text.strip()
-        lastmod = urlinfo.find(lastmodpath)
-        if lastmod is not None:
-            try:
-                lastmod = lastmod.text.strip()
-                if len(lastmod) == 0:
-                    lastmod = None
-            except AttributeError:
-                lastmod = None
-        result[location] = lastmod
-    return result
-
 def _rte_writable_paragraph(text):
     if text == '':
         return False
@@ -92,8 +47,21 @@ def _rte_writable_paragraph(text):
         return False
     return True
 
+def _check_rte_sitemap(url):
+    urlmatch = re.search(r'http://www.rte.ie/sitemap-([0-]+)0000.xml')
+    try:
+        if urlmatch.group(1) < 40:
+            return True
+        else:
+            return False
+    except AttributeError:
+        return True
+
 def crawl_nuachtrte(crawler, out):
-    sitemap = _fetch_rte_sitemap(crawler, 'http://www.rte.ie/sitemap.xml')
+    sitemap = crawler.fetch_sitemap(
+        'http://www.rte.ie/sitemap.xml',
+        subsitemap_filter=lambda x: _check_rte_sitemap(x)
+        )
     pubdate_regex = re.compile(r'name="DC.date" (?:scheme="DCTERMS.URI" )?content="([0-9T:+\-]{19,25})"')
     for url in sorted(sitemap.keys()):
         if not _rtenuacht_path(url):
@@ -119,5 +87,3 @@ def crawl_nuachtrte(crawler, out):
             else:
                 continue
 
-
-        
