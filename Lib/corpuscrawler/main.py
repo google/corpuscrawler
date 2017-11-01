@@ -24,12 +24,12 @@ from corpuscrawler import (
     crawl_ga, crawl_gd, crawl_gsw, crawl_gv, crawl_ha,
     crawl_hi, crawl_hr, crawl_id, crawl_ig, crawl_ja,
     crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
-    crawl_lo, crawl_mnw, crawl_mk, crawl_mr, crawl_mt,
-    crawl_my, crawl_pl, crawl_ps, crawl_rm, crawl_ro,
-    crawl_ru, crawl_rw, crawl_shn, crawl_si, crawl_sn,
-    crawl_so, crawl_sq, crawl_sr, crawl_sv, crawl_sw,
-    crawl_ta, crawl_taq, crawl_ti, crawl_tr, crawl_ug,
-    crawl_uk, crawl_ur, crawl_yo,
+    crawl_lo, crawl_mi, crawl_mnw, crawl_mk, crawl_mr,
+    crawl_mt, crawl_my, crawl_pl, crawl_ps, crawl_rm,
+    crawl_ro, crawl_ru, crawl_rw, crawl_shn, crawl_si,
+    crawl_sn, crawl_so, crawl_sq, crawl_sr, crawl_sv,
+    crawl_sw, crawl_ta, crawl_taq, crawl_ti, crawl_tr,
+    crawl_ug, crawl_uk, crawl_ur, crawl_yo,
 )
 from corpuscrawler.util import Crawler
 
@@ -73,6 +73,7 @@ def main():
         'ku': crawl_ku.crawl,    # Kurdish
         'ky': crawl_ky.crawl,    # Kyrgyz
         'lo': crawl_lo.crawl,    # Lao
+        'mi': crawl_mi.crawl,    # Maori
         'mk': crawl_mk.crawl,    # Macedonian
         'mnw': crawl_mnw.crawl,  # Mon
         'mr': crawl_mr.crawl,    # Marathi
