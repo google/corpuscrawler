@@ -68,7 +68,7 @@ def _scrape_maoritelevision(crawler, out):
         # the link to the English article
         english = re.search(r'<a href="(/news/[^"]*)" class="language-link" lang="en">', html)
         if english: english = 'http://www.maoritelevision.com%s' % english.group(1)
-        if english: out.write('# English: %s\n' % english)
+        if english: out.write('# Translation.en: %s\n' % english)
         tags = set()
         if '<ul class="tags">' in html:
             tagshtml = html.split('<ul class="tags">')[1].split('</ul>')[0]
