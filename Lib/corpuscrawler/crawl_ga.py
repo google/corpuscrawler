@@ -43,7 +43,8 @@ def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True)
     """'http://example.org/sitemap.xml' --> {url: lastmod}"""
     result = {}
     doc = crawler.fetch(url)
-    assert doc.status == 200, (doc.status, url)
+    if doc.status != 200:
+        return None
     content = doc.content
     if content.startswith(b'\x1F\x8B'):
         content = zlib.decompress(content, zlib.MAX_WBITS|32)
@@ -60,7 +61,11 @@ def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True)
         if subsitemap in processed:
             continue
         processed.add(subsitemap)
-        result.update(crawler.fetch_sitemap(subsitemap, processed))
+        nextiter = _fetch_rte_sitemap(crawler, subsitemap, processed)
+        if nextiter is not None:
+            result.update(nextiter)
+        else:
+            break
     locpath, lastmodpath = 'loc', 'lastmod'
     for urlinfo in sitemap.findall('url') + sitemap.findall('{%s}url' % xmlns):
         location = urlinfo.find(locpath)
@@ -71,8 +76,11 @@ def _fetch_rte_sitemap(crawler, url, processed=set(), url_filter=lambda x: True)
             continue
         lastmod = urlinfo.find(lastmodpath)
         if lastmod is not None:
-            lastmod = lastmod.text.strip()
-            if len(lastmod) == 0:
+            try:
+                lastmod = lastmod.text.strip()
+                if len(lastmod) == 0:
+                    lastmod = None
+            except AttributeError:
                 lastmod = None
         result[location] = lastmod
     return result
