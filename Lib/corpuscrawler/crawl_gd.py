@@ -43,6 +43,8 @@ def _crawl_dasg(crawler, out):
         text = re.sub(r'\r\n\[DA [0-9]+\]\r\n', '', text)
         text = re.sub(r'\r\n\[TD [0-9]+\]\r\n', '', text)
         text = re.sub(r'\r\n\[Bàn\]\r\n', '', text)
+        text = re.sub(r'\r', '', text)
+        text = re.sub(r'\n+', '\n', text)
         out.write('# Location: %s\n' % url)
         out.write('# Genre: Fiction\n')
         out.write(text + '\n')
