@@ -21,12 +21,12 @@ from corpuscrawler import (
     crawl_bm, crawl_bn, crawl_bo, crawl_bs, crawl_ccp,
     crawl_cs, crawl_de, crawl_dz, crawl_el, crawl_es,
     crawl_fa, crawl_fi, crawl_fit, crawl_fo, crawl_fuv,
-    crawl_gd, crawl_gsw, crawl_gv, crawl_ha, crawl_hi,
-    crawl_hr, crawl_id, crawl_ig, crawl_ja, crawl_kj,
-    crawl_kk, crawl_km, crawl_ku, crawl_ky, crawl_lo,
-    crawl_mnw, crawl_mk, crawl_mr, crawl_mt, crawl_my,
-    crawl_pl, crawl_ps, crawl_rm, crawl_ro, crawl_ru,
-    crawl_rw, crawl_shn, crawl_si, crawl_sn,
+    crawl_ga, crawl_gd, crawl_gsw, crawl_gv, crawl_ha,
+    crawl_hi, crawl_hr, crawl_id, crawl_ig, crawl_ja,
+    crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
+    crawl_lo, crawl_mnw, crawl_mk, crawl_mr, crawl_mt,
+    crawl_my, crawl_pl, crawl_ps, crawl_rm, crawl_ro,
+    crawl_ru, crawl_rw, crawl_shn, crawl_si, crawl_sn,
     crawl_so, crawl_sq, crawl_sr, crawl_sv, crawl_sw,
     crawl_ta, crawl_taq, crawl_ti, crawl_tr, crawl_ug,
     crawl_uk, crawl_ur, crawl_yo,
@@ -58,6 +58,7 @@ def main():
         'fo': crawl_fo.crawl,    # Faroese
         'fuv': crawl_fuv.crawl,  # Nigerian Fulfulde
         'gsw': crawl_gsw.crawl,  # Swiss German
+        'ga': crawl_ga.crawl,    # Irish (Gaelic)
         'gd': crawl_gd.crawl,    # Scots Gaelic
         'gv': crawl_gv.crawl,    # Manx Gaelic
         'ha': crawl_ha.crawl,    # Hausa
