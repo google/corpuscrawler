@@ -55,7 +55,7 @@ except ImportError:
 
 
 FetchResult = collections.namedtuple('FetchResult',
-                                     ['headers', 'content', 'status'])
+                                     ['headers', 'content', 'status', 'filepath'])
 
 _TAG_REGEX = re.compile(r'\<.+?\>', flags=re.DOTALL)
 def striptags(s):
@@ -107,7 +107,7 @@ class Crawler(object):
     def fetch(self, url, redirections=None):
         if not self.is_fetch_allowed_by_robots_txt(url):
             print('Skipped:        %s' % url)
-            return FetchResult(headers='', content='', status=403)
+            return FetchResult(headers='', content='', status=403, filepath=None)
 
         digest = hashlib.sha256(url).digest()
         filepath = os.path.join(self.cache_dir,
@@ -118,7 +118,7 @@ class Crawler(object):
                 headers, content = f.read().split(b'\r\n\r\n\r\n', 1)
                 headers = mimetools.Message(StringIO(headers))
                 status = int(headers.get('Status', '200'))
-                return FetchResult(headers, content, status)
+                return FetchResult(headers, content, status, filepath)
         except IOError:
             pass
 
@@ -140,14 +140,13 @@ class Crawler(object):
                 f.write(str(response.headers).rstrip())
                 f.write(b'\r\n\r\n\r\n')
                 f.write(content)
-        return FetchResult(headers=response.headers, content=content,
-                           status=status)
+        return FetchResult(response.headers, content, status, filepath)
 
     def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
         result = {}
         doc = self.fetch(url)
-        assert doc.status == 200, (doc.status, url)
+        assert doc.status == 200, (doc.status, url, doc.filepath)
         content = doc.content
         if content.startswith(b'\x1F\x8B'):
             content = zlib.decompress(content, zlib.MAX_WBITS|32)
