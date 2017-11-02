@@ -50,12 +50,12 @@ def _rte_writable_paragraph(text):
 def _check_rte_sitemap(url):
     urlmatch = re.search(r'http://www.rte.ie/sitemap-([0-9]+)0000.xml', url)
     try:
-        if urlmatch.group(1) < 40:
-            return False
-        else:
+        if int(urlmatch.group(1)) < 40:
             return True
+        else:
+            return False
     except AttributeError:
-        return False
+        return True
 
 def crawl_nuachtrte(crawler, out):
     sitemap = crawler.fetch_sitemap(
