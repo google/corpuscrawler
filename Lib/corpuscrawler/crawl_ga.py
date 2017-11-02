@@ -45,6 +45,8 @@ def _rte_writable_paragraph(text):
         return False
     if text.startswith('By using this website, you consent'):
         return False
+    if text.startswith('RTÉ.ie is the website of Raidió Teilifís Éireann'):
+        return False
     return True
 
 def _check_rte_sitemap(url):
