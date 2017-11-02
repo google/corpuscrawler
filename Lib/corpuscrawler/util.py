@@ -167,15 +167,22 @@ class Crawler(object):
             processed.add(subsitemap)
             result.update(self.fetch_sitemap(subsitemap, processed))
         locpath, lastmodpath = '{%s}loc' % xmlns, '{%s}lastmod' % xmlns
-        for urlinfo in sitemap.findall('{%s}url' % xmlns):
+        for urlinfo in sitemap.findall('{%s}url' % xmlns) + sitemap.findall('url'):
             location = urlinfo.find(locpath)
+            if location is None:
+                location = urlinfo.find('loc')
             if location is None:
                 continue
             location = location.text.strip()
             lastmod = urlinfo.find(lastmodpath)
+            if lastmod is None:
+                lastmod = urlinfo.find('lastmod')
             if lastmod is not None:
-                lastmod = lastmod.text.strip()
-                if len(lastmod) == 0:
+                try:
+                    lastmod = lastmod.text.strip()
+                    if len(lastmod) == 0:
+                        lastmod = None
+                except AttributeError:
                     lastmod = None
             result[location] = lastmod
         return result
