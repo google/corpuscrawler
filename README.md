@@ -41,7 +41,7 @@ To build corpora for not-yet-supported languages, please read the
 | `de`                | German                       |  7,894K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/de.txt)                |
 | `dz`                | Dzongkha                     |     61K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/dz.txt)                |
 | `el`                | Greek                        |  5,470K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/el.txt)                |
-| `es`                | Spanish                      | 13,511K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/es.txt)                |
+| `es`                | Spanish                      | 32,670K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/es.txt)                |
 | `fa`                | Persian                      |  9,114K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/fa.txt)                |
 | `fa-AF`             | Dari                         |  7,363K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/fa-AF.txt)             |
 | `fi`                | Finnish                      |  4,837K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/fi.txt)                |
@@ -64,6 +64,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ku`                | Kurdish                      |  2,479K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ku.txt)                |
 | `ky`                | Kyrgyz                       |  4,380K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ky.txt)                |
 | `lo`                | Lao                          |  4,384K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lo.txt)                |
+| `mi`                | Maori                        |    575K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mi.txt)                |
 | `mk`                | Macedonian                   | 10,422K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mk.txt)                |
 | `mnw`               | Mon                          |  1,836K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mnw.txt)               |
 | `mt`                | Maltese                      |  3,331K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mt.txt)                |
@@ -81,6 +82,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ru`                | Russian                      |  6,216K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
 | `rw`                | Kinyarwanda                  |    605K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rw.txt)                |
 | `shn`               | Shan                         |  1,435K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/shn.txt)               |
+| `si`                | Sinhala                      |  1,046K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/si.txt)                |
 | `sn`                | Shona                        |  2,542K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sn.txt)                |
 | `so`                | Somali                       |    874K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/so.txt)                |
 | `sq`                | Albanian                     | 10,104K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sq.txt)                |
