@@ -24,6 +24,7 @@ def crawl(crawler):
     out = crawler.get_output(language='mi')
     crawl_udhr(crawler, out, filename='udhr_mri.txt')
     _scrape_maoritelevision(crawler, out)
+    _scrape_paiperatapu(crawler, out)
 
 def _scrape_maoritelevision(crawler, out):
     articlelist = set()
@@ -82,3 +83,32 @@ def _scrape_maoritelevision(crawler, out):
         articlehtml = html.split('class="field-body"')[1].split('</div>')[0]
         for paragraph in re.findall(r'<p>(.+?)</p>', articlehtml):
             out.write(cleantext(paragraph) + '\n')
+
+def _scrape_paiperatapu(crawler, out):
+    booklist = list()
+    books = crawler.fetch('http://www.paiperatapu.maori.nz/paipera-tapu-online')
+    assert books.status == 200, books.status
+    bookshtml = books.content.decode('utf-8')
+    bookshtmlinner = bookshtml.split('<div class="bible-book-list">')[1].split('<li class="first bible-search">')[0]
+    for bookslink in re.findall(r'<a href="(/bible/[0-9]*/[^"]*)">', bookshtmlinner):
+        bookurl = 'http://www.paiperatapu.maori.nz' + bookslink
+        book = crawler.fetch(bookurl)
+        assert book.status == 200, book.status
+        bookhtml = book.content.decode('utf-8')
+        bookhtmlinner = bookhtml.split('<ul class="bible-chapter-list">')[1].split('<div class="bible-links">')[0]
+        for chapterlink in re.findall(r'<a href="(/bible/[0-9]*/[^/]*/[^"]*)">', bookhtmlinner):
+            url = 'http://www.paiperatapu.maori.nz' + chapterlink
+            chapter = crawler.fetch(url)
+            assert chapter.status == 200, chapter.status
+            chapterhtml = chapter.content.decode('utf-8')
+            if '<dl class="bible-chapter-content">' not in chapterhtml:
+                continue
+            out.write('# Location: %s\n' % url)
+            title = re.search(r'<title>(.+?)</title>', chapterhtml)
+            if title: title = striptags(title.group(1).split('| Te')[0]).strip()
+            # Title is in English
+            if title: out.write('# Title: %s\n' % cleantext(title))
+            out.write('# Genre: Religion\n')
+            chapterhtmlinner = chapterhtml.split('<dl class="bible-chapter-content">')[1].split('<div class="bible-chapter-seek">')[0]
+            for verse in re.finditer(r'<dt><a name="[^"]*"></a>([^<]*)</dt><dd class="[^"]*">([^<]*)</dd>', chapterhtmlinner):
+                out.write('%s %s\n' % (verse.group(1), cleantext(verse.group(2))))
