@@ -29,7 +29,7 @@ def crawl(crawler):
     out = crawler.get_output(language='ga')
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
     crawl_nuachtrte(crawler, out)
-    
+
 
 # RTE has news sites both for its own Irish language news programme
 # and for Raidió na Gaeltachta
@@ -46,6 +46,8 @@ def _rte_writable_paragraph(text):
     if text.startswith('By using this website, you consent'):
         return False
     if text.startswith('RTÉ.ie is the website of Raidió Teilifís Éireann'):
+        return False
+    if text.find('is not responsible for the content') >= 0:
         return False
     return True
 
