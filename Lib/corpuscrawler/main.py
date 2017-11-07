@@ -22,6 +22,7 @@ from corpuscrawler import (
     crawl_cs, crawl_de, crawl_dz, crawl_el, crawl_es,
     crawl_fa, crawl_fi, crawl_fit, crawl_fo, crawl_fuv,
     crawl_ga, crawl_gd, crawl_gsw, crawl_gv, crawl_ha,
+    crawl_haw,
     crawl_hi, crawl_hr, crawl_id, crawl_ig, crawl_ja,
     crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
     crawl_la,
@@ -63,6 +64,7 @@ def main():
         'gd': crawl_gd.crawl,    # Scots Gaelic
         'gv': crawl_gv.crawl,    # Manx Gaelic
         'ha': crawl_ha.crawl,    # Hausa
+        'haw': crawl_haw.crawl,  # Hawaiian
         'hi': crawl_hi.crawl,    # Hindi
         'hr': crawl_hr.crawl,    # Croatian
         'id': crawl_id.crawl,    # Indonesian
