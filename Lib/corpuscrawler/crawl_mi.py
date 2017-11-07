@@ -55,34 +55,35 @@ def _scrape_maoritelevision(crawler, out):
             continue
         if 'itemprop="articleBody"' not in html:
             continue
+        genre = 'Sport' if '/hakinakina/' in url else 'News'
         pubdate_match = pubdate_regex.search(html)
         pubdate = pubdate_match.group(1) if pubdate_match else None
         if pubdate is None: pubdate = doc.headers.get('Last-Modified')
         if pubdate is None: pubdate = sitemap[url]
-        out.write('# Location: %s\n' % url)
-        if '/hakinakina/' in url:
-            out.write('# Genre: Sport\n')
-        else:
-            out.write('# Genre: News\n')
-        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         # These news stories are a parallel (or at least comparable) corpus, so keeping
         # the link to the English article
         english = re.search(r'<a href="(/news/[^"]*)" class="language-link" lang="en">', html)
         if english: english = 'http://www.maoritelevision.com%s' % english.group(1)
-        if english: out.write('# Translation.en: %s\n' % english)
         tags = set()
         if '<ul class="tags">' in html:
             tagshtml = html.split('<ul class="tags">')[1].split('</ul>')[0]
             for tag in re.findall(r'<a href="(?:[^"]*)">([^<]*)</a>', tagshtml):
                 tags.add(cleantext(tag))
-            if len(tags) is not 0:
-                out.write('# Tags: %s\n' % ', '.join(tags))
+        paras = []
         title = re.search(r'<title>(.+?)</title>', html)
-        if title: title = striptags(title.group(1).split('| Māori')[0]).strip()
-        if title: out.write(cleantext(title) + '\n')
+        if title:
+            paras.append(cleantext(striptags(title.group(1).split('| Māori')[0])))
         articlehtml = html.split('class="field-body"')[1].split('</div>')[0]
-        for paragraph in re.findall(r'<p>(.+?)</p>', articlehtml):
-            out.write(cleantext(paragraph) + '\n')
+        paras.extend([cleantext(p) for p in re.findall(r'<p>(.+?)</p>', articlehtml)])
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: %s\n' % genre)
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        if english: out.write('# Translation.en: %s\n' % english)
+        if tags: out.write('# Tags: %s\n' % ', '.join(tags))
+        out.write('\n'.join(paras) + '\n')
+
 
 def _scrape_paiperatapu(crawler, out):
     booklist = list()
