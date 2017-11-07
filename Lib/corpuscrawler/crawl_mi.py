@@ -75,6 +75,7 @@ def _scrape_maoritelevision(crawler, out):
             paras.append(cleantext(striptags(title.group(1).split('| Māori')[0])))
         articlehtml = html.split('class="field-body"')[1].split('</div>')[0]
         paras.extend([cleantext(p) for p in re.findall(r'<p>(.+?)</p>', articlehtml)])
+        paras = [p for p in paras if p and p.find(' the ') < 0]  # filter out English
         if not paras:
             continue
         out.write('# Location: %s\n' % url)
