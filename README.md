@@ -55,6 +55,7 @@ To build corpora for not-yet-supported languages, please read the
 | `gsw-u-sd-chfr`     | Swiss German (Fribourg)      |     42K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gsw-u-sd-chfr.txt)     |
 | `gv`                | Manx Gaelic                  |    152K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gv.txt)                |
 | `ha`                | Hausa                        |  1,775K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ha.txt)                |
+| `haw`               | Hawaiian                     |  2,221K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/haw.txt)               |
 | `hi`                | Hindi                        | 10,004K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/hi.txt)                |
 | `hr`                | Croatian                     |  8,188K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/hr.txt)                |
 | `id`                | Indonesian                   |  6,634K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/id.txt)                |
@@ -67,7 +68,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ky`                | Kyrgyz                       |  4,380K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ky.txt)                |
 | `la`                | Latin                        |     48K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/la.txt)                |
 | `lo`                | Lao                          |  4,384K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lo.txt)                |
-| `mi`                | Maori                        |    575K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mi.txt)                |
+| `mi`                | Maori                        |  1,504K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mi.txt)                |
 | `mk`                | Macedonian                   | 10,422K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mk.txt)                |
 | `mnw`               | Mon                          |  1,836K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mnw.txt)               |
 | `mt`                | Maltese                      |  3,331K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mt.txt)                |
