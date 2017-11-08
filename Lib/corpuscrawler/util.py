@@ -57,6 +57,12 @@ except ImportError:
 FetchResult = collections.namedtuple('FetchResult',
                                      ['headers', 'content', 'status', 'filepath'])
 
+
+def daterange(start, end):
+    for n in range(int((end - start).days)):
+        yield start + datetime.timedelta(n)
+
+
 _TAG_REGEX = re.compile(r'\<.+?\>', flags=re.DOTALL)
 def striptags(s):
     return _TAG_REGEX.sub('', s)
