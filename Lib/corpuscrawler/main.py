@@ -18,8 +18,9 @@ import sys
 from corpuscrawler import (
     crawl_ae, crawl_am, crawl_az, crawl_ar,
     crawl_be, crawl_bg,
-    crawl_bm, crawl_bn, crawl_bo, crawl_bs, crawl_ccp,
-    crawl_cs, crawl_de, crawl_dz, crawl_el, crawl_es,
+    crawl_bm, crawl_bn, crawl_bo, crawl_bs,
+    crawl_ccp, crawl_cs, crawl_cy,
+    crawl_de, crawl_dz, crawl_el, crawl_es,
     crawl_fa, crawl_fi, crawl_fit, crawl_fo, crawl_fuv,
     crawl_ga, crawl_gd, crawl_gsw, crawl_gv, crawl_ha,
     crawl_haw,
@@ -51,6 +52,7 @@ def main():
         'bs': crawl_bs.crawl,    # Bosnian
         'ccp': crawl_ccp.crawl,  # Chakma
         'cs': crawl_cs.crawl,    # Czech
+        'cy': crawl_cy.crawl,    # Welsh
         'de': crawl_de.crawl,    # German
         'dz': crawl_dz.crawl,    # Dzongkha
         'el': crawl_el.crawl,    # Greek
