@@ -51,6 +51,8 @@ def crawl_jagbani_punjabkesari_in(crawler, out):
             continue
         title = extract('<title>', '</title>', content)
         text = extract('<article>', '</article>', content)
+        if not text:
+            continue
         text = re.sub(r'<br[^a-zA-Z][^>]*>', '<br>', text)
         text = text.replace('\n', ' ').replace('<br>', '\n')
         paras = [title] + text.splitlines()
