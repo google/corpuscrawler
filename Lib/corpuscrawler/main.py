@@ -33,7 +33,7 @@ from corpuscrawler import (
     crawl_ro, crawl_ru, crawl_rw, crawl_shn, crawl_si,
     crawl_sn, crawl_so, crawl_sq, crawl_sr, crawl_sv,
     crawl_sw, crawl_ta, crawl_taq, crawl_ti, crawl_tr,
-    crawl_ug, crawl_uk, crawl_ur, crawl_yo,
+    crawl_ug, crawl_uk, crawl_ur, crawl_vec, crawl_yo,
 )
 from corpuscrawler.util import Crawler
 
@@ -109,6 +109,7 @@ def main():
         'ug': crawl_ug.crawl,    # Uyghur
         'uk': crawl_uk.crawl,    # Ukrainian
         'ur': crawl_ur.crawl,    # Urdu
+        'vec': crawl_vec.crawl,  # Venetian
         'yo': crawl_yo.crawl,    # Yoruba
     }
     parser = argparse.ArgumentParser()
