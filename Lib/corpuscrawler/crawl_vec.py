@@ -28,6 +28,7 @@ def crawl(crawler):
     out = crawler.get_output(language='vec')
     crawl_udhr(crawler, out, filename='udhr_vec.txt')
     crawl_quatrociacoe_it(crawler, out)
+    crawl_wikisource_trieste_vernacola(crawler)
 
 
 def crawl_quatrociacoe_it(crawler, out):
@@ -72,4 +73,48 @@ def crawl_quatrociacoe_it(crawler, out):
         out.write('# Location: %s\n' % url)
         out.write('# Publication-Date: %s-%s-01\n' % (year, month))
         out.write('# Genre: Fiction\n')
+        out.write('\n'.join(paras) + '\n')
+
+
+def crawl_wikisource_trieste_vernacola(crawler):
+    out = crawler.get_output(language='vec-u-sd-itts')
+    urls = set()
+    index = crawler.fetch(
+        'https://vec.wikisource.org/wiki/Indice:Trieste_vernacola.djvu')
+    assert index.status == 200, index.status
+    remarks = extract('<div id="remarks">', 'Colombe</a>',
+                      index.content.decode('utf-8'))
+    for urlpath in sorted(set(re.findall(r'href="(/wiki/[^"]+)"', remarks))):
+        if not urlpath.startswith('/wiki/Trieste_vernacola/'):
+            urls.add('https://vec.wikisource.org' + urlpath)
+    for url in sorted(urls.difference(BLACKLISTED_URLS)):
+        doc = crawler.fetch(url)
+        assert doc.status == 200, (doc.status, url)
+        content = doc.content.decode('utf-8')
+        text = extract('<div id="scatola" class="testo">', '<noscript>',
+                       content)
+        text = text.split('<dt>Note</dt>')[0].split('<dl>')[0]
+        text = text.replace('\n', ' ')
+        text = re.sub(r'<sup.+?</sup>', '', text)
+        text = text.replace('&#160;', ' ')  # NBSP used for spacing
+        text = text.replace("'", "’")
+        text = re.sub(r'<!--.+?-->', '', text, flags=re.DOTALL)
+        text = re.sub(r' alt="[^"]+"', ' ', text, flags=re.DOTALL)
+        text = re.sub(r'<span class="numeroriga".+?</span>', '', text)
+        text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table|TABLE)>', '\n', text)
+        text = re.sub(r'<(?:br|BR)\s*/?>', '\n', text)
+        lines = [l for l in text.splitlines()
+                 if l.find('noprint') < 0 and l.find('font-size:smaller') < 0]
+        text = '\n'.join([cleantext(l) for l in lines])
+        text = re.sub('\n{2,}', '<p>', text).replace('\n', ' | ')
+        text = text.replace('<p>', '\n')
+        paras = filter(None, [' '.join(p.split()) for p in text.splitlines()])
+        if not paras:
+            continue
+        # The book, published in 1920, is a collection of earlier lyrics.
+        pubyear = re.search(r'<span id="ws-year">(\d{4})</span>', content)
+        pubyear = int(pubyear.group(1)) if pubyear else 1920
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Lyrics\n')
+        out.write('# Publication-Date: %d\n' % pubyear)
         out.write('\n'.join(paras) + '\n')
