@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright 2017 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,8 +57,17 @@ def crawl_quatrociacoe_it(crawler, out):
         text = text.replace('\n', ' ').replace('\r', ' ')
         text = re.sub('Torna\s+alla pagina principale', ' ', text)
         text = text.replace('[torna sopra]', ' ')
-        text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6])>', '\n', text)
+        text = re.sub(r'<!--.+?-->', '', text, flags=re.DOTALL)
+        text = re.sub(r' alt="[^"]+"', ' ', text, flags=re.DOTALL)
+        text = text.replace('\u0091', '’')  # misuse of U+0091 PRIVATE USE ONE
+        text = text.replace('\u0092', '’')  # misuse of U+0092 PRIVATE USE TWO
+        text = text.replace('<<', '«').replace('>>', '»')  # invalid HTML
+        text = text.replace('&lt;&lt;', '«').replace('&gt;&gt;', '»')
+        text = re.sub('\.{3,}', '…', text)
+        text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table|TABLE)>', '\n', text)
         text = re.sub(r'<(?:br|BR)\s*/?>', '\n', text)
+        paras = filter(None, [cleantext(p) for p in text.splitlines()])
+        text = re.sub(r'<img.+?\n">', ' ', '\n'.join(paras))
         paras = filter(None, [cleantext(p) for p in text.splitlines()])
         out.write('# Location: %s\n' % url)
         out.write('# Publication-Date: %s-%s-01\n' % (year, month))
