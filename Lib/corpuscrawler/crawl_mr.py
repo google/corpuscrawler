@@ -41,6 +41,8 @@ def crawl_loksatta_com(crawler, out):
         synopsis = extract('<h2 itemprop="description" class="synopsis">',
                            '</h2>', html)
         text = extract('itemprop="articleBody">', '<div', html)
+        if not text:
+            continue
         text = text.replace('\n', ' ')
         text = re.sub(r'</?(?:br|BR|p|P)\s*?/?>', '\n', text)
         paras = [headline, synopsis] + text.splitlines()
