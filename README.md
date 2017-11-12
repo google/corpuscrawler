@@ -101,6 +101,7 @@ To build corpora for not-yet-supported languages, please read the
 | `uk`                | Ukrainian                    | 12,921K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/uk.txt)                |
 | `ur`                | Urdu                         |  3,622K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ur.txt)                |
 | `vec`               | Venetian                     |    815K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec.txt)               |
+| `vec-u-sd-itts`     | Venetian (Trieste)           |     12K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec-u-sd-itts.txt)     |
 | `yo`                | Yoruba                       |     80K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yo.txt)                |
 
 ¹ To count tokens, we use an [ICU word break iterator](http://userguide.icu-project.org/boundaryanalysis#TOC-Word-Boundary) and count all tokens whose break status is one of `UBRK_WORD_LETTER`, `UBRK_WORD_KANA`, or `UBRK_WORD_IDEO`. Downloadable files include counts for each token. To get the raw text, run the crawler yourself.
