@@ -75,7 +75,6 @@ def find_urls_in_larenadomila_it(crawler, start_url, urls=set()):
         def escape_char(c):
             return '%%%02X' % ord(c) if ord(c) > 0x80 else c
         url = ''.join([escape_char(c) for c in url])
-        print(url.encode('utf-8'))
         find_urls_in_larenadomila_it(crawler, url, urls)
     return urls
 
