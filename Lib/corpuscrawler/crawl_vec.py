@@ -25,10 +25,10 @@ BLACKLISTED_URLS = {
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='vec')
+    out = crawler.get_output(language='vec-u-sd-itve')
     crawl_udhr(crawler, out, filename='udhr_vec.txt')
     crawl_larenadomila_it(crawler)
-    crawl_quatrociacoe_it(crawler, out)
+    crawl_quatrociacoe_it(crawler)
     crawl_wikisource_trieste_vernacola(crawler)
 
 
@@ -80,7 +80,8 @@ def find_urls_in_larenadomila_it(crawler, start_url, urls=set()):
     return urls
 
 
-def crawl_quatrociacoe_it(crawler, out):
+def crawl_quatrociacoe_it(crawler):
+    out = crawler.get_output(language='vec-u-sd-itpd')
     urls = set()
     main = crawler.fetch('http://www.quatrociacoe.it/')
     assert main.status == 200, main.status
