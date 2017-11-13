@@ -27,8 +27,57 @@ BLACKLISTED_URLS = {
 def crawl(crawler):
     out = crawler.get_output(language='vec')
     crawl_udhr(crawler, out, filename='udhr_vec.txt')
+    crawl_larenadomila_it(crawler)
     crawl_quatrociacoe_it(crawler, out)
     crawl_wikisource_trieste_vernacola(crawler)
+
+
+def crawl_larenadomila_it(crawler):
+    out = crawler.get_output(language='vec-u-sd-itvr')
+    urls = find_urls_in_larenadomila_it(
+        crawler, 'https://www.larenadomila.it/sito/index.php')
+    for url in sorted(urls.difference(BLACKLISTED_URLS)):
+        if url.find('&view=article&') < 0:
+            continue
+        doc = crawler.fetch(url)
+        assert doc.status == 200, (doc.status, start_url)
+        content = doc.content.decode('utf-8')
+        title = cleantext(extract('<title>', '</title>', content))
+        sections = [title] + [c.strip() for c in content.splitlines()]
+        sections = [c for c in sections
+                    if c.startswith('<div class="item_fulltext">')
+                    or c.startswith('<p><span class="grassetto">')]
+        sections = [c.replace(' <br />- ', ' ') for c in sections]
+        text = '<br/>'.join(sections)
+        text = text.replace('&nbsp;', ' ')  # used for spacing/formatting
+        text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table)>', '\n', text)
+        text = re.sub(r'<br\s*/?>', '\n', text)
+        text = re.sub(r'\.{3,}', '… ', text)
+        text = re.sub(r'\n(-)[^\s]', '- ', text)
+        paras = filter(None, [cleantext(p) for p in text.split('\n')])
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('\n'.join(paras) + '\n')
+
+
+def find_urls_in_larenadomila_it(crawler, start_url, urls=set()):
+    if start_url in urls:
+        return
+    doc = crawler.fetch(start_url)
+    if doc.status != 200:
+        return
+    content = doc.content.decode('utf-8')
+    urls.add(start_url)
+    for path in re.findall(r'href="(/sito/index.php?[^"]+)"', content):
+        url = 'https://www.larenadomila.it' + path.replace('&amp;', '&')
+        url = re.sub(r'\d(:[^&$]+)', '', url)
+        def escape_char(c):
+            return '%%%02X' % ord(c) if ord(c) > 0x80 else c
+        url = ''.join([escape_char(c) for c in url])
+        print(url.encode('utf-8'))
+        find_urls_in_larenadomila_it(crawler, url, urls)
+    return urls
 
 
 def crawl_quatrociacoe_it(crawler, out):
