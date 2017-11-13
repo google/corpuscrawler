@@ -39,13 +39,19 @@ def crawl_azattyk_org(crawler, out):
         if pubdate is not None:
             pubdate = cleantext(pubdate.group(1)).replace(' ', 'T')
         title = extract('<title>', '</title>', html)
-        text = extract('content-offset">', '</div>', html)
+        text = extract('content-offset">', '<footer', html)
         if not title or not text:
             continue
-        paras = [title] + re.sub(r'<br\s*?/?>', '\n', text).splitlines()
-        paras = filter(None, [cleantext(p) for p in paras])
+        text = text.split('<span class="share')[0]
+        text = text.split('<div class="region"')[0]
+        text = text.replace('\n', ' ')
+        paras = [title] + re.sub(r'<(?:br|p|div)\s*?/?>', '\n', text).splitlines()
+        paras = filter(None, [cleantext(p.strip()) for p in paras])
         paras = [p for p in paras if not p.startswith('http')]
         if not paras:
+            continue
+        # Filter out English text.
+        if ord(paras[0][0]) <= 0xFF or ord(paras[-1][-1]) <= 0xFF:
             continue
         out.write('# Location: %s\n' % url)
         out.write('# Genre: News\n')
