@@ -38,6 +38,7 @@ To build corpora for not-yet-supported languages, please read the
 | `bs`                | Bosnian                      |  8,993K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bs.txt)                |
 | `ccp`               | Chakma                       |     79K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ccp.txt)               |
 | `cs`                | Czech                        |  3,141K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cs.txt)                |
+| `cy`                | Welsh                        | 11,519K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cy.txt)                |
 | `de`                | German                       |  7,894K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/de.txt)                |
 | `dz`                | Dzongkha                     |     61K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/dz.txt)                |
 | `el`                | Greek                        |  5,470K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/el.txt)                |
