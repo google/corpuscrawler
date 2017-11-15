@@ -217,6 +217,80 @@ class Crawler(object):
         return checker.can_fetch(useragent=self.useragent_for_robots_txt,
                                  url=urlencode(url))
 
+    def crawl_pngscriptures_org(self, out, language):
+        urlprefix = 'https://pngscriptures.org/%s/' % language
+        copy = self.fetch(urlprefix + 'copyright.htm')
+        assert copy.status == 200, copy.status
+        license_url = re.search(
+            r"href='(https?://creativecommons.org/licenses/[^']+?)'",
+            copy.content.decode('utf-8')).group(1)
+        license_url = license_url.replace('http:', 'https:')
+        for url in sorted(self._find_urls_on_pngscriptures_org(language)):
+            doc = self.fetch(url)
+            assert doc.status == 200, (doc.status, url)
+            text = extract('<div class="main">', "<ul class='tnav'>",
+                           doc.content.decode('utf-8'))
+            text = text.replace('\n', ' ')
+            text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table|TABLE)>', '\n',
+                          text)
+            text = re.sub(r'<(?:br|BR)\s*/?>', '\n', text)
+            text = re.sub(r'<span class="verse".+?</span>', ' ', text,
+                          flags=re.DOTALL)
+            text = re.sub(r'<span class="popup".+?</span>', ' ', text,
+                          flags=re.DOTALL)
+            paras = filter(None, [cleantext(p) for p in text.splitlines()])
+            if paras:
+                out.write('# Location: %s\n' % url)
+                out.write('# Genre: Religion\n')
+                out.write('# License: %s\n' % license_url)
+                out.write('\n'.join(paras) + '\n')
+
+    def _find_urls_on_pngscriptures_org(self, language):
+        urlprefix = 'https://pngscriptures.org/%s/' % language
+        index = self.fetch(urlprefix)
+        assert index.status == 200, index.status
+        booklist = extract("class='bookList'>", "</div>",
+                           index.content.decode('utf-8'))
+        urls = set()
+        for book in re.findall(r"class='nn' href='(.{3})\d*\.htm'", booklist):
+            bookurl = urlprefix + book + '.htm'
+            doc = self.fetch(bookurl)
+            assert doc.status == 200, (doc.status, bookurl)
+            for ref in re.findall(r"href='(%s\d+\.htm)'" % book,
+                                  doc.content.decode('utf-8'))[1:]:
+                urls.add(urlprefix + ref)
+        return urls
+
+    def crawl_radioaustralia_net_au(self, out, program_id):
+        sitemap = self.fetch_sitemap(
+            'http://www.radioaustralia.net.au/sitemap.xml')
+        prefix = '/%s/' % program_id
+        for url in sorted(sitemap):
+            pubdate = re.search(r'/(20\d{2}-\d{2}-\d{2})/', url)
+            if pubdate is None or not urlpath(url).startswith(prefix):
+                continue
+            pubdate = pubdate.group(1)
+            doc = self.fetch(url)
+            if doc.status != 200:
+                continue
+            content = doc.content.decode('utf-8')
+            title = extract('<h2 class="title">', '</h2>', content)
+            text = extract('<div class="node-teaser">',
+                           '<div class="node-social-bottom">', content)
+            if not title or not text:
+                continue
+            text = text.split("<div class='ell-resources'>")[0]
+            text = re.sub(r'<script.+?</script>', ' ', text, flags=re.DOTALL)
+            text = text.replace('\n', ' ').replace('</div>', '\n')
+            paras = [cleantext(p) for p in [title] + text.splitlines()]
+            paras = filter(None, paras)
+            if not paras:
+                continue
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paras) + '\n')
+
     def crawl_sverigesradio(self, out, program_id):
         sitemap = self.fetch_sitemap(
             'http://sverigesradio.se/sida/sitemap.aspx')
