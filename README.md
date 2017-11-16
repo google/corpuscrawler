@@ -59,6 +59,7 @@ To build corpora for not-yet-supported languages, please read the
 | `haw`               | Hawaiian                     |  2,221K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/haw.txt)               |
 | `hi`                | Hindi                        | 10,004K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/hi.txt)                |
 | `hr`                | Croatian                     |  8,188K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/hr.txt)                |
+| `hy`                | Armenian                     | 25,972K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/hy.txt)                |
 | `id`                | Indonesian                   |  6,634K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/id.txt)                |
 | `ig`                | Igbo                         |     13K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ig.txt)                |
 | `ja`                | Japanese                     |  2,116K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ja.txt)                |
@@ -72,9 +73,11 @@ To build corpora for not-yet-supported languages, please read the
 | `mi`                | Maori                        |  1,504K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mi.txt)                |
 | `mk`                | Macedonian                   | 10,422K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mk.txt)                |
 | `mnw`               | Mon                          |  1,836K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mnw.txt)               |
+| `mr`                | Marathi                      | 16,594K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mr.txt)                |
 | `mt`                | Maltese                      |  3,331K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mt.txt)                |
 | `my`                | Burmese                      |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my.txt)                |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my-t-d0-zawgyi.txt)    |
+| `osa`               | Osage                        |      3K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/osa.txt)               |
 | `pl`                | Polish                       |  7,148K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pl.txt)                |
 | `ps`                | Pashto                       |  7,343K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ps.txt)                |
 | `rm-puter`          | Romansh (Puter)              |  1,068K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rm-puter.txt)          |
@@ -101,7 +104,8 @@ To build corpora for not-yet-supported languages, please read the
 | `ug`                | Uyghur                       |  9,493K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ug.txt)                |
 | `uk`                | Ukrainian                    | 12,921K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/uk.txt)                |
 | `ur`                | Urdu                         |  3,622K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ur.txt)                |
-| `vec`               | Venetian                     |    815K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec.txt)               |
+| `vec`               | Venetian                     |      2K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec.txt)               |
+| `vec-u-sd-itpd`     | Venetian (Padua)             |    813K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec-u-sd-itpd.txt)     |
 | `vec-u-sd-itts`     | Venetian (Trieste)           |     12K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec-u-sd-itts.txt)     |
 | `vec-u-sd-itvr`     | Venetian (Verona)            |     16K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/vec-u-sd-itvr.txt)     |
 | `yo`                | Yoruba                       |     80K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yo.txt)                |
