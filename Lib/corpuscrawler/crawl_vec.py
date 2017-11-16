@@ -25,7 +25,7 @@ BLACKLISTED_URLS = {
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='vec-u-sd-itve')
+    out = crawler.get_output(language='vec')
     crawl_udhr(crawler, out, filename='udhr_vec.txt')
     crawl_larenadomila_it(crawler)
     crawl_quatrociacoe_it(crawler)
