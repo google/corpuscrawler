@@ -270,7 +270,7 @@ class Crawler(object):
             if pubdate is None or not urlpath(url).startswith(prefix):
                 continue
             pubdate = pubdate.group(1)
-            doc = self.fetch(url)
+            doc = self.fetch(urlencode(url))
             if doc.status != 200:
                 continue
             content = doc.content.decode('utf-8')
@@ -280,10 +280,7 @@ class Crawler(object):
             if not title or not text:
                 continue
             text = text.split("<div class='ell-resources'>")[0]
-            text = re.sub(r'<script.+?</script>', ' ', text, flags=re.DOTALL)
-            text = text.replace('\n', ' ').replace('</div>', '\n')
-            paras = [cleantext(p) for p in [title] + text.splitlines()]
-            paras = filter(None, paras)
+            paras = clean_paragraphs('<h2>%s</h2>%s' % (title, text))
             if not paras:
                 continue
             out.write('# Location: %s\n' % url)
@@ -660,11 +657,20 @@ def replace_html_entities(html):
 
 
 def cleantext(html):
+    html = re.sub(r'<script.+?</script>', ' ', html, flags=re.DOTALL)
     html = replace_html_entities(striptags(html))
     # Some web sites insert zero-width spaces, possibly as byte order marks
     # (from Microsoft Notepad) which their scripts failed to recognize as such.
     html = html.replace('\u200B', '')
     return unicodedata.normalize('NFC', ' '.join(html.split()))
+
+
+def clean_paragraphs(html):
+    text = html.replace('\n', ' ')
+    text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table|TABLE|tr|td|article)>',
+                  '\n', text)
+    text = re.sub(r'<(?:br|BR)\s*/?>', '\n', text)
+    return filter(None, [cleantext(p) for p in text.split('\n')])
 
 
 def extract(before, after, html):
