@@ -148,6 +148,11 @@ class Crawler(object):
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
+    def fetch_content(self, url):
+        doc = self.fetch(url)
+        assert doc.status == 200, (doc.status, url)
+        return doc.content.decode('utf-8')
+
     def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
         result = {}
