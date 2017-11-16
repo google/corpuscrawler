@@ -20,5 +20,6 @@ from corpuscrawler.util import crawl_radio_free_asia, crawl_udhr
 def crawl(crawler):
     out = crawler.get_output(language='km')
     crawl_udhr(crawler, out, filename='udhr_khm.txt')
+    crawler.crawl_radioaustralia_net_au(out, program_id='khmer')
     # Khmer RFA does not use Unicode encoding for content before 2008.
     crawl_radio_free_asia(crawler, out, edition='khmer', start_year=2008)
