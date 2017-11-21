@@ -92,6 +92,7 @@ To build corpora for not-yet-supported languages, please read the
 | `rw`                | Kinyarwanda                  |    605K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rw.txt)                |
 | `shn`               | Shan                         |  1,435K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/shn.txt)               |
 | `si`                | Sinhala                      |  1,046K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/si.txt)                |
+| `sl`                | Slovenian                    | 10,975K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sl.txt)                |
 | `sn`                | Shona                        |  2,542K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sn.txt)                |
 | `so`                | Somali                       |    874K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/so.txt)                |
 | `sq`                | Albanian                     | 10,104K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sq.txt)                |
