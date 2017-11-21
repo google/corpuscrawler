@@ -66,7 +66,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ja`                | Japanese                     |  2,116K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ja.txt)                |
 | `kj`                | Kuanyama                     |  1,474K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/kj.txt)                |
 | `kk`                | Kazakh                       |    642K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/kk.txt)                |
-| `km`                | Khmer                        | 20,908K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/km.txt)                |
+| `km`                | Khmer                        | 29,110K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/km.txt)                |
 | `ku`                | Kurdish                      |  2,479K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ku.txt)                |
 | `ky`                | Kyrgyz                       | 18,597K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ky.txt)                |
 | `la`                | Latin                        |     48K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/la.txt)                |
