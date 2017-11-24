@@ -17,7 +17,7 @@ import argparse
 import sys
 from corpuscrawler import (
     crawl_ae, crawl_am, crawl_az, crawl_ar,
-    crawl_be, crawl_bg,
+    crawl_ba, crawl_be, crawl_bg,
     crawl_bm, crawl_bn, crawl_bo, crawl_bs,
     crawl_ccp, crawl_cs, crawl_cy,
     crawl_de, crawl_dz, crawl_el, crawl_es,
@@ -48,6 +48,7 @@ def main():
         'am': crawl_am.crawl,    # Amharic
         'ar': crawl_ar.crawl,    # Modern Standard Arabic
         'az': crawl_az.crawl,    # Azerbaijani
+        'ba': crawl_ba.crawl,    # Bashkir
         'be': crawl_be.crawl,    # Belarusian
         'bg': crawl_bg.crawl,    # Bulgarian
         'bm': crawl_bm.crawl,    # Bambara
