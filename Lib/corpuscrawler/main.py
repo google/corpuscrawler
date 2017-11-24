@@ -32,7 +32,7 @@ from corpuscrawler import (
     crawl_mt, crawl_my, crawl_nl,
     crawl_osa, crawl_pa, crawl_pl, crawl_ps,
     crawl_rm,
-    crawl_ro, crawl_ru, crawl_rw, crawl_shn, crawl_si,
+    crawl_ro, crawl_ru, crawl_rw, crawl_sah, crawl_shn, crawl_si,
     crawl_sk, crawl_sl,
     crawl_sn, crawl_so, crawl_sq, crawl_sr, crawl_sv,
     crawl_sw, crawl_ta, crawl_taq, crawl_ti, crawl_tpi,
@@ -101,6 +101,7 @@ def main():
         'ro': crawl_ro.crawl,    # Romanian
         'ru': crawl_ru.crawl,    # Russian
         'rw': crawl_rw.crawl,    # Kinyarwanda
+        'sah': crawl_sah.crawl,  # Sakha
         'shn': crawl_shn.crawl,  # Shan
         'si': crawl_si.crawl,    # Sinhala
         'sk': crawl_sk.crawl,    # Slovak
