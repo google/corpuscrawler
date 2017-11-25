@@ -52,7 +52,10 @@ def _find_urls_on_pravda_sk(crawler):
         url = seed_url
         while url and url not in processed:
             processed.add(url)
-            page = crawler.fetch_content(url)
+            doc = crawler.fetch(url)
+            if doc.status != 200:
+                continue
+            page = doc.content.decode('utf-8')
             for html in re.findall(
                     r'<div class="article-listing(.+?)</div>', page,
                     flags=re.DOTALL):
