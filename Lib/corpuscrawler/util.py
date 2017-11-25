@@ -392,7 +392,14 @@ class Crawler(object):
 # using the same site structure for all languages.
 def crawl_bbc_news(crawler, out, urlprefix):
     # sitemap = {'http://www.bbc.com/burmese/world-41146701': None}
-    sitemap = crawler.fetch_sitemap('http://www.bbc.com/sitemap.xml')
+    sitemap = {}
+    for s in ('http://www.bbc.com/sitemap.xml',
+              'http://www.bbc.com/sitemaps/index-com-news.xml',
+              'http://www.bbc.com/sitemaps/index-com-archive.xml',
+              'https://www.bbc.com/sitemaps/https-index-com-archive.xml',
+              'https://www.bbc.com/sitemaps/https-index-com-news.xml'):
+        sitemap.update(crawler.fetch_sitemap(s))
+    sitemap = {u.replace('http://', 'https://'): d for u, d in sitemap.items()}
     pubdate_regex = re.compile(r'"dateModified":\s*"([0-9T:+\-]{25})"')
     for url in sorted(sitemap.keys()):
         if not urlpath(url).startswith(urlprefix):

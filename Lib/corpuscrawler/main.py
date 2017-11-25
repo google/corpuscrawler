@@ -1,3 +1,5 @@
+# coding: utf-8
+#
 # Copyright 2017 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +32,7 @@ from corpuscrawler import (
     crawl_la,
     crawl_lo, crawl_mi, crawl_mnw, crawl_mk, crawl_mr,
     crawl_mt, crawl_my, crawl_nl,
-    crawl_osa, crawl_pa, crawl_pl, crawl_ps,
+    crawl_osa, crawl_pa, crawl_pcm, crawl_pl, crawl_ps,
     crawl_rm,
     crawl_ro, crawl_ru, crawl_rw, crawl_sah, crawl_shn, crawl_si,
     crawl_sk, crawl_sl,
@@ -96,6 +98,7 @@ def main():
         'nl': crawl_nl.crawl,    # Dutch
         'osa': crawl_osa.crawl,  # Osage
         'pa': crawl_pa.crawl,    # Punjabi
+        'pcm': crawl_pcm.crawl,  # Nigerian Pidgin
         'pl': crawl_pl.crawl,    # Polish
         'ps': crawl_ps.crawl,    # Pashto
         'rm': crawl_rm.crawl,    # Romansh
