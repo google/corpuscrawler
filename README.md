@@ -29,6 +29,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ae`                | Avestan                      |    129K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ae.txt)                |
 | `ae-Latn`           | Avestan (Latin)              |    141K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ae-Latn.txt)           |
 | `am`                | Amharic                      |  2,170K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/am.txt)                |
+| `ar`                | Arabic                       | 14,345K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ar.txt)                |
 | `az`                | Azerbaijani                  |  3,413K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/az.txt)                |
 | `ba`                | Bashkir                      |    666K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ba.txt)                |
 | `be`                | Belarusian                   |  1,441K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/be.txt)                |
@@ -79,8 +80,10 @@ To build corpora for not-yet-supported languages, please read the
 | `mt`                | Maltese                      |  3,331K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mt.txt)                |
 | `my`                | Burmese                      |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my.txt)                |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my-t-d0-zawgyi.txt)    |
+| `nl`                | Dutch                        | 24,289K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/nl.txt)                |
 | `osa`               | Osage                        |      3K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/osa.txt)               |
 | `pcm`               | Nigerian Pidgin              |    315K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pcm.txt)               |
+| `pa`                | Punjabi                      | 28,446K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pa.txt)                |
 | `pl`                | Polish                       |  7,148K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pl.txt)                |
 | `ps`                | Pashto                       |  7,343K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ps.txt)                |
 | `rm-puter`          | Romansh (Puter)              |  1,068K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rm-puter.txt)          |
@@ -90,7 +93,7 @@ To build corpora for not-yet-supported languages, please read the
 | `rm-sutsilv`        | Romansh (Sutsilvan)          |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rm-sutsilv.txt)        |
 | `rm-vallader`       | Romansh (Vallader)           |  5,560K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rm-vallader.txt)       |
 | `ro`                | Romanian                     | 13,962K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ro.txt)                |
-| `ru`                | Russian                      |  6,216K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
+| `ru`                | Russian                      | 40,987K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
 | `rw`                | Kinyarwanda                  |    605K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rw.txt)                |
 | `sah`               | Sakha                        |  2,457K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sah.txt)               |
 | `shn`               | Shan                         |  1,435K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/shn.txt)               |
