@@ -30,6 +30,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ae-Latn`           | Avestan (Latin)              |    141K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ae-Latn.txt)           |
 | `am`                | Amharic                      |  2,170K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/am.txt)                |
 | `az`                | Azerbaijani                  |  3,413K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/az.txt)                |
+| `ba`                | Bashkir                      |    666K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ba.txt)                |
 | `be`                | Belarusian                   |  1,441K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/be.txt)                |
 | `bg`                | Bulgarian                    | 10,597K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bg.txt)                |
 | `bm`                | Bambara                      |     30K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bm.txt)                |
@@ -79,6 +80,7 @@ To build corpora for not-yet-supported languages, please read the
 | `my`                | Burmese                      |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my.txt)                |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my-t-d0-zawgyi.txt)    |
 | `osa`               | Osage                        |      3K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/osa.txt)               |
+| `pcm`               | Nigerian Pidgin              |    315K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pcm.txt)               |
 | `pl`                | Polish                       |  7,148K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pl.txt)                |
 | `ps`                | Pashto                       |  7,343K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ps.txt)                |
 | `rm-puter`          | Romansh (Puter)              |  1,068K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rm-puter.txt)          |
@@ -90,6 +92,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ro`                | Romanian                     | 13,962K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ro.txt)                |
 | `ru`                | Russian                      |  6,216K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
 | `rw`                | Kinyarwanda                  |    605K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rw.txt)                |
+| `sah`               | Sakha                        |  2,457K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sah.txt)               |
 | `shn`               | Shan                         |  1,435K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/shn.txt)               |
 | `si`                | Sinhala                      |  1,046K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/si.txt)                |
 | `sl`                | Slovenian                    | 10,975K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sl.txt)                |
@@ -104,6 +107,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ti`                | Tigrinya                     |    803K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ti.txt)                |
 | `tpi`               | Tok Pisin                    |  8,049K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/tpi.txt)               |
 | `tr`                | Turkish                      | 13,846K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/tr.txt)                |
+| `tt`                | Tatar                        |  1,356K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/tt.txt)                |
 | `ug`                | Uyghur                       |  9,493K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ug.txt)                |
 | `uk`                | Ukrainian                    | 12,921K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/uk.txt)                |
 | `ur`                | Urdu                         |  3,622K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ur.txt)                |
