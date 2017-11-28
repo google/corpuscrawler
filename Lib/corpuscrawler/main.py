@@ -28,7 +28,7 @@ from corpuscrawler import (
     crawl_haw,
     crawl_hi, crawl_hr, crawl_hy, crawl_id, crawl_ig,
     crawl_iu, crawl_ja,
-    crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
+    crawl_kab, crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
     crawl_la,
     crawl_lo, crawl_mi, crawl_mnw, crawl_mk, crawl_mr,
     crawl_mt, crawl_my, crawl_nl,
@@ -37,7 +37,7 @@ from corpuscrawler import (
     crawl_ro, crawl_ru, crawl_rw, crawl_sah, crawl_shn, crawl_si,
     crawl_sk, crawl_sl,
     crawl_sn, crawl_so, crawl_sq, crawl_sr, crawl_sv,
-    crawl_sw, crawl_ta, crawl_taq, crawl_ti, crawl_tpi,
+    crawl_sw, crawl_ta, crawl_ti, crawl_tpi,
     crawl_tt, crawl_tr,
     crawl_ug, crawl_uk, crawl_ur, crawl_vec, crawl_yo,
 )
@@ -82,6 +82,7 @@ def main():
         'ig': crawl_ig.crawl,    # Igbo
         'iu': crawl_iu.crawl,    # Inuktitut
         'ja': crawl_ja.crawl,    # Japanese
+        'kab': crawl_kab.crawl,  # Kabyle
         'kj': crawl_kj.crawl,    # Kuanyama
         'kk': crawl_kk.crawl,    # Kazakh
         'km': crawl_km.crawl,    # Khmer
@@ -117,7 +118,6 @@ def main():
         'sv': crawl_sv.crawl,    # Swedish
         'sw': crawl_sw.crawl,    # Swahili
         'ta': crawl_ta.crawl,    # Tamil
-        'taq': crawl_taq.crawl,  # Tamasheq
         'ti': crawl_ti.crawl,    # Tigrinya
         'tpi': crawl_tpi.crawl,  # Tok Pisin
         'tr': crawl_tr.crawl,    # Turkish

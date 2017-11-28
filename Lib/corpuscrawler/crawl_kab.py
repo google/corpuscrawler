@@ -18,7 +18,7 @@ from corpuscrawler.util import cleantext, crawl_udhr, urlencode
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='taq')
+    out = crawler.get_output(language='kab')
     crawl_tamurt(crawler, out)
 
 
