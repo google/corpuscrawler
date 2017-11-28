@@ -66,6 +66,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ig`                | Igbo                         |     13K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ig.txt)                |
 | `iu`                | Inuktitut                    |     98K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/iu.txt)                |
 | `ja`                | Japanese                     |  2,116K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ja.txt)                |
+| `kab`               | Kabyle                       |     66K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/kab.txt)               |
 | `kj`                | Kuanyama                     |  1,474K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/kj.txt)                |
 | `kk`                | Kazakh                       |    642K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/kk.txt)                |
 | `km`                | Khmer                        | 29,110K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/km.txt)                |
@@ -106,7 +107,6 @@ To build corpora for not-yet-supported languages, please read the
 | `sv`                | Swedish                      | 33,633K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sv.txt)                |
 | `sw`                | Swahili                      |  8,817K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sw.txt)                |
 | `ta`                | Tamil                        |  1,413K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ta.txt)                |
-| `taq`               | Tamasheq                     |     66K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/taq.txt)               |
 | `ti`                | Tigrinya                     |    803K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ti.txt)                |
 | `tpi`               | Tok Pisin                    |  8,049K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/tpi.txt)               |
 | `tr`                | Turkish                      | 13,846K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/tr.txt)                |
