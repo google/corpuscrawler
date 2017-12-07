@@ -31,7 +31,7 @@ from corpuscrawler import (
     crawl_kab, crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
     crawl_la,
     crawl_lo, crawl_mi, crawl_mnw, crawl_mk, crawl_mr,
-    crawl_mt, crawl_my, crawl_nl,
+    crawl_mt, crawl_my, crawl_nl, crawl_ny,
     crawl_osa, crawl_pa, crawl_pcm, crawl_pl, crawl_ps,
     crawl_rm,
     crawl_ro, crawl_ru, crawl_rw, crawl_sah, crawl_shn, crawl_si,
@@ -97,6 +97,7 @@ def main():
         'mt': crawl_mt.crawl,    # Maltese
         'my': crawl_my.crawl,    # Burmese
         'nl': crawl_nl.crawl,    # Dutch
+        'ny': crawl_ny.crawl,    # Nyanja
         'osa': crawl_osa.crawl,  # Osage
         'pa': crawl_pa.crawl,    # Punjabi
         'pcm': crawl_pcm.crawl,  # Nigerian Pidgin
