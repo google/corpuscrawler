@@ -82,6 +82,7 @@ To build corpora for not-yet-supported languages, please read the
 | `my`                | Burmese                      |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my.txt)                |
 | `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my-t-d0-zawgyi.txt)    |
 | `nl`                | Dutch                        | 24,289K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/nl.txt)                |
+| `ny`                | Nyanja                       |    356K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ny.txt)               |
 | `osa`               | Osage                        |      3K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/osa.txt)               |
 | `pcm`               | Nigerian Pidgin              |    315K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pcm.txt)               |
 | `pa`                | Punjabi                      | 28,446K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pa.txt)                |
