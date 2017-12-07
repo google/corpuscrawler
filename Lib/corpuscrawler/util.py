@@ -558,11 +558,14 @@ def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
 def crawl_sputnik_news(crawler, out, host):
     sitemap_url = 'https://%s/sitemap_article_index.xml' % host
     for url in sorted(crawler.fetch_sitemap(sitemap_url)):
-        response = crawler.fetch(url)
+        response = crawler.fetch(urlencode(url))
         if response.status != 200:
             continue
         html = response.content.decode('utf-8')
-        title = re.search(r'<title>(.+?)</title>', html).group(1)
+        title = re.search(r'<title>(.+?)</title>', html)
+        if title is None:
+            continue
+        title = title.group(1)
         pubdate = re.search(
             r'<meta content="([^"]+)" itemprop="datePublished"', html)
         if pubdate is None:
