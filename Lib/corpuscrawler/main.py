@@ -29,7 +29,7 @@ from corpuscrawler import (
     crawl_hi, crawl_hr, crawl_hy, crawl_id, crawl_ig,
     crawl_iu, crawl_ja,
     crawl_kab, crawl_kj, crawl_kk, crawl_km, crawl_ku, crawl_ky,
-    crawl_la,
+    crawl_la, crawl_lb,
     crawl_lo, crawl_mi, crawl_mnw, crawl_mk, crawl_mr,
     crawl_mt, crawl_my, crawl_nl, crawl_ny,
     crawl_osa, crawl_pa, crawl_pcm, crawl_pl, crawl_ps,
@@ -89,6 +89,7 @@ def main():
         'ku': crawl_ku.crawl,    # Kurdish
         'ky': crawl_ky.crawl,    # Kyrgyz
         'la': crawl_la.crawl,    # Latin
+        'lb': crawl_lb.crawl,    # Luxembourgish
         'lo': crawl_lo.crawl,    # Lao
         'mi': crawl_mi.crawl,    # Maori
         'mk': crawl_mk.crawl,    # Macedonian
