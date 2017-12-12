@@ -20,6 +20,13 @@ import re
 from corpuscrawler.util import (crawl_udhr, clean_paragraphs, extract,
                                 urlencode, urljoin)
 
+BLACKLIST = {
+    # Multi-lingual documents.
+    'http://www.rtl.lu/auto/archiv/1044287.html',
+    'http://www.rtl.lu/auto/archiv/1056059.html',
+    'http://www.rtl.lu/auto/archiv/1061260.html',
+}
+
 
 def crawl(crawler):
     out = crawler.get_output(language='lb')
@@ -50,6 +57,8 @@ def _crawl_rtl_lu(crawler, out):
             for url in re.findall(r'href="([^"]+?)"', html):
                 urls.add(urlencode(urljoin('http://www.rtl.lu/', url)))
     for url in sorted(urls):
+        if url in BLACKLIST:
+            continue
         doc = crawler.fetch_content(url)
         header = extract('<header>', '</header>', doc) or ''
         if header:
@@ -60,12 +69,26 @@ def _crawl_rtl_lu(crawler, out):
             pd = [int(x) for x in pubdate.groups()]
             pubdate = '%04d-%02d-%02dT%02d:%02d:%02d+02:00' % (
                 pd[2], pd[1], pd[0], pd[3], pd[4], pd[5])
-        content = extract('<p>', '</p>', doc) or ''
+        if doc.find('<section class="mainbar-right omega body">') > 0:
+            start_tag = '<section class="mainbar-right omega body">'
+        else:
+            start_tag = '<p>'
+        content = extract(start_tag, '<!-- BEGIN Comments -->', doc) or ''
+        content = re.sub(r'<script.+?</script>', '', content, flags=re.DOTALL)
+        content = re.sub(r'<form.+?</form>', '', content, flags=re.DOTALL)
+        content = content.split('<footer')[0]
+        content = content.split('<div class="pager"')[0]
         paras = clean_paragraphs(header + '<p/>' + content)
         paras = [p for p in paras
                  if (p.find('Vous souhaitez faire') < 0 and
                      p != 'äre Commentaire' and
                      not p.startswith('####'))]
+        text = '\n'.join(paras)
+        # Filter out some articles in French or German.
+        if (text.find(' est ') >= 0 or text.find(' ist ') >= 0 or
+            text.find(' Ist ') >= 0 or text.find(' dit ') >= 0 or
+            text.find(' veut') >= 0):
+                continue
         if paras:
             out.write('# Location: %s\n' % url)
             out.write('# Genre: News\n')
