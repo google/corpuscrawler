@@ -73,6 +73,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ku`                | Kurdish                      |  2,479K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ku.txt)                |
 | `ky`                | Kyrgyz                       | 18,597K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ky.txt)                |
 | `la`                | Latin                        |     48K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/la.txt)                |
+| `lb`                | Luxembourgish                |  5,173K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lb.txt)                |
 | `lo`                | Lao                          |  4,384K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lo.txt)                |
 | `mi`                | Maori                        |  1,504K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mi.txt)                |
 | `mk`                | Macedonian                   | 10,422K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mk.txt)                |
