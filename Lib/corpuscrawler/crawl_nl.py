@@ -30,16 +30,19 @@ def _crawl_telegraaf_nl(crawler, out):
         'http://www.telegraaf.nl/sitemap.xml',
         subsitemap_filter=_should_fetch_telegraaf_sitemap)
     for url in sorted(sitemap):
-        doc = crawler.fetch_content(urlencode(url))
+        doc = crawler.fetch(urlencode(url))
+        if doc.status != 200:
+          continue
+        html = doc.content.decode('utf-8')
         title = re.search(
-            r'<meta [a-zA-Z\-="]* property="og:title" content="(.+?)"', doc)
+            r'<meta [a-zA-Z\-="]* property="og:title" content="(.+?)"', html)
         title = title.group(1) if title else ''
-        pubdate = re.search(r'"publishDate":"([^"]+)"', doc)
+        pubdate = re.search(r'"publishDate":"([^"]+)"', html)
         pubdate = pubdate.group(1) if pubdate else None
         text = extract(
             'data-element="ArticlePage-intro">',
             '<div class="flex" data-element="ArticlePage-socialShare-root">',
-            doc) or ''
+            html) or ''
         paras = clean_paragraphs(title + '<br/>' + text)
         if paras:
             out.write('# Location: %s\n' % url)
