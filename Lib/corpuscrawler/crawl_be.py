@@ -14,10 +14,11 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_sputnik_news, crawl_udhr
+from corpuscrawler.util import crawl_sputnik_news, crawl_udhr, crawl_bibleis
 
 
 def crawl(crawler):
     out = crawler.get_output(language='be')
     crawl_udhr(crawler, out, filename='udhr_bel.txt')
     crawl_sputnik_news(crawler, out, host='bel.sputnik.by')
+    crawl_bibleis(crawler, out, 'BELJFC')
