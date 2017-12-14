@@ -17,7 +17,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 from corpuscrawler.util import clean_paragraphs, crawl_udhr, extract, \
-    urlencode, urljoin
+    urlencode, urljoin, crawl_bibleis
 
 
 def crawl(crawler):
@@ -25,6 +25,7 @@ def crawl(crawler):
     # As of November 2017, the Unicode UDHR project has no Bashkir translation.
     # crawl_udhr(crawler, out, filename='udhr_bak.txt')
     _crawl_yaikrb_ru(crawler, out)
+    crawl_bibleis(crawler, out, 'BAKIBT')
 
 
 def _crawl_yaikrb_ru(crawler, out):
