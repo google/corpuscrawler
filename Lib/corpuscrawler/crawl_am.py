@@ -14,10 +14,11 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
+from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr, crawl_bibleis
 
 
 def crawl(crawler):
     out = crawler.get_output(language='am')
     crawl_udhr(crawler, out, filename='udhr_amh.txt')
     crawl_deutsche_welle(crawler, out, prefix='/am/')
+    crawl_bibleis(crawler, out, 'AMHEVG')
