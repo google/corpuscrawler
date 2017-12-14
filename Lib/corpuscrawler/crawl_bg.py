@@ -14,10 +14,12 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
+from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr, crawl_bibleis
 
 
 def crawl(crawler):
     out = crawler.get_output(language='bg')
     crawl_udhr(crawler, out, filename='udhr_bul.txt')
     crawl_deutsche_welle(crawler, out, prefix='/bg/')
+    # There's audio for one part of Matthew under BLGAMB that matches this text
+    crawl_bibleis(crawler, out, 'BULB40')

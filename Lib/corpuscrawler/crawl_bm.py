@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from corpuscrawler.util import crawl_udhr
+from corpuscrawler.util import crawl_udhr, crawl_bibleis
 import re
 
 
@@ -21,3 +21,4 @@ def crawl(crawler):
     out = crawler.get_output(language='bm')
     crawl_udhr(crawler, out, filename='udhr_bam.txt')
     crawler.crawl_voice_of_america(out, host='voabambara.com')
+    crawl_bibleis(crawler, out, 'BAMLSB')
