@@ -138,6 +138,12 @@ class Crawler(object):
             response = urllib2.urlopen(request, context=context)
         except urllib2.HTTPError as err:
             response = err
+        except UnicodeDecodeError as err:
+            # The Arabic edition of Sputnik News sometimes emits redirects
+            # which the urllib2 module of Python 2.7.13 tries to follow,
+            # but then it causes an urllib2-internal crash.  We catch the
+            # error here, and return it as '400 Bad Request' to our caller.
+            return FetchResult({}, 'Bad Request: UnicodeDecodeError', 400, None)
         status = response.getcode()
         content = response.read()
         response.close()
