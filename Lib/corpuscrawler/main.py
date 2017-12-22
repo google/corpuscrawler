@@ -46,7 +46,8 @@ from corpuscrawler import (
     crawl_kqw, crawl_ksd, crawl_ksr, crawl_kto, crawl_ku,
     crawl_kud, crawl_kue, crawl_kup, crawl_kwj, crawl_ky,
     crawl_kyc, crawl_kyg, crawl_kze, crawl_la, crawl_lb,
-    crawl_lcm, crawl_leu, crawl_lid, crawl_lo, crawl_mbh,
+    crawl_lcm, crawl_leu, crawl_lid, crawl_lo, crawl_lt,
+    crawl_lv, crawl_mbh,
     crawl_mcq, crawl_med, crawl_mee, crawl_mek, crawl_meu,
     crawl_mhl, crawl_mi, crawl_mk, crawl_mlh, crawl_mlp,
     crawl_mmo, crawl_mmx, crawl_mna, crawl_mnw, crawl_mox,
@@ -224,6 +225,8 @@ def main():
         'leu': crawl_leu.crawl,  # Kara (Papua New Guinea)
         'lid': crawl_lid.crawl,  # Nyindrou
         'lo': crawl_lo.crawl,    # Lao
+        'lt': crawl_lt.crawl,    # Lithuanian
+        'lv': crawl_lv.crawl,    # Latvian
         'mbh': crawl_mbh.crawl,  # Mangseng
         'mcq': crawl_mcq.crawl,  # Ese
         'med': crawl_med.crawl,  # Melpa
