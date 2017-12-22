@@ -31,7 +31,7 @@ from corpuscrawler import (
     crawl_cjv, crawl_cs, crawl_cy, crawl_dad, crawl_dah,
     crawl_de, crawl_ded, crawl_dgz, crawl_dob, crawl_dww,
     crawl_dz, crawl_el, crawl_emi, crawl_enq, crawl_eri,
-    crawl_es, crawl_fa, crawl_faa, crawl_fai, crawl_fi,
+    crawl_es, crawl_et, crawl_fa, crawl_faa, crawl_fai, crawl_fi,
     crawl_fit, crawl_fo, crawl_for, crawl_fuv, crawl_ga,
     crawl_gah, crawl_gam, crawl_gaw, crawl_gd, crawl_gdn,
     crawl_gdr, crawl_gfk, crawl_ghs, crawl_gsw, crawl_gv,
@@ -144,6 +144,7 @@ def main():
         'enq': crawl_enq.crawl,  # Enga
         'eri': crawl_eri.crawl,  # Ogea
         'es': crawl_es.crawl,    # Spanish
+        'et': crawl_et.crawl,    # Estonian
         'fa': crawl_fa.crawl,    # Persian
         'faa': crawl_faa.crawl,  # Fasu
         'fai': crawl_fai.crawl,  # Faiwol
