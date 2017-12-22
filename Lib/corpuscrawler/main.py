@@ -38,7 +38,7 @@ from corpuscrawler import (
     crawl_gvf, crawl_ha, crawl_haw, crawl_hi, crawl_hla,
     crawl_ho, crawl_hot, crawl_hr, crawl_hui, crawl_hy,
     crawl_ian, crawl_id, crawl_ig, crawl_imo, crawl_ino,
-    crawl_iou, crawl_ipi, crawl_iu, crawl_iws, crawl_ja,
+    crawl_iou, crawl_ipi, crawl_it, crawl_iu, crawl_iws, crawl_ja,
     crawl_jae, crawl_kab, crawl_kbm, crawl_kbq, crawl_kew,
     crawl_kgf, crawl_khz, crawl_kj, crawl_kjs, crawl_kk,
     crawl_km, crawl_kmg, crawl_kmo, crawl_kms, crawl_kmu,
@@ -181,6 +181,7 @@ def main():
         'ino': crawl_ino.crawl,  # Inoke-Yate
         'iou': crawl_iou.crawl,  # Tuma-Irumu
         'ipi': crawl_ipi.crawl,  # Ipili
+        'it': crawl_it.crawl,    # Italian
         'iu': crawl_iu.crawl,    # Inuktitut
         'iws': crawl_iws.crawl,  # Sepik Iwam
         'ja': crawl_ja.crawl,    # Japanese
