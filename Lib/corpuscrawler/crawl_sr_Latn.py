@@ -13,10 +13,10 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from corpuscrawler.util import crawl_sputnik_news, crawl_udhr
+from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='sr')
-    crawl_udhr(crawler, out, filename='udhr_srp_cyrl.txt')
-    crawl_sputnik_news(crawler, out, host='rs.sputniknews.com')
+    out = crawler.get_output(language='sr-Latn')
+    crawl_udhr(crawler, out, filename='udhr_srp_latn.txt')
+    crawl_deutsche_welle(crawler, out, prefix='/sr/')

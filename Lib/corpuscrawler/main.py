@@ -61,7 +61,7 @@ from corpuscrawler import (
     crawl_sgz, crawl_shn, crawl_si, crawl_sim, crawl_sk,
     crawl_sl, crawl_sll, crawl_sn, crawl_snc, crawl_sny,
     crawl_so, crawl_soq, crawl_spl, crawl_sps, crawl_sq,
-    crawl_sr, crawl_ssd, crawl_ssg, crawl_ssx, crawl_sua,
+    crawl_sr, crawl_sr_Latn, crawl_ssd, crawl_ssg, crawl_ssx, crawl_sua,
     crawl_sue, crawl_sv, crawl_sw, crawl_swp, crawl_ta,
     crawl_taw, crawl_tbc, crawl_tbo, crawl_tgo, crawl_ti,
     crawl_tif, crawl_tim, crawl_tlf, crawl_tpi, crawl_tpz,
@@ -296,6 +296,7 @@ def main():
         'sps': crawl_sps.crawl,  # Saposa
         'sq': crawl_sq.crawl,    # Albanian
         'sr': crawl_sr.crawl,    # Serbian
+        'sr-Latn': crawl_sr_Latn.crawl,  # Serbian (Latin)
         'ssd': crawl_ssd.crawl,  # Siroi
         'ssg': crawl_ssg.crawl,  # Seimat
         'ssx': crawl_ssx.crawl,  # Samberigi
