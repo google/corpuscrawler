@@ -57,6 +57,7 @@ from corpuscrawler import (
     crawl_nl, crawl_nop, crawl_nou, crawl_nsn, crawl_nvm,
     crawl_ny, crawl_okv, crawl_ong, crawl_opm, crawl_osa,
     crawl_pa, crawl_pcm, crawl_pl, crawl_ppo, crawl_ps,
+    crawl_pt, crawl_pt_PT,
     crawl_ptp, crawl_pwg, crawl_rai, crawl_rm, crawl_ro,
     crawl_roo, crawl_rro, crawl_ru, crawl_rw, crawl_sah,
     crawl_sgz, crawl_shn, crawl_si, crawl_sim, crawl_sk,
@@ -273,6 +274,8 @@ def main():
         'pl': crawl_pl.crawl,    # Polish
         'ppo': crawl_ppo.crawl,  # Folopa
         'ps': crawl_ps.crawl,    # Pashto
+        'pt': crawl_pt.crawl,    # Portuguese
+        'pt-PT': crawl_pt_PT.crawl,      # Portuguese (Portugal)
         'ptp': crawl_ptp.crawl,  # Patep
         'pwg': crawl_pwg.crawl,  # Gapapaiwa
         'rai': crawl_rai.crawl,  # Ramoaaina
