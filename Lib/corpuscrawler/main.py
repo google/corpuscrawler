@@ -55,7 +55,8 @@ from corpuscrawler import (
     crawl_mti, crawl_mux, crawl_mva, crawl_my, crawl_myw,
     crawl_naf, crawl_nak, crawl_nas, crawl_nca, crawl_nho,
     crawl_nl, crawl_nop, crawl_nou, crawl_nsn, crawl_nvm,
-    crawl_ny, crawl_okv, crawl_ong, crawl_opm, crawl_osa,
+    crawl_ny, crawl_okv, crawl_ong, crawl_opm, crawl_os,
+    crawl_osa,
     crawl_pa, crawl_pcm, crawl_pl, crawl_ppo, crawl_ps,
     crawl_pt, crawl_pt_PT,
     crawl_ptp, crawl_pwg, crawl_rai, crawl_rm, crawl_ro,
@@ -268,6 +269,7 @@ def main():
         'okv': crawl_okv.crawl,  # Orokaiva
         'ong': crawl_ong.crawl,  # Olo
         'opm': crawl_opm.crawl,  # Oksapmin
+        'os': crawl_os.crawl,    # Ossetic
         'osa': crawl_osa.crawl,  # Osage
         'pa': crawl_pa.crawl,    # Punjabi
         'pcm': crawl_pcm.crawl,  # Nigerian Pidgin
