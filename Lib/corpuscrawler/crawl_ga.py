@@ -156,7 +156,7 @@ def crawl_gaeltacht21(crawler, out):
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1)).strip()
         if title and title == 'gaeltacht21': title = None
-        if title.startswith('gaeltacht21: '): title = title[13:]
+        if title and title.startswith('gaeltacht21: '): title = title[13:]
         if title: out.write(cleantext(title) + '\n')
         post = html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0]
         cleaned = cleantext(post.replace('<br />', '\n'))
