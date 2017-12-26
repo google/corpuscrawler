@@ -154,8 +154,11 @@ def crawl_gaeltacht21(crawler, out):
         out.write('# Genre: Blog\n')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         title = re.search(r'<title>(.+?)</title>', html)
-        if title: title = striptags(title.group(1).split('gaeltacht21: ')[1]).strip()
+        if title: title = striptags(title.group(1)).strip()
+        if title and title == 'gaeltacht21': title = None
+        if title.startswith('gaeltacht21: '): title = title[13:]
         if title: out.write(cleantext(title) + '\n')
-        cleaned = cleantext(html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0])
+        post = html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0]
+        cleaned = cleantext(post.replace('<br />', '\n'))
         out.write(cleaned + '\n')
 
