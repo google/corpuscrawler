@@ -30,6 +30,7 @@ def crawl(crawler):
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
+    crawl_gaeltacht21(crawler, out)
 
 
 # RTE has news sites both for its own Irish language news programme
@@ -135,4 +136,26 @@ def crawl_irishtimes(crawler, out):
         for paragraph in re.findall(r'<p class="no_name">(.+?)</p>', html.split('<div class="article_bodycopy">')[1]):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
+
+
+def crawl_gaeltacht21(crawler, out):
+    sitemap = crawler.fetch_sitemap('http://gaeltacht21.blogspot.com/sitemap.xml')
+    pubdate_regex = re.compile(r"<abbr class='published' title='([^']*)'>[^<]*</abbr>")
+    for url in sorted(sitemap.keys()):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        pubdate_match = pubdate_regex.search(html)
+        pubdate = pubdate_match.group(1) if pubdate_match else None
+        if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
+        if pubdate is None: pubdate = sitemap[url]
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Blog\n')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        title = re.search(r'<title>(.+?)</title>', html)
+        if title: title = striptags(title.group(1).split('gaeltacht21: ')[1]).strip()
+        if title: out.write(cleantext(title) + '\n')
+        cleaned = cleantext(html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0])
+        out.write(cleaned + '\n')
 
