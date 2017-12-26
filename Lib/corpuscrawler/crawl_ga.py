@@ -30,7 +30,8 @@ def crawl(crawler):
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
-    crawl_gaeltacht21(crawler, out)
+    crawl_blogspot(crawler, out, 'http://gaeltacht21.blogspot.com/sitemap.xml', 'gaeltacht21')
+    crawl_blogspot(crawler, out, 'http://aonghus.blogspot.com/sitemap.xml', 'Smaointe Fánacha Aonghusa')
 
 
 # RTE has news sites both for its own Irish language news programme
@@ -138,8 +139,8 @@ def crawl_irishtimes(crawler, out):
             out.write(cleaned + '\n')
 
 
-def crawl_gaeltacht21(crawler, out):
-    sitemap = crawler.fetch_sitemap('http://gaeltacht21.blogspot.com/sitemap.xml')
+def crawl_blogspot(crawler, out, sitemap, default_title):
+    sitemap = crawler.fetch_sitemap(sitemap)
     pubdate_regex = re.compile(r"<abbr class='published' title='([^']*)'>[^<]*</abbr>")
     for url in sorted(sitemap.keys()):
         fetchresult = crawler.fetch(url)
@@ -156,9 +157,10 @@ def crawl_gaeltacht21(crawler, out):
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1)).strip()
         if title and title == 'gaeltacht21': title = None
-        if title and title.startswith('gaeltacht21: '): title = title[13:]
+        start_title = '%s: ' % default_title
+        if title and title.startswith(start_title): title = title[len(start_title):]
         if title: out.write(cleantext(title) + '\n')
         post = html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0]
-        cleaned = cleantext(post.replace('<br />', '\n'))
-        out.write(cleaned + '\n')
+        for para in re.compile('<br ?/>').split(post):
+            out.write(cleantext(para) + '\n')
 
