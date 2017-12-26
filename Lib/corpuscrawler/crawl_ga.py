@@ -30,6 +30,7 @@ def crawl(crawler):
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
+    crawl_chg(crawler, out)
 
 
 # RTE has news sites both for its own Irish language news programme
@@ -133,6 +134,36 @@ def crawl_irishtimes(crawler, out):
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         if title: out.write(cleantext(title.group(1)) + '\n')
         for paragraph in re.findall(r'<p class="no_name">(.+?)</p>', html.split('<div class="article_bodycopy">')[1]):
+            cleaned = cleantext(paragraph)
+            out.write(cleaned + '\n')
+
+
+def crawl_chg(crawler, out):
+    def _chg_content(page):
+        return page.split('<div class="container" id="article">')[1].split('<!-- /.right columns -->')[0]
+    sitemap = 'https://www.chg.gov.ie/ga/help/sitemap/'
+    res = crawler.fetch(sitemap)
+    if res.status != 200:
+        return
+    links = set()
+    html = res.content.decode('utf-8')
+    body = _chg_content(html)
+    for pagelink in re.findall('<a href="([^"]*)">', body):
+        if pagelink.startswith('https://www.chg.gov.ie/ga/'):
+            links.add(pagelink)
+    for link in links:
+        pres = crawler.fetch(link)
+        if pres.status != 200:
+            continue
+        phtml = pres.content.decode('utf-8')
+        ptext = _chg_content(phtml)
+        title = re.search(r'<title>(.+?)</title>', phtml)
+        if title: title = striptags(title.group(1).split('|')[0]).strip()
+        pubdate = pres.headers.get('Last-Modified')
+        out.write('# Location: %s\n' % link)
+        out.write('# Genre: Government\n')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        for paragraph in re.findall(r'<p>(.+?)</p>', ptext):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
 
