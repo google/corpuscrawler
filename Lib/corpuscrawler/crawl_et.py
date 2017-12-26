@@ -30,7 +30,10 @@ def crawl(crawler):
 
 def _crawl_eestikirik_ee(crawler, out):
     for url in sorted(_find_urls_eestikirik_ee(crawler)):
-        html = crawler.fetch_content(url)
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
+        html = doc.content.decode('utf-8')
         title = extract('<h1 class="entry_title">', '</h1>', html) or ''
         entry = extract('<div class="entry">', '<div style="min-height:33px;"',
                         html) or ''
