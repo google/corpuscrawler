@@ -162,5 +162,35 @@ def crawl_blogspot(crawler, out, sitemap, default_title):
         if title: out.write(cleantext(title) + '\n')
         post = html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0]
         for para in re.compile('<br ?/>').split(post):
-            out.write(cleantext(para) + '\n')
+            cleaned = cleantext(para)
+            if(cleaned != ''):
+                out.write(cleaned + '\n')
+
+
+def crawl_ainm(crawler, out):
+    links = set()
+    for let in map(chr, range(65, 91)):
+        idxres = crawler.fetch('https://www.ainm.ie/Abc.aspx?Letter=%s' % let)
+        if idxres.status != 200:
+            continue
+        idxhtml = idxres.content.decode('utf-8')
+        index = idxhtml.split('<div class="contentWrapper">')[1].split('<!-- .contentWrapper-->')[0]
+        for link in re.findall('<a href="(Bio.aspx?ID=[0-9]+)">', shtml):
+            links.add('https://www.ainm.ie/%s' % link)
+    for url in links:
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html)
+        if title: title = striptags(title.group(1).split('|')[0]).strip()
+        pubdate = fetchresult.headers.get('Last-Modified')
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Biography\n')
+        if title: out.write(cleantext(title) + '\n')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        body = html.split('<div class="article">')[1].split('<!-- .contentWrapper-->')[0]
+        for paragraph in re.findall(r'<p>(.+?)</p>', body):
+            cleaned = cleantext(paragraph)
+            out.write(cleaned + '\n')
 
