@@ -28,7 +28,8 @@ except ImportError:
 def crawl(crawler):
     out = crawler.get_output(language='ga')
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
-    crawl_nuachtrte(crawler, out)
+#    crawl_nuachtrte(crawler, out)
+    crawl_irishtimes(crawler, out)
 
 
 # RTE has news sites both for its own Irish language news programme
@@ -90,3 +91,48 @@ def crawl_nuachtrte(crawler, out):
                 out.write(cleaned + '\n')
             else:
                 continue
+
+
+def _irishtimes_section_list(crawler, out, url):
+    page = crawler.fetch(url)
+    if page.status != 200:
+        return
+    html = page.content.decode('utf-8')
+    links = set()
+    links.add(url)
+    list = html.split('<ul class="page_numbers">')[1].split('</ul>')[0]
+    for cnt in re.findall(r'(\?sectionTeaserPage[^"]+?)"', list):
+        links.add('%s%s' % (url, cnt))
+    return links
+
+
+def crawl_irishtimes(crawler, out):
+    start = 'https://www.irishtimes.com/culture/treibh'
+    pubdatere1 = re.compile(r'<meta itemprop="datePublished" content="([^"]*)"/>')
+    pubdatere2 = re.compile(r'"datePublished": "([^"])"')
+    links = set()
+    for contents in _irishtimes_section_list(crawler, out, start):
+        init = crawler.fetch(contents)
+        if init.status != 200:
+            continue
+        shtml = init.content.decode('utf-8')
+        for doclink in re.findall('<p><a href="/culture/treibh/([^"]*)"', shtml):
+            links.add('%s/%s' % (start, doclink))
+    for url in links:
+        res = crawler.fetch(url)
+        if res.status != 200:
+            continue
+        html = res.content.decode('utf-8')
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        title = re.search(r'<title>(.+?)</title>', html)
+        pubdate_match = pubdatere1.search(html)
+        pubdate_match = pubdate_match if pubdate_match else pubdatere2.search(html)
+        pubdate = pubdate_match.group(1) if pubdate_match else None
+        if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        if title: out.write(cleantext(title.group(1)) + '\n')
+        for paragraph in re.findall(r'<p class="no_name">(.+?)</p>', html.split('<div class="article_bodycopy">')[1]):
+            cleaned = cleantext(paragraph)
+            out.write(cleaned + '\n')
+
