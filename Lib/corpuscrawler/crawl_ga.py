@@ -28,7 +28,7 @@ except ImportError:
 def crawl(crawler):
     out = crawler.get_output(language='ga')
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
-#    crawl_nuachtrte(crawler, out)
+    crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
 
 
