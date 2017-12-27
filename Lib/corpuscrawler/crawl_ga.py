@@ -175,8 +175,9 @@ def crawl_ainm(crawler, out):
         if idxres.status != 200:
             continue
         idxhtml = idxres.content.decode('utf-8')
-        index = idxhtml.split('<div class="contentWrapper">')[1].split('<!-- .contentWrapper-->')[0]
-        for link in re.findall('<a href="(Bio.aspx?ID=[0-9]+)">', index):
+        index = idxhtml.split('<div id="pageContent" role="main">')[1].split('<!-- .contentWrapper-->')[0]
+        for link in re.findall(r'<a href="(Bio.aspx\?ID=[^"]+?)">', index):
+            print(link)
             links.add('https://www.ainm.ie/%s' % link)
     for url in links:
         fetchresult = crawler.fetch(url)
