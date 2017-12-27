@@ -211,10 +211,13 @@ def crawl_tuairisc(crawler, out):
         out.write('# Genre: News\n')
         title = re.search(r'<title>(.+?)</title>', html)
         if title: out.write(cleantext(title.group(1)) + '\n')
+        pubdate_match = pubdate_regex.search(html)
         pubdate = pubdate_match.group(1) if pubdate_match else None
         if pubdate is None: pubdate = sitemap[url]
         if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        if not '<div class="article--full__content" itemprop="articleBody"' in html:
+		continue
         body = html.split('<div class="article--full__content" itemprop="articleBody"')[1].split('</article>')[0]
         for paragraph in re.findall(r'<p[^>]*>(.+?)</p>', body):
             cleaned = cleantext(paragraph)
