@@ -75,7 +75,7 @@ from corpuscrawler import (
     crawl_viv, crawl_waj, crawl_wer, crawl_wiu, crawl_wnc,
     crawl_wnu, crawl_wos, crawl_wrs, crawl_wsk, crawl_wuv,
     crawl_xla, crawl_xsi, crawl_yby, crawl_yle, crawl_yml,
-    crawl_yo, crawl_yuj, crawl_yut, crawl_yuw, crawl_zia,
+    crawl_yo, crawl_yue, crawl_yuj, crawl_yut, crawl_yuw, crawl_zia,
 )
 from corpuscrawler.util import Crawler
 
@@ -355,6 +355,7 @@ def main():
         'yle': crawl_yle.crawl,  # Yele
         'yml': crawl_yml.crawl,  # Iamalele
         'yo': crawl_yo.crawl,    # Yoruba
+        'yue': crawl_yue.crawl,  # Cantonese
         'yuj': crawl_yuj.crawl,  # Karkar-Yuri
         'yut': crawl_yut.crawl,  # Yopno
         'yuw': crawl_yuw.crawl,  # Yau (Morobe Province)

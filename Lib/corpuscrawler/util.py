@@ -519,7 +519,8 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
 def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
     urls = set()
     article_re = re.compile(
-        r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html)"' % edition)
+        (r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html' +
+         r'(?:\?encoding=simplified)?)"') % edition)
     for year in range(start_year, datetime.datetime.today().year + 1):
         for page_num in range(0, 100000, 30):
             archive_url = (
@@ -531,7 +532,11 @@ def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
             html = response.content.decode('utf-8')
             teaser = html.split('<div class="listingBar">')[0]
             for t in teaser.split('class="sectionteaser"')[1:]:
-                urls.update(article_re.findall(t))
+                for url in article_re.findall(t):
+                  if edition == 'cantonese':
+                      url = url.replace('encoding=simplified',
+                                        'encoding=traditional')
+                  urls.add(url)
             if html.find('class="next"') < 0:
                 break
 
