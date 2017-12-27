@@ -71,6 +71,7 @@ from corpuscrawler import (
     crawl_tif, crawl_tim, crawl_tlf, crawl_tpi, crawl_tpz,
     crawl_tr, crawl_tt, crawl_tte, crawl_ubr, crawl_ug,
     crawl_uk, crawl_ur, crawl_usa, crawl_uvl, crawl_vec,
+    crawl_vi,
     crawl_viv, crawl_waj, crawl_wer, crawl_wiu, crawl_wnc,
     crawl_wnu, crawl_wos, crawl_wrs, crawl_wsk, crawl_wuv,
     crawl_xla, crawl_xsi, crawl_yby, crawl_yle, crawl_yml,
@@ -336,6 +337,7 @@ def main():
         'usa': crawl_usa.crawl,  # Usarufa
         'uvl': crawl_uvl.crawl,  # Lote
         'vec': crawl_vec.crawl,  # Venetian
+        'vi': crawl_vi.crawl,    # Vietnamese
         'viv': crawl_viv.crawl,  # Iduna
         'waj': crawl_waj.crawl,  # Waffa
         'wer': crawl_wer.crawl,  # Weri
