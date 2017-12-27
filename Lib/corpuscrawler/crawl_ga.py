@@ -30,6 +30,7 @@ def crawl(crawler):
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
+    crawl_ainm(crawler, out)
     crawl_blogspot(crawler, out, 'http://gaeltacht21.blogspot.com/sitemap.xml', 'gaeltacht21')
     crawl_blogspot(crawler, out, 'http://aonghus.blogspot.com/sitemap.xml', 'Smaointe Fánacha Aonghusa')
 
@@ -175,7 +176,7 @@ def crawl_ainm(crawler, out):
             continue
         idxhtml = idxres.content.decode('utf-8')
         index = idxhtml.split('<div class="contentWrapper">')[1].split('<!-- .contentWrapper-->')[0]
-        for link in re.findall('<a href="(Bio.aspx?ID=[0-9]+)">', shtml):
+        for link in re.findall('<a href="(Bio.aspx?ID=[0-9]+)">', index):
             links.add('https://www.ainm.ie/%s' % link)
     for url in links:
         fetchresult = crawler.fetch(url)
