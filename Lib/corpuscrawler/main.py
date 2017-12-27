@@ -49,7 +49,8 @@ from corpuscrawler import (
     crawl_lcm, crawl_leu, crawl_lid, crawl_lo, crawl_lt,
     crawl_lv, crawl_mbh,
     crawl_mcq, crawl_med, crawl_mee, crawl_mek, crawl_meu,
-    crawl_mhl, crawl_mi, crawl_mk, crawl_mlh, crawl_mlp,
+    crawl_mhl, crawl_mi, crawl_mil, crawl_mir, crawl_mk,
+    crawl_mlh, crawl_mlp,
     crawl_mmo, crawl_mmx, crawl_mna, crawl_mnw, crawl_mox,
     crawl_mpt, crawl_mpx, crawl_mr, crawl_msy, crawl_mt,
     crawl_mti, crawl_mux, crawl_mva, crawl_my,
@@ -240,6 +241,8 @@ def main():
         'meu': crawl_meu.crawl,  # Motu
         'mhl': crawl_mhl.crawl,  # Mauwake
         'mi': crawl_mi.crawl,    # Maori
+        'mil': crawl_mil.crawl,  # Peñoles Mixtec
+        'mir': crawl_mir.crawl,  # Isthmus Mixé
         'mk': crawl_mk.crawl,    # Macedonian
         'mlh': crawl_mlh.crawl,  # Mape
         'mlp': crawl_mlp.crawl,  # Bargam
