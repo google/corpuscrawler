@@ -677,7 +677,7 @@ def crawl_bibleis(crawler, out, bible):
 
 def find_wordpress_urls(crawler, site):
     urls = set()
-    mainpage = crawler.fetch(site).content.decode('utf-8')
+    mainpage = crawler.fetch_content(site)
     for category in re.findall(r'/(category/[^/"]+/)">', mainpage):
         caturl = urljoin(site, category)
         catdoc = crawler.fetch(caturl)
@@ -688,8 +688,9 @@ def find_wordpress_urls(crawler, site):
             pgdoc = crawler.fetch(pgurl)
             assert pgdoc.status == 200, (pgdoc.status, pgurl)
             pgcontent = pgdoc.content.decode('utf-8')
-            for url in re.findall(r'"(%s[^/"]+/)"' % site, pgcontent):
-                if not url.endswith('/feed/'):
+            for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
+                url = replace_html_entities(url.split('#')[0])
+                if url.find('/category/') < 0 and not url.endswith('/feed/'):
                     urls.add(url)
     return urls
 

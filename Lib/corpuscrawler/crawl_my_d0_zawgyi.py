@@ -16,9 +16,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 import os.path
 import re
 
-from corpuscrawler.util import (
-    find_wordpress_urls, replace_html_entities, striptags
-)
+from corpuscrawler.util import clean_paragraphs, extract, find_wordpress_urls
 
 
 def crawl(crawler):
@@ -27,32 +25,24 @@ def crawl(crawler):
 
 
 def crawl_than_lwin_times(crawler, out):
-    sitemap = crawler.fetch_sitemap('http://thanlwintimes.com/sitemap.xml')
-    for url in sorted(sitemap.keys()):
-        html = crawler.fetch(url).content.decode('utf-8')
-        pubdate = re.search(r'<meta itemprop="datePublished" content="(.+?)"',
-                            html)
-        if pubdate is None:
+    urls = find_wordpress_urls(crawler, 'http://thanlwintimes.com/')
+    for url in sorted(urls):
+        doc = crawler.fetch(url)
+        if doc.status != 200:
             continue
-        # prepare for split; some texts use different tags
-        html = html.replace('</div><pre>', '</div><p>')
-        html = html.replace(
-            '</div><div class="td-post-content"><p>', '</div><p>')
-        if html.find('</div><p>') < 0:
-            continue
-        text = html.split('</div><p>')[1]
-        text = text.split('<div class=\'sfsi_Sicons ')[0]
-        text = text.split('</noscript>')[0]
-        text = text.replace('\n', ' ')
-        text = text.replace('</p>', '\n').replace('</div>', '\n')
-        paragraphs = []
-        for p in text.splitlines():
-            p = ' '.join(striptags(replace_html_entities(p)).split())
-            if p and ('>' not in p) and (p.find('"caption":') < 0):
-                paragraphs.append(p)
+        html = doc.content.decode('utf-8')
+        pubdate = re.search(
+            r'<time class="entry-date updated td-module-date" '
+            r'datetime="([^"]+)"', html)
+        pubdate = pubdate.group(1) if pubdate else ''
+        title = (extract('<title>', '</title>', html) or '').split('|')[0]
+        body = extract('<div class="td-post-content">',
+                       "<div class='sfsi_Sicons'", html) or ''
+        body = body.split('Please follow and like us')[0]
+        paragraphs = clean_paragraphs('%s<br/>%s' % (title, body))
         if len(paragraphs) > 0:
             out.write('# Location: %s\n' % url)
             out.write('# Genre: News\n')
-            out.write('# Publication-Date: %s\n' % pubdate.groups(1))
-            for p in paragraphs:
-                out.write(p + '\n')
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paragraphs) + '\n')
