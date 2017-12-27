@@ -14,10 +14,12 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_udhr, crawl_voice_of_nigeria
+from corpuscrawler.util import (
+    crawl_udhr, crawl_bibleis, crawl_voice_of_nigeria)
 
 
 def crawl(crawler):
     out = crawler.get_output(language='yo')
     crawl_udhr(crawler, out, filename='udhr_yor.txt')
     crawl_voice_of_nigeria(crawler, out, urlprefix='/yoruba/')
+    crawl_bibleis(crawler, out, bible='YORUBS')
