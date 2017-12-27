@@ -29,8 +29,11 @@ def _crawl_kauno_diena_lt(crawler, out):
         url = 'http://kauno.diena.lt/sitemap/kd/sitemap%d.xml' % i
         urls.update(crawler.fetch_sitemap(url))
     for url in sorted(urls):
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
         try:
-            html = crawler.fetch_content(url)
+            html = doc.content.decode('utf-8')
         except UnicodeDecodeError:
             continue
         title = extract('<h1 class="title" id="page-title">', '</h1>', html)
