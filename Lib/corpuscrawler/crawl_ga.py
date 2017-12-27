@@ -17,20 +17,26 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 import sys
-
-from corpuscrawler.util import crawl_udhr, urlpath, striptags, cleantext
+from corpuscrawler.util import (
+    crawl_udhr, clean_paragraphs, cleantext, extract, striptags, urlpath
+)
 
 try:
     import xml.etree.cElementTree as etree
 except ImportError:
     import xml.etree.ElementTree as etree
 
+
 def crawl(crawler):
     out = crawler.get_output(language='ga')
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
+    crawl_tuairisc_ie(crawler, out)
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
     crawl_chg(crawler, out)
+    crawl_ainm_ie(crawler, out)
+    crawl_blogspot(crawler, out, host='gaeltacht21.blogspot.com')
+    crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
 
 
 # RTE has news sites both for its own Irish language news programme
@@ -39,6 +45,7 @@ def _rtenuacht_path(url):
     rtenuacht = urlpath(url).startswith('/news/nuacht/')
     rnagnuacht = urlpath(url).startswith('/rnag/nuacht-gaeltachta')
     return rtenuacht or rnagnuacht
+
 
 def _rte_writable_paragraph(text):
     if text == '':
@@ -109,7 +116,8 @@ def _irishtimes_section_list(crawler, out, url):
 
 def crawl_irishtimes(crawler, out):
     start = 'https://www.irishtimes.com/culture/treibh'
-    pubdatere1 = re.compile(r'<meta itemprop="datePublished" content="([^"]*)"/>')
+    pubdatere1 = re.compile(
+        r'<meta itemprop="datePublished" content="([^"]*)"/>')
     pubdatere2 = re.compile(r'"datePublished": "([^"])"')
     links = set()
     for contents in _irishtimes_section_list(crawler, out, start):
@@ -133,7 +141,9 @@ def crawl_irishtimes(crawler, out):
         if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         if title: out.write(cleantext(title.group(1)) + '\n')
-        for paragraph in re.findall(r'<p class="no_name">(.+?)</p>', html.split('<div class="article_bodycopy">')[1]):
+        for paragraph in re.findall(
+                r'<p class="no_name">(.+?)</p>',
+                html.split('<div class="article_bodycopy">')[1]):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
 
@@ -167,3 +177,95 @@ def crawl_chg(crawler, out):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
 
+
+def crawl_blogspot(crawler, out, host):
+    sitemap = crawler.fetch_sitemap('https://%s/sitemap.xml' % host)
+    pubdate_regex = re.compile(
+        r"<abbr class='published' title='([^']*)'>[^<]*</abbr>")
+    for url in sorted(sitemap.keys()):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        pubdate_match = pubdate_regex.search(html)
+        pubdate = pubdate_match.group(1) if pubdate_match else None
+        if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
+        if pubdate is None: pubdate = sitemap[url]
+        title = re.search(r"<meta content='([^']+)' property='og:title'/>",
+                          html)
+        title = title.group(1) if title else ''
+        post = extract("<div class='post-body entry-content'>",
+                       "<div class='post-footer'>", html)
+        paras = clean_paragraphs(title + '<br/>' + post)
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: Blog\n')
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paras) + '\n')
+        #post = html.split("<div class='post-body entry-content'>")[1].split("<div class='post-footer'>")[0]
+
+
+def crawl_ainm_ie(crawler, out):
+    links = set()
+    for let in map(chr, range(65, 91)):
+        idxres = crawler.fetch('https://www.ainm.ie/Abc.aspx?Letter=%s' % let)
+        if idxres.status != 200:
+            continue
+        idxhtml = idxres.content.decode('utf-8')
+        index = extract('<div id="pageContent" role="main">',
+                        '<!-- .contentWrapper-->', idxhtml)
+        for link in re.findall(r'<a href="(Bio.aspx\?ID=[^"]+?)">', index):
+            links.add('https://www.ainm.ie/%s' % link)
+    for url in sorted(links):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html)
+        title = title.group(1).split('|')[0] if title else ''
+        body = extract('<div class="article">',
+                       '<!-- .contentWrapper-->', html) or ''
+        body = body.split('<div id="machines"')[0]
+        paras = clean_paragraphs(title + '<br/>' + body)
+        pubdate = fetchresult.headers.get('Last-Modified')
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: Biography\n')
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paras) + '\n')
+
+
+# Tuairisc is wordpress based, but seems to have a different layout than
+# the method in util.py caters to.
+def crawl_tuairisc_ie(crawler, out):
+    sitemap = crawler.fetch_sitemap('https://tuairisc.ie/sitemap.xml')
+    pubdate_regex = re.compile(
+        r'<time datetime="(20\d\d-\d\d-\d\d)\s+(\d\d:\d\d)" '
+        r'itemprop="datePublished">')
+    for url in sorted(sitemap.keys()):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = extract('<h1 class="title article--full__title">', '</h1>',
+                        html) or ''
+        pubdate_match = pubdate_regex.search(html)
+        if pubdate_match:
+            pubdate = '%sT%s:00Z' % (
+                pubdate_match.group(1), pubdate_match.group(2))
+        else:
+            pubdate = sitemap[url]
+        body = extract(
+            '<div class="article--full__content" itemprop="articleBody">',
+            '</article>', html)
+        if not body:
+            continue
+        paras = clean_paragraphs(title + '<p/>' + body)
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paras) + '\n')
