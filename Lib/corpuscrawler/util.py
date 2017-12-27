@@ -168,7 +168,7 @@ class Crawler(object):
         content = doc.content
         if content.startswith(b'\x1F\x8B'):
             content = zlib.decompress(content, zlib.MAX_WBITS|32)
-        if content.startswith('\n'):
+        if content.startswith(b'\n'):
             content = content[1:]
         try:
             sitemap = etree.fromstring(content)
