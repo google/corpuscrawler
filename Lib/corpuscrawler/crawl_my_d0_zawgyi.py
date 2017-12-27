@@ -28,6 +28,8 @@ def crawl(crawler):
 def _crawl_than_lwin_times(crawler, out):
     urls = find_wordpress_urls(crawler, 'http://thanlwintimes.com/')
     for url in sorted(urls):
+        if not url.endswith('/'):
+            continue
         doc = crawler.fetch(url)
         if doc.status != 200:
             continue
