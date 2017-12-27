@@ -28,6 +28,7 @@ except ImportError:
 def crawl(crawler):
     out = crawler.get_output(language='ga')
     crawl_udhr(crawler, out, filename='udhr_gle.txt')
+    crawl_tuairisc(crawler, out)
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
     crawl_ainm(crawler, out)
@@ -177,7 +178,6 @@ def crawl_ainm(crawler, out):
         idxhtml = idxres.content.decode('utf-8')
         index = idxhtml.split('<div id="pageContent" role="main">')[1].split('<!-- .contentWrapper-->')[0]
         for link in re.findall(r'<a href="(Bio.aspx\?ID=[^"]+?)">', index):
-            print(link)
             links.add('https://www.ainm.ie/%s' % link)
     for url in links:
         fetchresult = crawler.fetch(url)
@@ -193,6 +193,30 @@ def crawl_ainm(crawler, out):
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         body = html.split('<div class="article">')[1].split('<!-- .contentWrapper-->')[0]
         for paragraph in re.findall(r'<p>(.+?)</p>', body):
+            cleaned = cleantext(paragraph)
+            out.write(cleaned + '\n')
+
+
+# Tuairisc is wordpress based, but seems to have a different layout than
+# the method in util.py caters to.
+def crawl_tuairisc(crawler, out):
+    sitemap = crawler.fetch_sitemap('https://tuairisc.ie/sitemap.xml')
+    pubdate_regex = re.compile(r'<time datetime="([^"]*)" itemprop="datePublished">')
+    for url in sorted(sitemap.keys()):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        title = re.search(r'<title>(.+?)</title>', html)
+        if title: out.write(cleantext(title.group(1)) + '\n')
+        pubdate = pubdate_match.group(1) if pubdate_match else None
+        if pubdate is None: pubdate = sitemap[url]
+        if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        body = html.split('<div class="article--full__content" itemprop="articleBody"')[1].split('</article>')[0]
+        for paragraph in re.findall(r'<p[^>]*>(.+?)</p>', body):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
 
