@@ -624,6 +624,8 @@ def crawl_voice_of_nigeria(crawler, out, urlprefix):
     assert urlprefix.endswith('/'), urlprefix
     site = urljoin('http://von.gov.ng/', urlprefix)
     for url in sorted(find_wordpress_urls(crawler, site)):
+        if not url.endswith('/'):
+            continue
         doc = crawler.fetch(url)
         if doc.status != 200:
             continue
