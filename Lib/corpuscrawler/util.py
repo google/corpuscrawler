@@ -302,6 +302,20 @@ class Crawler(object):
             out.write('# Publication-Date: %s\n' % pubdate)
             out.write('\n'.join(paras) + '\n')
 
+    def crawl_churchio(self, out, bible_id):
+        url = ('https://raw.githubusercontent.com/churchio/open-bibles/' +
+               ('master/%s.usfx.xml' % bible_id))
+        doc = etree.fromstring(self.fetch(url).content)
+        for book in doc.findall('book'):
+            paras = ''.join(book.itertext()).splitlines()
+            paras = [' '.join(p.split()) for p in paras]
+            out.write('# Location: %s#%s\n' % (url, book.attrib['id']))
+            out.write('# Genre: Religion\n')
+            out.write(
+                '# License: '
+                'https://creativecommons.org/publicdomain/mark/1.0/\n')
+            out.write('\n'.join(paras) + '\n')
+
     def crawl_sverigesradio(self, out, program_id):
         sitemap = self.fetch_sitemap(
             'http://sverigesradio.se/sida/sitemap.aspx')

@@ -28,6 +28,7 @@ from corpuscrawler import (
     crawl_big, crawl_bjr, crawl_bm, crawl_bmh, crawl_bmu,
     crawl_bn, crawl_bnp, crawl_bo, crawl_boj, crawl_bon,
     crawl_bs, crawl_buk, crawl_byx, crawl_bzh, crawl_ccp,
+    crawl_chr,
     crawl_cjv, crawl_cs, crawl_cy, crawl_dad, crawl_dah,
     crawl_de, crawl_ded, crawl_dgz, crawl_dob, crawl_dww,
     crawl_dz, crawl_el, crawl_emi, crawl_enq, crawl_eri,
@@ -136,6 +137,7 @@ def main():
         'byx': crawl_byx.crawl,  # Qaqet
         'bzh': crawl_bzh.crawl,  # Mapos Buang
         'ccp': crawl_ccp.crawl,  # Chakma
+        'chr': crawl_chr.crawl,  # Cherokee
         'cjv': crawl_cjv.crawl,  # Chuave
         'cs': crawl_cs.crawl,    # Czech
         'cy': crawl_cy.crawl,    # Welsh
