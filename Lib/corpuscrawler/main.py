@@ -78,7 +78,7 @@ from corpuscrawler import (
     crawl_xla, crawl_xsi, crawl_yby, crawl_yle, crawl_yml,
     crawl_yo, crawl_yue, crawl_yuj, crawl_yut, crawl_yuw,
     crawl_zab, crawl_zac, crawl_zap, crawl_zar, crawl_zaw,
-    crawl_zca, crawl_zia,
+    crawl_zca, crawl_zia, crawl_ziw,
 )
 from corpuscrawler.util import Crawler
 
@@ -372,6 +372,7 @@ def main():
         'zca': crawl_zca.crawl,  # Coatecas Altas Zapotec
         'zaw': crawl_zaw.crawl,  # Mitla Zapotec
         'zia': crawl_zia.crawl,  # Zia
+        'ziw': crawl_ziw.crawl,  # Zigula
     }
     parser = argparse.ArgumentParser()
     parser.add_argument(
