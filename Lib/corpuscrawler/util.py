@@ -674,7 +674,7 @@ def crawl_bibleis(crawler, out, bible):
     for book in jsonraw:
         for chapter in jsonraw.get(book):
             booklist.add('http://listen.bible.is/%s/%s/%s' % (bible, book, chapter))
-    for url in booklist:
+    for url in sorted(booklist):
         doc = crawler.fetch(url)
         pubdate = doc.headers.get('Last-Modified')
         if doc.status != 200:
@@ -682,6 +682,7 @@ def crawl_bibleis(crawler, out, bible):
         html = doc.content.decode('utf-8')
         if '<p>No text available for the selected Bible.</p>' in html:
             continue
+        audio = None
         if 'var audioUrl = ' in html:
             audio = html.split('var audioUrl = "')[1].split('"')[0]
         inner = html.split('<div id="chapter-content"')[1].split('<div class="content-text">')[1].split('<hr>')[0]
