@@ -78,5 +78,7 @@ def _find_tirreno_urls(crawler, category):
         url = '%s?page=%d' % (baseurl, p) if p > 1 else baseurl
         content = crawler.fetch_content(url)
         for u in re.findall(r'<h1><a href="([^"]+)">', content):
-            urls.add(urljoin(site, replace_html_entities(u.strip())))
+            u = urljoin(site, replace_html_entities(u.strip()))
+            if not u.startswith('http://old.iltirreno.gelocal.it/'):
+                urls.add(u)
     return urls
