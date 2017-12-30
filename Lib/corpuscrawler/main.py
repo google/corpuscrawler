@@ -24,7 +24,8 @@ from corpuscrawler import (
     crawl_aon, crawl_ape, crawl_apr, crawl_apz, crawl_ar,
     crawl_aso, crawl_ata, crawl_auy, crawl_avt, crawl_awb,
     crawl_az, crawl_ba, crawl_bbb, crawl_bbr, crawl_bch,
-    crawl_bdd, crawl_be, crawl_bef, crawl_bg, crawl_bhl,
+    crawl_bdd, crawl_be, crawl_be_tarask,
+    crawl_bef, crawl_bg, crawl_bhl,
     crawl_big, crawl_bjr, crawl_bm, crawl_bmh, crawl_bmu,
     crawl_bn, crawl_bnp, crawl_bo, crawl_boj, crawl_bon,
     crawl_bs, crawl_buk, crawl_byx, crawl_bzh, crawl_ccp,
@@ -119,6 +120,7 @@ def main():
         'bch': crawl_bch.crawl,  # Bariai
         'bdd': crawl_bdd.crawl,  # Bunama
         'be': crawl_be.crawl,    # Belarusian
+        'be-tarask': crawl_be_tarask.crawl,    # Belarusian (Taraškievica)
         'bef': crawl_bef.crawl,  # Benabena
         'bg': crawl_bg.crawl,    # Bulgarian
         'bhl': crawl_bhl.crawl,  # Bimin
