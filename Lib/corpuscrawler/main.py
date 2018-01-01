@@ -1,6 +1,6 @@
 # coding: utf-8
 #
-# Copyright 2017 Google Inc. All rights reserved.
+# Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ from corpuscrawler import (
     crawl_so, crawl_soq, crawl_spl, crawl_sps, crawl_sq,
     crawl_sr, crawl_sr_Latn, crawl_ssd, crawl_ssg, crawl_ssx, crawl_sua,
     crawl_sue, crawl_sv, crawl_sw, crawl_swp, crawl_ta,
-    crawl_taw, crawl_tbc, crawl_tbo, crawl_tgo, crawl_ti,
+    crawl_taw, crawl_tbc, crawl_tbo, crawl_tgo, crawl_th, crawl_ti,
     crawl_tif, crawl_tim, crawl_tlf, crawl_tpi, crawl_tpz,
     crawl_tr, crawl_tt, crawl_tte, crawl_ubr, crawl_ug,
     crawl_uk, crawl_ur, crawl_usa, crawl_uvl, crawl_vec,
@@ -332,6 +332,7 @@ def main():
         'tbc': crawl_tbc.crawl,  # Takia
         'tbo': crawl_tbo.crawl,  # Tawala
         'tgo': crawl_tgo.crawl,  # Sudest
+        'th': crawl_th.crawl,    # Thai
         'ti': crawl_ti.crawl,    # Tigrinya
         'tif': crawl_tif.crawl,  # Tifal
         'tim': crawl_tim.crawl,  # Timbe
