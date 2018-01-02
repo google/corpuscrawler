@@ -34,7 +34,7 @@ from corpuscrawler import (
     crawl_de, crawl_ded, crawl_dgz, crawl_dob, crawl_dww,
     crawl_dz, crawl_el, crawl_emi, crawl_enq, crawl_eri,
     crawl_es, crawl_et, crawl_fa, crawl_faa, crawl_fai, crawl_fi,
-    crawl_fit, crawl_fo, crawl_for, crawl_fuv, crawl_ga,
+    crawl_fit, crawl_fo, crawl_for, crawl_fr, crawl_fuv, crawl_ga,
     crawl_gah, crawl_gam, crawl_gaw, crawl_gd, crawl_gdn,
     crawl_gdr, crawl_gfk, crawl_ghs, crawl_gsw, crawl_gv,
     crawl_gvf, crawl_ha, crawl_haw, crawl_hi, crawl_hla,
@@ -164,6 +164,7 @@ def main():
         'fit': crawl_fit.crawl,  # Tornedalen Finnish
         'fo': crawl_fo.crawl,    # Faroese
         'for': crawl_for.crawl,  # Fore
+        'fr': crawl_fr.crawl,    # French
         'fuv': crawl_fuv.crawl,  # Nigerian Fulfulde
         'ga': crawl_ga.crawl,    # Irish (Gaelic)
         'gah': crawl_gah.crawl,  # Alekano
