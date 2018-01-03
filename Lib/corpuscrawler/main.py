@@ -38,7 +38,8 @@ from corpuscrawler import (
     crawl_es, crawl_et, crawl_fa, crawl_faa, crawl_fai, crawl_fi,
     crawl_fit, crawl_fo, crawl_for, crawl_fr, crawl_fuv, crawl_ga,
     crawl_gah, crawl_gam, crawl_gaw, crawl_gd, crawl_gdn,
-    crawl_gdr, crawl_gfk, crawl_ghs, crawl_gof, crawl_gsw, crawl_gv,
+    crawl_gdr, crawl_gfk, crawl_ghs, crawl_gmv_Latn,
+    crawl_gof, crawl_gsw, crawl_gv,
     crawl_gvf, crawl_ha, crawl_haw, crawl_hi, crawl_hla,
     crawl_ho, crawl_hot, crawl_hr, crawl_hui, crawl_hy,
     crawl_ian, crawl_id, crawl_ig, crawl_imo, crawl_ino,
@@ -180,6 +181,7 @@ def main():
         'gdr': crawl_gdr.crawl,  # Wipi
         'gfk': crawl_gfk.crawl,  # Patpatar
         'ghs': crawl_ghs.crawl,  # Guhu-Samane
+        'gmv-Latn': crawl_gmv_Latn.crawl,  # Gamo (Latin)
         'gof': crawl_gof.crawl,  # Gofa
         'gsw': crawl_gsw.crawl,  # Swiss German
         'gv': crawl_gv.crawl,    # Manx Gaelic
