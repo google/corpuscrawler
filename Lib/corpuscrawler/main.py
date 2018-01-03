@@ -26,7 +26,8 @@ from corpuscrawler import (
     crawl_az, crawl_ba, crawl_bbb, crawl_bbr, crawl_bch,
     crawl_bdd, crawl_be, crawl_be_tarask,
     crawl_bef, crawl_bg, crawl_bhl,
-    crawl_big, crawl_bjr, crawl_bm, crawl_bmh, crawl_bmu,
+    crawl_big, crawl_bjr, crawl_blt, crawl_blt_Latn,
+    crawl_bm, crawl_bmh, crawl_bmu,
     crawl_bn, crawl_bnp, crawl_bo, crawl_boj, crawl_bon,
     crawl_bs, crawl_buk, crawl_byx, crawl_bzh, crawl_ccp,
     crawl_chr,
@@ -126,6 +127,8 @@ def main():
         'bhl': crawl_bhl.crawl,  # Bimin
         'big': crawl_big.crawl,  # Biangai
         'bjr': crawl_bjr.crawl,  # Binumarien
+        'blt': crawl_blt.crawl,  # Tai Dam
+        'blt-Latn': crawl_blt_Latn.crawl,  # Tai Dam (Latin)
         'bm': crawl_bm.crawl,    # Bambara
         'bmh': crawl_bmh.crawl,  # Kein
         'bmu': crawl_bmu.crawl,  # Somba-Siawari
