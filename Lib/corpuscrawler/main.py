@@ -31,7 +31,8 @@ from corpuscrawler import (
     crawl_bn, crawl_bnp, crawl_bo, crawl_boj, crawl_bon,
     crawl_bs, crawl_buk, crawl_byx, crawl_bzh, crawl_ccp,
     crawl_chr,
-    crawl_cjv, crawl_cs, crawl_cy, crawl_dad, crawl_dah,
+    crawl_cjv, crawl_cs, crawl_ctd_Latn,
+    crawl_cy, crawl_dad, crawl_dah,
     crawl_de, crawl_ded, crawl_dgz, crawl_dob, crawl_dww,
     crawl_dz, crawl_el, crawl_emi, crawl_enq, crawl_eri,
     crawl_es, crawl_et, crawl_fa, crawl_faa, crawl_fai, crawl_fi,
@@ -145,6 +146,7 @@ def main():
         'chr': crawl_chr.crawl,  # Cherokee
         'cjv': crawl_cjv.crawl,  # Chuave
         'cs': crawl_cs.crawl,    # Czech
+        'ctd-Latn': crawl_ctd_Latn.crawl,  # Tedim Chin (Latin)
         'cy': crawl_cy.crawl,    # Welsh
         'dad': crawl_dad.crawl,  # Marik
         'dah': crawl_dah.crawl,  # Gwahatike
