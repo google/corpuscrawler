@@ -685,6 +685,8 @@ def crawl_bibleis(crawler, out, bible):
         audio = None
         if 'var audioUrl = ' in html:
             audio = html.split('var audioUrl = "')[1].split('"')[0]
+        if html.find('<div id="chapter-content"') < 0:
+            continue
         inner = html.split('<div id="chapter-content"')[1].split('<div class="content-text">')[1].split('<hr>')[0]
         title = cleantext(striptags(inner.split('<span class="chapter-title">')[1].split('</span>')[0]))
         paras = []
