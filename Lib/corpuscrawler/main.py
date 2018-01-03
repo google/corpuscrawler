@@ -60,7 +60,8 @@ from corpuscrawler import (
     crawl_mpt, crawl_mpx, crawl_mr, crawl_msy, crawl_mt,
     crawl_mti, crawl_mux, crawl_mva, crawl_my,
     crawl_my_t_d0_zawgyi, crawl_myw,
-    crawl_naf, crawl_nak, crawl_nas, crawl_nca, crawl_nho,
+    crawl_naf, crawl_nak, crawl_nan, crawl_nan_Latn,
+    crawl_nas, crawl_nca, crawl_nho,
     crawl_nl, crawl_nop, crawl_nou, crawl_nsn, crawl_nvm,
     crawl_ny, crawl_okv, crawl_ong, crawl_opm, crawl_os,
     crawl_osa,
@@ -279,6 +280,8 @@ def main():
         'myw': crawl_myw.crawl,  # Muyuw
         'naf': crawl_naf.crawl,  # Nabak
         'nak': crawl_nak.crawl,  # Nakanai
+        'nan': crawl_nan.crawl,  # Min Nan Chinese
+        'nan-Latn': crawl_nan_Latn.crawl,  # Min Nan Chinese (Latin)
         'nas': crawl_nas.crawl,  # Naasioi
         'nca': crawl_nca.crawl,  # Iyo
         'nho': crawl_nho.crawl,  # Takuu
