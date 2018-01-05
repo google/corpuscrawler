@@ -1,4 +1,4 @@
-# Copyright 2017 Google Inc. All rights reserved.
+# Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ from corpuscrawler.util import cleantext, crawl_udhr, urlencode
 
 def crawl(crawler):
     out = crawler.get_output(language='kab')
+    crawler.crawl_aps_dz(out, prefix='tal/')
     crawl_tamurt(crawler, out)
 
 
