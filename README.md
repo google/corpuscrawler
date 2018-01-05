@@ -59,6 +59,7 @@ To build corpora for not-yet-supported languages, please read the
 | `bdd`               | Bunama                       |    171K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bdd.txt)               |
 | `bef`               | Benabena                     |    239K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bef.txt)               |
 | `be`                | Belarusian                   |  1,441K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/be.txt)                |
+| `be-tarask`         | Belarusian (Taraškievica)    | 108,431K [💾](http://www.gstatic.com/i18n/corpora/wordcounts/be-tarask.txt)         |
 | `bg`                | Bulgarian                    | 10,597K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bg.txt)                |
 | `bhl`               | Bimin                        |    324K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bhl.txt)               |
 | `big`               | Biangai                      |    229K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/big.txt)               |
@@ -76,6 +77,7 @@ To build corpora for not-yet-supported languages, please read the
 | `byx`               | Qaqet                        |    387K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/byx.txt)               |
 | `bzh`               | Mapos Buang                  |    251K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bzh.txt)               |
 | `ccp`               | Chakma                       |     79K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ccp.txt)               |
+| `chr`               | Cherokee                     |    119K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/chr.txt)               |
 | `cjv`               | Chuave                       |    286K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cjv.txt)               |
 | `cs`                | Czech                        |  3,141K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cs.txt)                |
 | `cy`                | Welsh                        | 11,519K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cy.txt)                |
@@ -92,6 +94,7 @@ To build corpora for not-yet-supported languages, please read the
 | `enq`               | Enga                         |    217K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/enq.txt)               |
 | `eri`               | Ogea                         |    269K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/eri.txt)               |
 | `es`                | Spanish                      | 32,670K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/es.txt)                |
+| `et`                | Estonian                     |  3,658K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/et.txt)                |
 | `fa`                | Persian                      |  9,114K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/fa.txt)                |
 | `fa-AF`             | Dari                         |  7,363K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/fa-AF.txt)             |
 | `faa`               | Fasu                         |    238K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/faa.txt)               |
@@ -131,6 +134,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ino`               | Inoke-Yate                   |    236K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ino.txt)               |
 | `iou`               | Tuma-Irumu                   |    225K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/iou.txt)               |
 | `ipi`               | Ipili                        |    312K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ipi.txt)               |
+| `it`                | Italian                      | 13,569K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/it.txt)                |
 | `iu`                | Inuktitut                    |     98K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/iu.txt)                |
 | `iws`               | Sepik Iwam                   |    307K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/iws.txt)               |
 | `jae`               | Yabem                        |    186K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/jae.txt)               |
@@ -173,6 +177,7 @@ To build corpora for not-yet-supported languages, please read the
 | `leu`               | Kara (Papua New Guinea)      |    255K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/leu.txt)               |
 | `lid`               | Nyindrou                     |    308K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lid.txt)               |
 | `lo`                | Lao                          |  4,384K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lo.txt)                |
+| `lv`                | Latvian                      |  1,020K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lv.txt)                |
 | `mbh`               | Mangseng                     |    321K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mbh.txt)               |
 | `mcq`               | Ese                          |    158K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/mcq.txt)               |
 | `med`               | Melpa                        |    283K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/med.txt)               |
