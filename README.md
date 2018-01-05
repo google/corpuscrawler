@@ -45,7 +45,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ape`               | Bukiyip                      |    294K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ape.txt)               |
 | `apr`               | Arop-Lokep                   |    373K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/apr.txt)               |
 | `apz`               | Safeyoka                     |    235K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/apz.txt)               |
-| `ar`                | Arabic                       | 14,345K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ar.txt)                |
+| `ar`                | Arabic                       | 19,593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ar.txt)                |
 | `aso`               | Dano                         |    290K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/aso.txt)               |
 | `ata`               | Pele-Ata                     |    248K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ata.txt)               |
 | `auy`               | Awiyaana                     |    164K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/auy.txt)               |
@@ -104,7 +104,7 @@ To build corpora for not-yet-supported languages, please read the
 | `gah`               | Alekano                      |    210K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gah.txt)               |
 | `gam`               | Kandawo                      |    250K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gam.txt)               |
 | `gaw`               | Nobonob                      |    246K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gaw.txt)               |
-| `ga`                | Irish                        |    298K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ga.txt)                |
+| `ga`                | Irish                        |  7,587K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ga.txt)                |
 | `gdn`               | Umanakaina                   |    306K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gdn.txt)               |
 | `gdr`               | Wipi                         |    271K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gdr.txt)               |
 | `gd`                | Scottish Gaelic              | 17,105K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/gd.txt)                |
@@ -215,7 +215,7 @@ To build corpora for not-yet-supported languages, please read the
 | `ong`               | Olo                          |    284K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ong.txt)               |
 | `opm`               | Oksapmin                     |    332K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/opm.txt)               |
 | `osa`               | Osage                        |      3K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/osa.txt)               |
-| `pa`                | Punjabi                      | 28,446K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pa.txt)                |
+| `pa`                | Punjabi                      | 59,990K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pa.txt)                |
 | `pcm`               | Nigerian Pidgin              |    315K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pcm.txt)               |
 | `pl`                | Polish                       |  7,148K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/pl.txt)                |
 | `ppo`               | Folopa                       |    258K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ppo.txt)               |
@@ -297,7 +297,7 @@ To build corpora for not-yet-supported languages, please read the
 | `yby`               | Yaweyuha                     |    219K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yby.txt)               |
 | `yle`               | Yele                         |    298K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yle.txt)               |
 | `yml`               | Iamalele                     |    245K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yml.txt)               |
-| `yo`                | Yoruba                       |     80K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yo.txt)                |
+| `yo`                | Yoruba                       |    270K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yo.txt)                |
 | `yuj`               | Karkar-Yuri                  |    258K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yuj.txt)               |
 | `yut`               | Yopno                        |    227K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yut.txt)               |
 | `yuw`               | Yau (Morobe Province)        |    243K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/yuw.txt)               |
@@ -312,5 +312,5 @@ To build corpora for not-yet-supported languages, please read the
 ## Running the Crawler
 
 ```sh
-./corpuscrawler --language=rm --output=./corpus
+./corpuscrawler --language=yo --output=./corpus
 ```
