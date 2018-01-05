@@ -316,6 +316,49 @@ class Crawler(object):
                 'https://creativecommons.org/publicdomain/mark/1.0/\n')
             out.write('\n'.join(paras) + '\n')
 
+    def crawl_aps_dz(self, out, prefix):
+        urls = set()
+        if prefix in {'arb/'}:
+            science_category = 'sante-science-tech'
+        else:
+            science_category = 'sante-sciences-tech'
+        for category in ['algerie', 'economie', 'societe', 'culture', 'sport',
+                       'monde', 'regions', science_category]:
+            category_url = 'http://tamazight.aps.dz/' + prefix + category
+            category_html = self.fetch_content(category_url)
+            starts = re.findall(r'/%s\?start=(\d+)' % category, category_html)
+            last_page = max([int(x) for x in starts])
+            for p in range(0, last_page + 1, 10):
+                html = self.fetch_content(category_url + '?start=%d' % p)
+                for u in re.findall(
+                        r'href="(/%s%s/[^"]+)"' % (prefix, category), html):
+                    urls.add('http://tamazight.aps.dz' + u)
+        for url in sorted(urls):
+            doc = self.fetch(urlencode(url))
+            if doc.status != 200:
+                continue
+            html = doc.content.decode('utf-8')
+            pubdate = extract('<span class="itemDateCreated">',
+                              '</span>', html)
+            pubdate = re.search(
+                '(\d{1,2}) ([a-zA-Zéû]+) (20\d{2}) (\d{2}):(\d{2})',
+                pubdate or '')
+            if pubdate:
+                day, month, year, hour, minute = pubdate.groups()
+                month = _FRENCH_MONTHS[month]
+                pubdate = '%04d-%02d-%02dT%02d:%02d:00Z' % (
+                    int(year), month, int(day), int(hour), int(minute))
+            title = extract('<h2 class="itemTitle">', '</h2>', html) or ''
+            content = extract('<div class="itemFullText">',
+                              '<div class="itemContentFooter">', html) or ''
+            paras = clean_paragraphs('<p/>'.join([title, content]))
+            if paras:
+                out.write('# Location: %s\n' % url)
+                out.write('# Genre: News\n')
+                if pubdate:
+                    out.write('# Publication-Date: %s\n' % pubdate)
+                out.write('\n'.join(paras) + '\n')
+
     def crawl_sverigesradio(self, out, program_id):
         sitemap = self.fetch_sitemap(
             'http://sverigesradio.se/sida/sitemap.aspx')
@@ -764,3 +807,19 @@ def fixquotes(s):
     s = (' ' + s).replace(" '", " ‘").replace("'", "’")
     s = s.replace(' "', ' “').replace('"', '”')
     return s.strip()
+
+
+_FRENCH_MONTHS = {
+    'janvier': 1,
+    'février': 2,
+    'mars': 3,
+    'avril': 4,
+    'mai': 5,
+    'juin': 6,
+    'juillet': 7,
+    'août': 8,
+    'septembre': 9,
+    'octobre': 10,
+    'novembre': 11,
+    'décembre': 12
+}

@@ -20,5 +20,5 @@ from corpuscrawler.util import clean_paragraphs, crawl_udhr, extract, urlencode
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='kab-Tfng')
-    crawler.crawl_aps_dz(out, prefix='')
+    out = crawler.get_output(language='kab-Arab')
+    crawler.crawl_aps_dz(out, prefix='arb/')
