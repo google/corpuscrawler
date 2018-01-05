@@ -96,6 +96,7 @@ from corpuscrawler import (
     crawl_izz, crawl_ja, crawl_jac, crawl_jae, crawl_jam,
     crawl_jbu, crawl_jic, crawl_jiv, crawl_jmc, crawl_jun,
     crawl_jv, crawl_jvn, crawl_ka, crawl_kaa, crawl_kab,
+    crawl_kab_Tfng,
     crawl_kac, crawl_kao, crawl_kaq, crawl_kbh, crawl_kbm,
     crawl_kbp, crawl_kbq, crawl_kbr, crawl_kcg, crawl_kdc,
     crawl_kdi, crawl_kdj, crawl_kdn, crawl_kek, crawl_ken,
@@ -614,6 +615,7 @@ def main():
         'ka': crawl_ka.crawl,    # Georgian
         'kaa': crawl_kaa.crawl,  # Kara-Kalpak
         'kab': crawl_kab.crawl,  # Kabyle
+        'kab-Tfng': crawl_kab_Tfng.crawl,  # Kabyle (Tifinagh)
         'kac': crawl_kac.crawl,  # Kachin
         'kao': crawl_kao.crawl,  # Xaasongaxango
         'kaq': crawl_kaq.crawl,  # Capanahua
