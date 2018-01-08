@@ -124,7 +124,7 @@ class Crawler(object):
                 print('Cache-Hit:      %s' % url)
                 headers, content = f.read().split(b'\r\n\r\n\r\n', 1)
                 headers = mimetools.Message(StringIO(headers))
-                status = int(headers.get('Status', '200'))
+                status = int(headers.get('Status', '200').split()[0])
                 return FetchResult(headers, content, status, filepath)
         except IOError:
             pass
