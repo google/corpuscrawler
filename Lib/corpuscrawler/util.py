@@ -121,8 +121,10 @@ class Crawler(object):
                                 "f" + base64.urlsafe_b64encode(digest))
         try:
             with open(filepath, 'r') as f:
+                cached = f.read().split(b'\r\n\r\n\r\n', 1)
+            if len(cached) == 2:
                 print('Cache-Hit:      %s' % url)
-                headers, content = f.read().split(b'\r\n\r\n\r\n', 1)
+                headers, content = cached
                 headers = mimetools.Message(StringIO(headers))
                 status = int(headers.get('Status', '200').split()[0])
                 return FetchResult(headers, content, status, filepath)
