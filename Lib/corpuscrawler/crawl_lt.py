@@ -39,7 +39,11 @@ def _crawl_kauno_diena_lt(crawler, out):
         title = extract('<h1 class="title" id="page-title">', '</h1>', html)
         title = cleantext(title if title else '')
         body = extract("<span itemprop='articleBody'>", '</div>', html) or ''
-        paras = clean_paragraphs('%s<br/>%s' % (title, body))
+        paras = []
+        for p in clean_paragraphs('%s<br/>%s' % (title, body)):
+            if 'MicrosoftInternetExplorer4' in p:
+                break
+            paras.append(p)
         pubdate = re.search(
             r'<span\s+property="dc:date\s+dc:created"\s+content="(20[^"]+)"',
             html)
