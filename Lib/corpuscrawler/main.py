@@ -69,7 +69,8 @@ from corpuscrawler import (
     crawl_dz, crawl_ee, crawl_eka, crawl_el, crawl_emi,
     crawl_emp, crawl_enb, crawl_enq, crawl_enx, crawl_eri,
     crawl_es, crawl_ese, crawl_et, crawl_eu, crawl_ewo,
-    crawl_eza, crawl_fa, crawl_faa, crawl_fai, crawl_fal,
+    crawl_eza, crawl_fa, crawl_fa_AF, crawl_faa, crawl_fai,
+    crawl_fal,
     crawl_far, crawl_fi, crawl_fil, crawl_fip, crawl_fit,
     crawl_fj, crawl_fo, crawl_fon, crawl_for, crawl_fr,
     crawl_fue, crawl_fuf, crawl_fuq, crawl_fuv, crawl_ga,
@@ -482,6 +483,7 @@ def main():
         'ewo': crawl_ewo.crawl,  # Ewondo
         'eza': crawl_eza.crawl,  # Ezaa
         'fa': crawl_fa.crawl,    # Persian
+        'fa-AF': crawl_fa_AF.crawl,  # Dari
         'faa': crawl_faa.crawl,  # Fasu
         'fai': crawl_fai.crawl,  # Faiwol
         'fal': crawl_fal.crawl,  # South Fali

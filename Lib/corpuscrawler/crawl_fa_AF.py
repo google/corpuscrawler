@@ -18,6 +18,6 @@ from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
 
 
 def crawl(crawler):
-    out = crawler.get_output(language='fa')
-    crawl_udhr(crawler, out, filename='udhr_pes_1.txt')
-    crawl_deutsche_welle(crawler, out, prefix='/fa-ir/')
+    out = crawler.get_output(language='fa-AF')
+    crawl_udhr(crawler, out, filename='udhr_pes_2.txt')
+    crawl_deutsche_welle(crawler, out, prefix='/fa-af/')
