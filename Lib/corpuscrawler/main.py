@@ -173,7 +173,8 @@ from corpuscrawler import (
     crawl_qwh, crawl_qxh, crawl_qxl, crawl_qxn, crawl_qxo,
     crawl_qxr, crawl_rai, crawl_raj, crawl_rav, crawl_rej,
     crawl_rim, crawl_rm, crawl_rmc, crawl_rmo, crawl_rn,
-    crawl_rnl, crawl_ro, crawl_rom, crawl_roo, crawl_rro,
+    crawl_rnl, crawl_ro, crawl_ro_MD, crawl_rom, crawl_roo,
+    crawl_rro,
     crawl_ru, crawl_ruf, crawl_rug, crawl_rw, crawl_rwo,
     crawl_sab, crawl_sah, crawl_sas, crawl_sba, crawl_sbl,
     crawl_sck, crawl_sda, crawl_seh, crawl_sey, crawl_sg,
@@ -996,6 +997,7 @@ def main():
         'rn': crawl_rn.crawl,    # Rundi
         'rnl': crawl_rnl.crawl,  # Ranglong
         'ro': crawl_ro.crawl,    # Romanian
+        'ro-MD': crawl_ro_MD.crawl,  # Moldovan
         'rom': crawl_rom.crawl,  # Vlax Romani
         'roo': crawl_roo.crawl,  # Rotokas
         'rro': crawl_rro.crawl,  # Waima
