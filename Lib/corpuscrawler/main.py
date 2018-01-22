@@ -156,7 +156,8 @@ from corpuscrawler import (
     crawl_npl, crawl_npy, crawl_nsn, crawl_nsu, crawl_ntm,
     crawl_ntp, crawl_ntr, crawl_nuj, crawl_nus, crawl_nvm,
     crawl_nwb, crawl_nwi, crawl_ny, crawl_nyf, crawl_nyn,
-    crawl_nyo, crawl_nyy, crawl_nzi, crawl_obo, crawl_oku,
+    crawl_nyo, crawl_nyy, crawl_nzi, crawl_obo, crawl_oc,
+    crawl_oku,
     crawl_okv, crawl_old, crawl_ong, crawl_opm, crawl_or,
     crawl_os, crawl_osa, crawl_otd, crawl_ote, crawl_ozm,
     crawl_pa, crawl_pab, crawl_pad, crawl_pag, crawl_pah,
@@ -914,6 +915,7 @@ def main():
         'nyy': crawl_nyy.crawl,  # Nyakyusa-Ngonde
         'nzi': crawl_nzi.crawl,  # Nzima
         'obo': crawl_obo.crawl,  # Obo Manobo
+        'oc': crawl_oc.crawl,    # Occitan
         'oku': crawl_oku.crawl,  # Oku
         'okv': crawl_okv.crawl,  # Orokaiva
         'old': crawl_old.crawl,  # Mochi
