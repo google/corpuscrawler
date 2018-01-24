@@ -38,14 +38,19 @@ def _crawl_lasetmana_fr(crawler, out):
         content = extract('<div class="itemFullText">',
                           '<div class="itemLinks">', html)
         paras = clean_paragraphs('<h1>%s</h1>%s' % (title, content))
+        if not paras:
+            continue
+        text = '\n'.join(paras)
+        text = text.replace(
+            'This email address is being protected from spambots. '
+            'You need JavaScript enabled to view it.', '')
         pubdate = re.search(r'<time datetime="([^"]+)"', html)
         pubdate = pubdate.group(1).strip() if pubdate else None
-        if paras:
-            out.write('# Location: %s\n' % url)
-            out.write('# Genre: News\n')
-            if pubdate:
-                out.write('# Publication-Date: %s\n' % pubdate)
-            out.write('\n'.join(paras) + '\n')
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        if pubdate:
+          out.write('# Publication-Date: %s\n' % pubdate)
+        out.write(text + '\n')
 
 
 def _find_urls_lasetmana_fr(crawler):
