@@ -17,14 +17,50 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 from corpuscrawler.util import (
-    clean_paragraphs, crawl_udhr, extract
+    clean_paragraphs, crawl_udhr, extract, replace_html_entities
 )
 
 
 def crawl(crawler):
     out = crawler.get_output(language='oc')
     crawl_udhr(crawler, out, filename='udhr_prv.txt')
+    _crawl_jornalet_com(crawler, out)
     _crawl_lasetmana_fr(crawler, out)
+
+
+def _crawl_jornalet_com(crawler, out):
+    for url in sorted(_find_urls_jornalet_com(crawler)):
+        try:
+            html = crawler.fetch_content(url)
+        except UnicodeDecodeError:
+            continue
+        title = re.search(r'<meta property="og:title" content="([^"]+)"', html)
+        title = title.group(1) if title else ''
+        subtitle = extract('<h4 class="subtitol">', '</h4>', html) or ''
+        content = extract('<p class="contingut">', '<hr', html) or ''
+        paras = clean_paragraphs('\n'.join(
+            ['<p>%s</p>' % p for p in (title, subtitle, content) if p]))
+        paras = [p for p in paras if p.find('Abonar los amics de Jornalet') < 0]
+        if not paras:
+            continue
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        out.write('\n'.join(paras) + '\n')
+
+
+def _find_urls_jornalet_com(crawler):
+    urls = set()
+    main = crawler.fetch_content('https://www.jornalet.com/actualitats')
+    num_pages = max([int(p) for p
+                     in re.findall(r'actualitats/pagina/(\d+)"', main)])
+    for p in range(1, num_pages + 1):
+        index = crawler.fetch_content(
+            'https://www.jornalet.com/actualitats/pagina/%d' % p)
+        for u in re.findall(r'"(https://www.jornalet.com/nova/[^"]+)"', index):
+            url = replace_html_entities(u.split('#')[0])
+            url = url.replace(' ', '')
+            urls.add(url)
+    return urls
 
 
 def _crawl_lasetmana_fr(crawler, out):
@@ -49,7 +85,7 @@ def _crawl_lasetmana_fr(crawler, out):
         out.write('# Location: %s\n' % url)
         out.write('# Genre: News\n')
         if pubdate:
-          out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('# Publication-Date: %s\n' % pubdate)
         out.write(text + '\n')
 
 
