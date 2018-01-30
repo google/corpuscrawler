@@ -48,6 +48,7 @@ from corpuscrawler import (
     crawl_btt, crawl_btx, crawl_bua, crawl_bud, crawl_buk,
     crawl_bus, crawl_bvc, crawl_bvz, crawl_bwq, crawl_bwu,
     crawl_byr, crawl_byx, crawl_bzh, crawl_bzi, crawl_bzj,
+    crawl_ca_valencia,
     crawl_caa, crawl_cab, crawl_cac, crawl_cak, crawl_cap,
     crawl_car, crawl_cax, crawl_cbc, crawl_cbi, crawl_cbl,
     crawl_cbr, crawl_cbs, crawl_cbt, crawl_cbv, crawl_cce,
@@ -378,6 +379,7 @@ def main():
         'bzh': crawl_bzh.crawl,  # Mapos Buang
         'bzi': crawl_bzi.crawl,  # Bisu
         'bzj': crawl_bzj.crawl,  # Belize Kriol English
+        'ca-valencia': crawl_ca_valencia.crawl,  # Valencian Catalan
         'caa': crawl_caa.crawl,  # Chortí
         'cab': crawl_cab.crawl,  # Garifuna
         'cac': crawl_cac.crawl,  # Chuj
