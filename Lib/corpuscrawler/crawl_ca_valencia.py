@@ -46,8 +46,10 @@ def _crawl_val_levante_emv_com (crawler, out):
                           '</apertium-notrans>', html)
         paras = clean_paragraphs(
             '<p>'.join([p for p in (title, subtitle, content) if p]))
-        text = '\n'.join(paras).split('Compartir en Twitter')[0].strip()
-        if not text:
+        text = '\n'.join(paras)
+        for sep in ['Compartir en Twitter', 'HEMEROTECA\n', '\nPublicitat\n']:
+            text = text.split(sep)[0].strip()
+        if ('inicia sessió si eres subscriptor' in text) or not text:
             continue
         out.write('# Location: %s\n' % url)
         out.write('# Translation.es: %s\n' % es_url)
