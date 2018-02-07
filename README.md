@@ -543,7 +543,7 @@ To build corpora for not-yet-supported languages, please read the
 | `lon`               | Malawi Lomwe                 |    137K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lon.txt)               |
 | `lsi`               | Lashi                        |  1,077K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lsi.txt)               |
 | `lsm`               | Saamia                       |    156K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lsm.txt)               |
-| `lt`                | Lithuanian                   | 24,363K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lt.txt)                |
+| `lt`                | Lithuanian                   | 39,575K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lt.txt)                |
 | `luc`               | Aringa                       |    242K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/luc.txt)               |
 | `lus`               | Lushai                       |    204K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lus.txt)               |
 | `lv`                | Latvian                      |  1,020K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/lv.txt)                |
@@ -832,7 +832,7 @@ To build corpora for not-yet-supported languages, please read the
 | `sil`               | Tumulung Sisaala             |    256K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sil.txt)               |
 | `sim`               | Mende (Papua New Guinea)     |    273K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sim.txt)               |
 | `sja`               | Epena                        |    194K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sja.txt)               |
-| `sk`                | Slovak                       | 44,187K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sk.txt)                |
+| `sk`                | Slovak                       | 70,933K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sk.txt)                |
 | `sl`                | Slovenian                    | 10,975K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sl.txt)                |
 | `sld`               | Sissala                      |    206K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sld.txt)               |
 | `sll`               | Salt-Yui                     |    264K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sll.txt)               |
