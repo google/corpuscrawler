@@ -713,6 +713,7 @@ To build corpora for not-yet-supported languages, please read the
 | `nyy`               | Nyakyusa-Ngonde              |    138K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/nyy.txt)               |
 | `nzi`               | Nzima                        |    201K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/nzi.txt)               |
 | `obo`               | Obo Manobo                   |    266K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/obo.txt)               |
+| `oc`                | Occitan                      |  2,706K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/oc.txt)                |
 | `oku`               | Oku                          |    239K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/oku.txt)               |
 | `okv`               | Orokaiva                     |    212K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/okv.txt)               |
 | `old`               | Mochi                        |    151K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/old.txt)               |
@@ -801,6 +802,7 @@ To build corpora for not-yet-supported languages, please read the
 | `rn`                | Rundi                        |    120K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rn.txt)                |
 | `rnl`               | Ranglong                     |    221K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rnl.txt)               |
 | `ro`                | Romanian                     | 13,962K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ro.txt)                |
+| `ro-MD`             | Moldavian                    |  2,694K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ro-MD.txt)             |
 | `rom`               | Vlax Romani                  |    186K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rom.txt)               |
 | `roo`               | Rotokas                      |    292K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/roo.txt)               |
 | `rro`               | Waima                        |    177K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rro.txt)               |
