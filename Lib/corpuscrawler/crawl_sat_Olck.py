@@ -15,14 +15,17 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
+from datetime import date
 import re
-from corpuscrawler.util import clean_paragraphs, extract
+import subprocess
+from corpuscrawler.util import clean_paragraphs, daterange, extract
 
 
 def crawl(crawler):
     out = crawler.get_output(language='sat-Olck')
     _crawl_asymptotejournal_com(crawler, out)
     _crawl_disom_khobor(crawler, out)
+    _crawl_khoborkagoj_com(crawler, out)
 
 
 def _crawl_asymptotejournal_com(crawler, out):
@@ -32,7 +35,7 @@ def _crawl_asymptotejournal_com(crawler, out):
     content = extract('<!-- article content -->',
                       '<img src="/images/end-logo-black.gif"', html)
     out.write('# Location: %s\n' % url)
-    out.write('# Genre: Literature\n')
+    out.write('# Genre: Fiction\n')
     paras = clean_paragraphs(content)
     paras = [p for p in paras if p[0] not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
     out.write('\n'.join(paras) + '\n')
@@ -58,6 +61,48 @@ def _crawl_disom_khobor(crawler, out):
         out.write('# Location: %s\n' % url)
         out.write('# Genre: News\n')
         out.write('# Publication-Date: %s\n' % pubdate)
+        out.write(text + '\n')
+
+
+def _crawl_khoborkagoj_com(crawler, out):
+    for d in daterange(date(2017, 11, 1), date.today()):
+        url = ('http://khoborkagoj.com/wp-content/uploads/'
+               '%04d/%02d/%02d%02d%04d.pdf' % (d.year, d.month,
+                                               d.day, d.month, d.year))
+        doc = crawler.fetch(url)
+        if doc.status != 200:
+            continue
+        converter = subprocess.Popen(
+            ['pdftotext', '-raw', '-', '-'],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = converter.communicate(input=doc.content)
+        if stderr:
+            print(stderr)
+            continue
+        lines = []
+        for line in stdout.decode('iso-8859-1').splitlines():
+            line = line.strip()
+            if not line or line == '\x0B':
+                continue
+            word_lengths = [len(w) for w in line.split()]
+            if sum(word_lengths) / float(len(word_lengths)) < 2:
+                lines.append(''.join(line.split()))  # bogus justification
+            else:
+                contains_bad = False
+                for bad in ('Jamshedpur', 'Printed', 'published', 'from',
+                            'gmail', 'yahoo', 'Dishom', 'KHOBOR', 'KAGOJ'):
+                    if bad in line:
+                        contains_bad = True
+                        break
+                if not contains_bad:
+                    lines.append(line)
+        text = _to_unicode(' '.join(lines))
+        text = text.replace('- ', '')  # hyphenation
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        out.write('# Publication-Date: %04d-%02d-%02d\n' %
+                  (d.year, d.month, d.day))
         out.write(text + '\n')
 
 
