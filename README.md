@@ -814,6 +814,7 @@ To build corpora for not-yet-supported languages, please read the
 | `sab`               | Buglere                      |    405K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sab.txt)               |
 | `sah`               | Sakha                        |  2,457K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sah.txt)               |
 | `sas`               | Sasak                        |    196K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sas.txt)               |
+| `sat`               | Santali                      |    149K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sat.txt)               |
 | `sba`               | Ngambay                      |    246K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sba.txt)               |
 | `sbl`               | Botolan Sambal               |    251K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sbl.txt)               |
 | `sck`               | Sadri                        |    189K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/sck.txt)               |
