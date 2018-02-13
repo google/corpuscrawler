@@ -178,7 +178,7 @@ from corpuscrawler import (
     crawl_rnl, crawl_ro, crawl_ro_MD, crawl_rom, crawl_roo,
     crawl_rro,
     crawl_ru, crawl_ruf, crawl_rug, crawl_rw, crawl_rwo,
-    crawl_sab, crawl_sah, crawl_sas, crawl_sat_Olck,
+    crawl_sab, crawl_sah, crawl_sas, crawl_sat,
     crawl_sba, crawl_sbl,
     crawl_sck, crawl_sda, crawl_seh, crawl_sey, crawl_sg,
     crawl_sgb, crawl_sgw, crawl_sgz, crawl_shk, crawl_shn,
@@ -1014,7 +1014,7 @@ def main():
         'sab': crawl_sab.crawl,  # Buglere
         'sah': crawl_sah.crawl,  # Sakha
         'sas': crawl_sas.crawl,  # Sasak
-        'sat-Olck': crawl_sat_Olck.crawl,  # Santali (Ol Chiki)
+        'sat': crawl_sat.crawl,  # Santali
         'sba': crawl_sba.crawl,  # Ngambay
         'sbl': crawl_sbl.crawl,  # Botolan Sambal
         'sck': crawl_sck.crawl,  # Sadri
