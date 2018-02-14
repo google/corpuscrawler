@@ -806,7 +806,7 @@ To build corpora for not-yet-supported languages, please read the
 | `rom`               | Vlax Romani                  |    186K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rom.txt)               |
 | `roo`               | Rotokas                      |    292K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/roo.txt)               |
 | `rro`               | Waima                        |    177K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rro.txt)               |
-| `ru`                | Russian                      | 40,987K² [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
+| `ru`                | Russian                      | 40,987K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ru.txt)                |
 | `ruf`               | Luguru                       |    135K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ruf.txt)               |
 | `rug`               | Roviana                      |    956K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rug.txt)               |
 | `rw`                | Kinyarwanda                  |    605K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/rw.txt)                |
@@ -1028,9 +1028,7 @@ To build corpora for not-yet-supported languages, please read the
 | `zyp`               | Zyphe Chin                   |    230K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/zyp.txt)               |
 
 
-¹ To count tokens, we use an [ICU word break iterator](http://userguide.icu-project.org/boundaryanalysis#TOC-Word-Boundary) and count all tokens whose break status is one of `UBRK_WORD_LETTER`, `UBRK_WORD_KANA`, or `UBRK_WORD_IDEO`. Downloadable files include counts for each token. To get the raw text, run the crawler yourself.
-
-² Crawl is still in progress; the final number will be larger.
+¹ Downloadable files include counts for each token; to get raw text, run the crawler yourself. For breaking text into words, we use an [ICU word break iterator](http://userguide.icu-project.org/boundaryanalysis#TOC-Word-Boundary) and count all tokens whose break status is one of `UBRK_WORD_LETTER`, `UBRK_WORD_KANA`, or `UBRK_WORD_IDEO`.
 
 
 ## Running the Crawler
