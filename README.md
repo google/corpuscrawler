@@ -176,6 +176,7 @@ To build corpora for not-yet-supported languages, please read the
 | `bzh`               | Mapos Buang                  |    251K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bzh.txt)               |
 | `bzi`               | Bisu                         |    381K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bzi.txt)               |
 | `bzj`               | Belize Kriol English         |    240K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/bzj.txt)               |
+| `ca-valencia`       | Valencian                    | 24,295K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/ca-valencia.txt)       |
 | `caa`               | Chortí                       |    307K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/caa.txt)               |
 | `cab`               | Garifuna                     |    154K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cab.txt)               |
 | `cac`               | Chuj                         |    244K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/cac.txt)               |
