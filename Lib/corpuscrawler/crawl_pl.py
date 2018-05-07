@@ -25,6 +25,17 @@ def crawl(crawler):
     crawl_deutsche_welle(crawler, out, prefix='/pl/')
     crawl_pl_usembassy_gov(crawler, out)
 
+def _pl_usembassy_gov_path(url):
+    if not urlpath(url).startswith('/pl/'):
+        return False
+    else:
+        if urlpath(url) == '/pl/':
+            return False
+        elif urlpath(url).startswith('/pl/category/'):
+            return False
+        else:
+            return True
+
 def crawl_pl_usembassy_gov(crawler, out):
     sitemap = crawler.fetch_sitemap('https://pl.usembassy.gov/sitemap_index.xml')
     trans_regex = re.compile(
@@ -35,7 +46,7 @@ def crawl_pl_usembassy_gov(crawler, out):
     )
     links = set()
     for key in sorted(sitemap.keys()):
-        if urlpath(key).startswith('/pl/') and urlpath(key) != '/pl/':
+        if _pl_usembassy_gov_path(key):
             links.add(key)
     for link in sorted(links):
         result = crawler.fetch(link)
@@ -52,10 +63,10 @@ def crawl_pl_usembassy_gov(crawler, out):
         if pubdate is None: pubdate = result.headers.get('Last-Modified')
         if pubdate is None: pubdate = sitemap[link]
         exstart = '<div class="entry-content">'
-        exstart = '<div class="mo-page-content">' if '<div class="mo-page-content">' in html else exstart
-        content = extract(exstart,
-            '<!-- AddThis Advanced Settings above via filter on the_content -->',
-            html)
+        exstart2 = '<div class="mo-page-content">'
+        exend = '<!-- AddThis Advanced Settings above via filter on the_content -->'
+        exstart = exstart2 if exstart2 in html else exstart
+        content = extract(exstart, exend, html)
         cleanparas = clean_paragraphs(content) if content else None
         # Don't repeat the title if it's the only text content
         cleantitle = cleantext(title)
