@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright 2017 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,26 +16,27 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 from corpuscrawler.util import (
-    crawl_deutsche_welle, crawl_udhr, extract, clean_paragraphs, urlpath
+    crawl_deutsche_welle, crawl_udhr, extract, cleantext, clean_paragraphs, urlpath
 )
 
 def crawl(crawler):
     out = crawler.get_output(language='pl')
     crawl_udhr(crawler, out, filename='udhr_pol.txt')
-    #crawl_deutsche_welle(crawler, out, prefix='/pl/')
-    crawl_pl_usembassy_gov(crawler)
+    crawl_deutsche_welle(crawler, out, prefix='/pl/')
+    crawl_pl_usembassy_gov(crawler, out)
 
-def crawl_pl_usembassy_gov(crawler):
-    top_sitemap = crawler.fetch_sitemap('https://pl.usembassy.gov/sitemap_index.xml')
+def crawl_pl_usembassy_gov(crawler, out):
+    sitemap = crawler.fetch_sitemap('https://pl.usembassy.gov/sitemap_index.xml')
+    trans_regex = re.compile(
+        r'<h3>Tłumaczenie</h3><div class="translations_sidebar"><ul><li><a href ?="([^"]*)"'
+    )
     pubdate_regex = re.compile(
         r'<meta property="article:published_time" content="([^"]*)"'
     )
     links = set()
-    for sm_url in sorted(top_sitemap.keys()):
-        sitemap = crawler.fetch_sitemap(sm_url)
-        for key in sitemap.keys():
-            if 'pl.usembassy.gov/pl' in urlpath(key).startswith('/pl/'):
-                links.add(key)
+    for key in sorted(sitemap.keys()):
+        if urlpath(key).startswith('/pl/') and urlpath(key) != '/pl/':
+            links.add(key)
     for link in sorted(links):
         result = crawler.fetch(link)
         if result.status != 200:
@@ -45,14 +47,29 @@ def crawl_pl_usembassy_gov(crawler):
         title = title.split(' | ')[0] if ' | ' in title else title
         pubdate_match = pubdate_regex.search(html)
         pubdate = pubdate_match.group(1) if pubdate_match else None
-        if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
-        if pubdate is None: pubdate = sitemap[url]
+        trans_match = trans_regex.search(html)
+        trans = trans_match.group(1) if trans_match else None
+        if pubdate is None: pubdate = result.headers.get('Last-Modified')
+        if pubdate is None: pubdate = sitemap[link]
         content = extract('<div class="entry-content">',
-            '<!-- AddThis Advanced Settings above via filter on the_content -->')
-        paras = clean_paragraphs(title + '<p/>' + content)
+            '<!-- AddThis Advanced Settings above via filter on the_content -->',
+            html)
+        cleanparas = clean_paragraphs(content)
+        # Don't repeat the title if it's the only text content
+        cleantitle = cleantext(title)
+        if len(cleanparas) == 1 and cleanparas[0] == cleantitle:
+            paras = [cleantitle]
+        else:
+            paras = [cleantitle] + cleanparas
+        # There are quite a few media pages whose only text is the filename
+        # this, conveniently, is typically also the post's name
+        if len(paras) == 1 and paras[0].lower() in urlpath(link).lower():
+            continue
         if paras:
             out.write('# Location: %s\n' % link)
-            out.write('# Genre: Diplomatic')
+            out.write('# Genre: Diplomatic\n')
+            if trans:
+                out.write('# Translation: %s\n' % trans)
             if pubdate:
                 out.write('# Publication-Date: %s\n' % pubdate)
             out.write('\n'.join(paras) + '\n')
