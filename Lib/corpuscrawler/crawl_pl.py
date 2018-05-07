@@ -51,10 +51,12 @@ def crawl_pl_usembassy_gov(crawler, out):
         trans = trans_match.group(1) if trans_match else None
         if pubdate is None: pubdate = result.headers.get('Last-Modified')
         if pubdate is None: pubdate = sitemap[link]
-        content = extract('<div class="entry-content">',
+        exstart = '<div class="entry-content">'
+        exstart = '<div class="mo-page-content">' if '<div class="mo-page-content">' in html else exstart
+        content = extract(exstart,
             '<!-- AddThis Advanced Settings above via filter on the_content -->',
             html)
-        cleanparas = clean_paragraphs(content)
+        cleanparas = clean_paragraphs(content) if content else None
         # Don't repeat the title if it's the only text content
         cleantitle = cleantext(title)
         if len(cleanparas) == 1 and cleanparas[0] == cleantitle:
