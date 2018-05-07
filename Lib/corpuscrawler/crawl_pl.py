@@ -59,10 +59,13 @@ def crawl_pl_usembassy_gov(crawler, out):
         cleanparas = clean_paragraphs(content) if content else None
         # Don't repeat the title if it's the only text content
         cleantitle = cleantext(title)
-        if len(cleanparas) == 1 and cleanparas[0] == cleantitle:
-            paras = [cleantitle]
+        if cleanparas:
+            if len(cleanparas) == 1 and cleanparas[0] == cleantitle:
+                paras = [cleantitle]
+            else:
+                paras = [cleantitle] + cleanparas
         else:
-            paras = [cleantitle] + cleanparas
+            paras = [cleantitle]
         # There are quite a few media pages whose only text is the filename
         # this, conveniently, is typically also the post's name
         if len(paras) == 1 and paras[0].lower() in urlpath(link).lower():
