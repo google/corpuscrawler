@@ -33,6 +33,8 @@ def _pl_usembassy_gov_path(url):
             return False
         elif urlpath(url).startswith('/pl/category/'):
             return False
+        elif urlpath(url).startswith('/pl/tag/'):
+            return False
         else:
             return True
 
