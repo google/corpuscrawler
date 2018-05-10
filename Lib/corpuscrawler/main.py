@@ -136,7 +136,8 @@ from corpuscrawler import (
     crawl_mhx, crawl_mhy, crawl_mi, crawl_mib, crawl_mif,
     crawl_mil, crawl_min, crawl_mio, crawl_miq, crawl_mir,
     crawl_mit, crawl_mk, crawl_mkl, crawl_ml, crawl_mlh,
-    crawl_mlp, crawl_mmo, crawl_mmx, crawl_mna, crawl_mnb,
+    crawl_mlp, crawl_mmo, crawl_mmx,
+    crawl_mn_Mong, crawl_mna, crawl_mnb,
     crawl_mnf, crawl_mnw, crawl_moa, crawl_mog, crawl_mop,
     crawl_mor, crawl_mox, crawl_mpg, crawl_mpm, crawl_mps,
     crawl_mpt, crawl_mpx, crawl_mqb, crawl_mqj, crawl_mqn,
@@ -812,6 +813,7 @@ def main():
         'mlp': crawl_mlp.crawl,  # Bargam
         'mmo': crawl_mmo.crawl,  # Mangga Buang
         'mmx': crawl_mmx.crawl,  # Madak
+        'mn-Mong': crawl_mn_Mong.crawl,  # Mongolian (Mongolian script)
         'mna': crawl_mna.crawl,  # Mbula
         'mnb': crawl_mnb.crawl,  # Muna
         'mnf': crawl_mnf.crawl,  # Mundani
