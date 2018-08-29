@@ -20,6 +20,8 @@ To build corpora for not-yet-supported languages, please read the
 [contribution guidelines](./CONTRIBUTING.md) and send us
 [GitHub pull requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
 
+The crawled corpora have been used to compute word frequencies in
+Unicode’s [Unilex project](https://github.com/unicode-org/unilex).
 
 
 ## Supported Languages
