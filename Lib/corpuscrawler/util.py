@@ -715,10 +715,11 @@ def crawl_bibleis(crawler, out, bible):
     if init.status != 200:
         return
     content = init.content.decode('utf-8')
-    jsonraw = json.loads(content.split('var chaptersByBook = ')[1].split(';\n')[0])
-    for book in jsonraw:
-        for chapter in jsonraw.get(book):
-            booklist.add('http://listen.bible.is/%s/%s/%s' % (bible, book, chapter))
+    jsonraw = json.loads(content.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
+    for book in jsonraw.get('props').get('pageProps').get('books'):
+        for chapter in book.get('chapters'):
+            booklist.add('http://listen.bible.is/%s/%s/%d' % (bible, book['book_id'], chapter))
+
     for url in sorted(booklist):
         doc = crawler.fetch(url)
         pubdate = doc.headers.get('Last-Modified')
@@ -727,21 +728,13 @@ def crawl_bibleis(crawler, out, bible):
         html = doc.content.decode('utf-8')
         if '<p>No text available for the selected Bible.</p>' in html:
             continue
-        audio = None
-        if 'var audioUrl = ' in html:
-            audio = html.split('var audioUrl = "')[1].split('"')[0]
-        if html.find('<div id="chapter-content"') < 0:
-            continue
-        inner = html.split('<div id="chapter-content"')[1].split('<div class="content-text">')[1].split('<hr>')[0]
-        title = cleantext(striptags(inner.split('<span class="chapter-title">')[1].split('</span>')[0]))
-        paras = []
-        for verse in inner.split('<span class="verse-container"')[1:]:
-            paras.append(cleantext(' '.join(re.findall(r'<span class="verse-(?:marker|text)">([^<]*)</span>', verse))))
+        jsonraw = json.loads(html.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
+        chapter_text = jsonraw.get('props').get('pageProps').get('chapterText')
+        verses = [verse.get('verse_text') for verse in chapter_text]
         out.write('# Location: %s\n' % url)
         out.write('# Genre: Religion\n')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
-        if audio: out.write('# Audio: %s\n' % audio)
-        out.write('\n'.join(paras) + '\n')
+        out.write('\n'.join(verses) + '\n')
 
 
 def find_wordpress_urls(crawler, site):
