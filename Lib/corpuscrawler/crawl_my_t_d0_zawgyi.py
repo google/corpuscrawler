@@ -21,7 +21,6 @@ from corpuscrawler.util import clean_paragraphs, extract, find_wordpress_urls
 
 def crawl(crawler):
     out = crawler.get_output(language='my-t-d0-zawgyi')
-    crawler.crawl_radioaustralia_net_au(out, program_id='burmese')
     _crawl_than_lwin_times(crawler, out)
 
 

@@ -22,7 +22,7 @@ def crawl(crawler):
     out = crawler.get_output(language='tpi')
     crawl_udhr(crawler, out, filename='udhr_tpi.txt')
     crawler.crawl_pngscriptures_org(out, language='tpi')
-    crawler.crawl_radioaustralia_net_au(out, program_id='tokpisin')
+    crawler.crawl_abc_net_au(out, program_id='tok-pisin')
     crawl_wantokniuspepa_com(crawler, out)
 
 

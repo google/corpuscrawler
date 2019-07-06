@@ -277,11 +277,28 @@ class Crawler(object):
                 urls.add(urlprefix + ref)
         return urls
 
-    def crawl_radioaustralia_net_au(self, out, program_id):
-        sitemap = self.fetch_sitemap(
-            'http://www.radioaustralia.net.au/sitemap.xml')
-        prefix = '/%s/' % program_id
-        for url in sorted(sitemap):
+    def crawl_abc_net_au(self, out, program_id):
+        index_url = "https://www.abc.net.au/news/%s/" % program_id
+        article_re = re.compile(r'href="(/%s/[^"]+)"' % program_id)
+        next_re = re.compile(r'<a class="next" href="(\?page=[0-9]+)">')
+
+        urls = set()
+        current_url = index_url
+        while True:
+            response = self.fetch(current_url)
+            if response.status != 200:
+                continue
+            html = response.content.decode('utf-8')
+            for url in article_re.findall(html):
+                urls.add("https://www.abc.net.au/news" + url)
+            next = next_re.search(html)
+            if not next:
+                break
+            current_url = index_url + next.group(1)
+            break
+
+        prefix = '/news/%s/' % program_id
+        for url in sorted(urls):
             pubdate = re.search(r'/(20\d{2}-\d{2}-\d{2})/', url)
             if pubdate is None or not urlpath(url).startswith(prefix):
                 continue
@@ -290,13 +307,12 @@ class Crawler(object):
             if doc.status != 200:
                 continue
             content = doc.content.decode('utf-8')
-            title = extract('<h2 class="title">', '</h2>', content)
-            text = extract('<div class="node-teaser">',
-                           '<div class="node-social-bottom">', content)
+            title = extract('<h1 itemprop="name">', '</h1>', content)
+            text = extract('itemprop=text >', '<div class="view-comments" >', content)
             if not title or not text:
                 continue
-            text = text.split("<div class='ell-resources'>")[0]
-            paras = clean_paragraphs('<h2>%s</h2>%s' % (title, text))
+            text = re.sub('<div.*', '', text, flags=re.DOTALL)
+            paras = clean_paragraphs('<h1>%s</h1>%s' % (title, text))
             if not paras:
                 continue
             out.write('# Location: %s\n' % url)
