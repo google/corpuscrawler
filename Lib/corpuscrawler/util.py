@@ -578,12 +578,12 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
 def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
     urls = set()
     article_re = re.compile(
-        (r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html' +
+        (r'href="(https://www.rfa.org/%s/.+?[0-9]{6,}\.html' +
          r'(?:\?encoding=simplified)?)"') % edition)
     for year in range(start_year, datetime.datetime.today().year + 1):
         for page_num in range(0, 100000, 30):
             archive_url = (
-                'http://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
+                'https://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
                 % (edition, page_num, year))
             response = crawler.fetch(archive_url)
             if response.status != 200:
