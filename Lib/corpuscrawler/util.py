@@ -234,7 +234,7 @@ class Crawler(object):
                                  url=urlencode(url))
 
     def crawl_pngscriptures_org(self, out, language):
-        urlprefix = 'https://pngscriptures.org/%s/' % language
+        urlprefix = 'https://png.bible/%s/' % language
         copy = self.fetch(urlprefix + 'copyright.htm')
         assert copy.status == 200, copy.status
         license_url = re.search(
@@ -262,7 +262,7 @@ class Crawler(object):
                 out.write('\n'.join(paras) + '\n')
 
     def _find_urls_on_pngscriptures_org(self, language):
-        urlprefix = 'https://pngscriptures.org/%s/' % language
+        urlprefix = 'https://png.bible/%s/' % language
         index = self.fetch(urlprefix)
         assert index.status == 200, index.status
         booklist = extract("class='bookList'>", "</div>",
