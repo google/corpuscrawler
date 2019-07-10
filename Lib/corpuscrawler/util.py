@@ -234,7 +234,7 @@ class Crawler(object):
                                  url=urlencode(url))
 
     def crawl_pngscriptures_org(self, out, language):
-        urlprefix = 'https://pngscriptures.org/%s/' % language
+        urlprefix = 'https://png.bible/%s/' % language
         copy = self.fetch(urlprefix + 'copyright.htm')
         assert copy.status == 200, copy.status
         license_url = re.search(
@@ -262,7 +262,7 @@ class Crawler(object):
                 out.write('\n'.join(paras) + '\n')
 
     def _find_urls_on_pngscriptures_org(self, language):
-        urlprefix = 'https://pngscriptures.org/%s/' % language
+        urlprefix = 'https://png.bible/%s/' % language
         index = self.fetch(urlprefix)
         assert index.status == 200, index.status
         booklist = extract("class='bookList'>", "</div>",
@@ -277,11 +277,28 @@ class Crawler(object):
                 urls.add(urlprefix + ref)
         return urls
 
-    def crawl_radioaustralia_net_au(self, out, program_id):
-        sitemap = self.fetch_sitemap(
-            'http://www.radioaustralia.net.au/sitemap.xml')
-        prefix = '/%s/' % program_id
-        for url in sorted(sitemap):
+    def crawl_abc_net_au(self, out, program_id):
+        index_url = "https://www.abc.net.au/news/%s/" % program_id
+        article_re = re.compile(r'href="(/%s/[^"]+)"' % program_id)
+        next_re = re.compile(r'<a class="next" href="(\?page=[0-9]+)">')
+
+        urls = set()
+        current_url = index_url
+        while True:
+            response = self.fetch(current_url)
+            if response.status != 200:
+                continue
+            html = response.content.decode('utf-8')
+            for url in article_re.findall(html):
+                urls.add("https://www.abc.net.au/news" + url)
+            next = next_re.search(html)
+            if not next:
+                break
+            current_url = index_url + next.group(1)
+            break
+
+        prefix = '/news/%s/' % program_id
+        for url in sorted(urls):
             pubdate = re.search(r'/(20\d{2}-\d{2}-\d{2})/', url)
             if pubdate is None or not urlpath(url).startswith(prefix):
                 continue
@@ -290,13 +307,12 @@ class Crawler(object):
             if doc.status != 200:
                 continue
             content = doc.content.decode('utf-8')
-            title = extract('<h2 class="title">', '</h2>', content)
-            text = extract('<div class="node-teaser">',
-                           '<div class="node-social-bottom">', content)
+            title = extract('<h1 itemprop="name">', '</h1>', content)
+            text = extract('itemprop=text >', '<div class="view-comments" >', content)
             if not title or not text:
                 continue
-            text = text.split("<div class='ell-resources'>")[0]
-            paras = clean_paragraphs('<h2>%s</h2>%s' % (title, text))
+            text = re.sub('<div.*', '', text, flags=re.DOTALL)
+            paras = clean_paragraphs('<h1>%s</h1>%s' % (title, text))
             if not paras:
                 continue
             out.write('# Location: %s\n' % url)
@@ -578,12 +594,12 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
 def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
     urls = set()
     article_re = re.compile(
-        (r'href="(http://www.rfa.org/%s/.+?[0-9]{6,}\.html' +
+        (r'href="(https://www.rfa.org/%s/.+?[0-9]{6,}\.html' +
          r'(?:\?encoding=simplified)?)"') % edition)
     for year in range(start_year, datetime.datetime.today().year + 1):
         for page_num in range(0, 100000, 30):
             archive_url = (
-                'http://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
+                'https://www.rfa.org/%s/story_archive?b_start:int=%d&year=%d'
                 % (edition, page_num, year))
             response = crawler.fetch(archive_url)
             if response.status != 200:
