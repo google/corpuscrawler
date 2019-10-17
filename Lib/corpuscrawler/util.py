@@ -764,7 +764,9 @@ def find_wordpress_urls(crawler, site):
         for page in range(1, 1 + max([0] + pages)):
             pgurl = urljoin(caturl, 'page/%d/' % page) if page > 1 else caturl
             pgdoc = crawler.fetch(pgurl)
-            assert pgdoc.status == 200, (pgdoc.status, pgurl)
+            if pgdoc.status != 200:
+                print('Error %3d:      %s' % (pgdoc.status, pgurl))
+                continue
             pgcontent = pgdoc.content.decode('utf-8')
             for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
                 url = replace_html_entities(url.split('#')[0])
