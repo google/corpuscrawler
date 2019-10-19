@@ -807,9 +807,9 @@ def find_wordpress_urls(crawler, site):
             if pgdoc.status != 200:
                 print('Error %3d:      %s' % (pgdoc.status, pgurl))
                 continue
-            if isinstance(pgdoc.content,str) and py3:
+            try:
                 pgcontent = pgdoc.content
-            else:
+            except:
                 pgcontent = pgdoc.content.decode('utf-8')
             for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
                 url = replace_html_entities(url.split('#')[0])
