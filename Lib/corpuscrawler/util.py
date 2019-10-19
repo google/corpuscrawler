@@ -173,18 +173,13 @@ class Crawler(object):
         response.close()
         if status == 200 or status >= 400 and status <= 499:
             with open(filepath, 'w', encoding="utf-8") as f:
-                if py3:
-                    f.write('Status: %d\r\n' % response.getcode())
-                    f.write(str(response.headers).rstrip())
-                    f.write('\r\n\r\n\r\n')
-                    try:
-                        content = content.decode('utf-8-sig', 'ignore')
-                    except AttributeError:
-                        pass
-                else:
-                    f.write(b'Status: %d\r\n' % response.getcode())
-                    f.write(str(response.headers).rstrip())
-                    f.write(b'\r\n\r\n\r\n')
+                f.write('Status: %d\r\n' % response.getcode())
+                f.write(str(response.headers).rstrip())
+                f.write('\r\n\r\n\r\n')
+                try:
+                    content = content.decode('utf-8-sig', 'ignore')
+                except AttributeError:
+                    pass
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
