@@ -58,6 +58,7 @@ except ImportError:
     from urllib import quote
     from htmlentitydefs import name2codepoint
     py3 = False
+    unichr = unichr
 
 
 FetchResult = collections.namedtuple('FetchResult',
