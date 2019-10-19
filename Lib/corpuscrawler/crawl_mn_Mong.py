@@ -17,7 +17,7 @@ from datetime import datetime
 import json
 import re
 from corpuscrawler.util import (
-    clean_paragraphs, crawl_udhr, extract, urljoin
+    clean_paragraphs, crawl_udhr, extract, urljoin, unichr
 )
 
 

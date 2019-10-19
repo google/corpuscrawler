@@ -20,7 +20,6 @@ import codecs
 import collections
 import datetime
 import hashlib
-import mimetools
 import os
 import random
 import re
@@ -29,7 +28,6 @@ import struct
 import time
 import unicodedata
 import urllib
-import urllib2
 import zlib
 import json
 
@@ -39,20 +37,27 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 try:
-    import htmlentitydefs
-except ImportError:
-    import html.entitites as htmlentitydefs
-
-try:
     # Python 3
     from io import StringIO
     import urllib.robotparser as robotparser
-    from urllib.urlparse import urljoin, urlparse, urlunparse
+    from urllib.parse import urljoin, urlunparse, urlparse
+    from urllib.error import HTTPError
+    from urllib.request import urlopen, Request
+    from email import message_from_string as Message
+    from urllib.parse import quote
+    from html.entities import name2codepoint
+    unichr = chr
+    py3 = True
 except ImportError:
     # Python 2
     from cStringIO import StringIO
     import robotparser
     from urlparse import urljoin, urlparse, urlunparse
+    from urllib2 import Request, urlopen, HTTPError
+    from mimetools import Message
+    from urllib import quote
+    from htmlentitydefs import name2codepoint
+    py3 = False
 
 
 FetchResult = collections.namedtuple('FetchResult',
@@ -76,10 +81,17 @@ def urlpath(url):
 
 def urlencode(url):
     p = list(urlparse(url))
-    p[1] = p[1].encode('idna')
-    for i in range(2, len(p)):
-        p[i] = urllib.quote(p[i].encode('utf-8'))
-    return urlunparse(p).encode('ascii')
+    #print(p)
+    
+    if not py3:
+        p[1] = p[1].encode('idna')
+        for i in range(2, len(p)):
+            p[i] = quote(p[i].encode('utf-8'))
+    #print(p)
+    if py3:
+        return urlunparse(p)
+    else:
+        return urlunparse(p).encode('ascii')
 
 
 class Crawler(object):
@@ -115,17 +127,25 @@ class Crawler(object):
         if not self.is_fetch_allowed_by_robots_txt(url):
             print('Skipped:        %s' % url)
             return FetchResult(headers='', content='', status=403, filepath=None)
-
-        digest = hashlib.sha256(url).digest()
-        filepath = os.path.join(self.cache_dir,
-                                "f" + base64.urlsafe_b64encode(digest))
         try:
-            with open(filepath, 'r') as f:
-                cached = f.read().split(b'\r\n\r\n\r\n', 1)
+            digest = hashlib.sha256(url.encode('ascii')).digest()
+            filepath = os.path.join(self.cache_dir,
+                "f" + base64.urlsafe_b64encode(digest).decode('ascii'))
+        except:
+            digest = hashlib.sha256(url).digest()
+            filepath = os.path.join(self.cache_dir,
+                "f" + base64.urlsafe_b64encode(digest))
+
+        try:
+            with open(filepath, 'r', encoding="utf-8-sig") as f:
+                if py3:
+                    cached = f.read().split('\r\n\r\n\r\n', 1)
+                else:
+                    cached = f.read().split(b'\r\n\r\n\r\n', 1)
             if len(cached) == 2:
                 print('Cache-Hit:      %s' % url)
                 headers, content = cached
-                headers = mimetools.Message(StringIO(headers))
+                headers = Message(StringIO(headers))
                 status = int(headers.get('Status', '200').split()[0])
                 return FetchResult(headers, content, status, filepath)
         except IOError:
@@ -134,11 +154,11 @@ class Crawler(object):
         print('Downloading:    %s' % url)
         delay = random.uniform(self.crawldelay, self.crawldelay + 2)  # jitter
         time.sleep(delay)
-        request = urllib2.Request(url, headers={'User-Agent': self.useragent})
+        request = Request(url, headers={'User-Agent': self.useragent})
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         try:
-            response = urllib2.urlopen(request, context=context)
-        except urllib2.HTTPError as err:
+            response = urlopen(request, context=context)
+        except HTTPError as err:
             response = err
         except UnicodeDecodeError as err:
             # The Arabic edition of Sputnik News sometimes emits redirects
@@ -150,17 +170,29 @@ class Crawler(object):
         content = response.read()
         response.close()
         if status == 200 or status >= 400 and status <= 499:
-            with open(filepath, 'w') as f:
-                f.write(b'Status: %d\r\n' % response.getcode())
-                f.write(str(response.headers).rstrip())
-                f.write(b'\r\n\r\n\r\n')
+            with open(filepath, 'w', encoding="utf-8") as f:
+                if py3:
+                    f.write('Status: %d\r\n' % response.getcode())
+                    f.write(str(response.headers).rstrip())
+                    f.write('\r\n\r\n\r\n')
+                    try:
+                        content = content.decode('utf-8-sig', 'ignore')
+                    except AttributeError:
+                        pass
+                else:
+                    f.write(b'Status: %d\r\n' % response.getcode())
+                    f.write(str(response.headers).rstrip())
+                    f.write(b'\r\n\r\n\r\n')
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
     def fetch_content(self, url):
         doc = self.fetch(url)
         assert doc.status == 200, (doc.status, url)
-        return doc.content.decode('utf-8')
+        if isinstance(doc.content, str) and py3:
+            return doc.content
+        else:
+            return doc.content.decode('utf-8')
 
     def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
@@ -685,7 +717,10 @@ def crawl_udhr(crawler, out, filename):
     url = 'http://www.unicode.org/udhr/d/' + filename
     response = crawler.fetch(url)
     assert response.status == 200, (response.status, url)
-    text = response.content.decode('utf-8').split('---', 1)[1]
+    if isinstance(response.content,str) and py3:
+        text = response.content.split('---', 1)[1]
+    else:
+        text = response.content.decode('utf-8').split('---', 1)[1]
     out.write('# Location: %s\n' % url)
     out.write('# Genre: Legal\n')
     for paragraph in text.splitlines():
@@ -767,7 +802,10 @@ def find_wordpress_urls(crawler, site):
             if pgdoc.status != 200:
                 print('Error %3d:      %s' % (pgdoc.status, pgurl))
                 continue
-            pgcontent = pgdoc.content.decode('utf-8')
+            if isinstance(pgdoc.content,str) and py3:
+                pgcontent = pgdoc.content
+            else:
+                pgcontent = pgdoc.content.decode('utf-8')
             for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
                 url = replace_html_entities(url.split('#')[0])
                 if url.find('/category/') < 0 and not url.endswith('/feed/'):
@@ -784,7 +822,7 @@ def unichar(i):
 
 
 def replace_html_entities(html):
-    entities = htmlentitydefs.name2codepoint
+    entities = name2codepoint
     html = re.sub(r'&#([0-9]+);',
                   lambda z:unichar(int(z.group(1))), html)
     html = re.sub(r'&#[xX]([0-9a-fA-F]+);',
