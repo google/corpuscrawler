@@ -175,7 +175,7 @@ class Crawler(object):
             with open(filepath, 'w', encoding="utf-8") as f:
                 f.write('Status: %d\r\n' % response.getcode())
                 if not py3:
-                    f.write(str(response.headers).rstrip().encode('utf-8'))
+                    f.write(str(response.headers).rstrip().decode('utf-8'))
                 else:
                     f.write(str(response.headers).rstrip())
                 f.write('\r\n\r\n\r\n')
