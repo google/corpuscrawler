@@ -38,6 +38,18 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 try:
+    # Python 2
+    from cStringIO import StringIO
+    import robotparser
+    from urlparse import urljoin, urlparse, urlunparse
+    from urllib2 import Request, urlopen, HTTPError
+    from mimetools import Message
+    from urllib import quote
+    import urllib2
+    from htmlentitydefs import name2codepoint
+    py3 = False
+    unichr = chr
+except ImportError:
     # Python 3
     from io import StringIO
     import urllib.robotparser as robotparser
@@ -49,17 +61,7 @@ try:
     from html.entities import name2codepoint
     unichr = chr
     py3 = True
-except ImportError:
-    # Python 2
-    from cStringIO import StringIO
-    import robotparser
-    from urlparse import urljoin, urlparse, urlunparse
-    from urllib2 import Request, urlopen, HTTPError
-    from mimetools import Message
-    from urllib import quote
-    from htmlentitydefs import name2codepoint
-    py3 = False
-    unichr = chr
+
 
 
 FetchResult = collections.namedtuple('FetchResult',
