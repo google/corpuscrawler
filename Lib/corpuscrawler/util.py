@@ -770,11 +770,12 @@ def crawl_bibleis(crawler, out, bible):
     if init.status != 200:
         return
     try:
-        try:
-            content = init.content.decode('utf-8')
-        except UnicodeEncodeError:
-            content = init.content.decode('ascii')
+        content = init.content.decode('utf-8')
+    except UnicodeEncodeError:
+        content = init.content.decode('ascii')
     except AttributeError:
+        content = init.content
+    except:
         content = init.content
     jsonraw = json.loads(content.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
     for book in jsonraw.get('props').get('pageProps').get('books'):
