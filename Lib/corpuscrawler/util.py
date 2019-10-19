@@ -174,7 +174,10 @@ class Crawler(object):
         if status == 200 or status >= 400 and status <= 499:
             with open(filepath, 'w', encoding="utf-8") as f:
                 f.write('Status: %d\r\n' % response.getcode())
-                f.write(str(response.headers).rstrip())
+                if not py3:
+                    f.write(str(response.headers).rstrip().encode('utf-8'))
+                else:
+                    f.write(str(response.headers).rstrip())
                 f.write('\r\n\r\n\r\n')
                 try:
                     content = content.decode('utf-8-sig', 'ignore')
