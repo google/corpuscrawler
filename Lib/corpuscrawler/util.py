@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from io import open
+from builtins import open, bytes
 import base64
 import codecs
 import collections
