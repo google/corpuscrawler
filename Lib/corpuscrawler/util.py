@@ -719,9 +719,9 @@ def crawl_udhr(crawler, out, filename):
     url = 'http://www.unicode.org/udhr/d/' + filename
     response = crawler.fetch(url)
     assert response.status == 200, (response.status, url)
-    if isinstance(response.content,str) and py3:
+    try:
         text = response.content.split('---', 1)[1]
-    else:
+    except:
         text = response.content.decode('utf-8').split('---', 1)[1]
     out.write('# Location: %s\n' % url)
     out.write('# Genre: Legal\n')
