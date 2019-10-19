@@ -191,9 +191,9 @@ class Crawler(object):
     def fetch_content(self, url):
         doc = self.fetch(url)
         assert doc.status == 200, (doc.status, url)
-        if isinstance(doc.content, str) and py3:
+        try:
             return doc.content
-        else:
+        except:
             return doc.content.decode('utf-8')
 
     def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
