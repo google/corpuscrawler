@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from builtins import open, bytes
+from builtins import open, bytes, chr
 import base64
 import codecs
 import collections
@@ -36,7 +36,7 @@ try:
     import xml.etree.cElementTree as etree
 except ImportError:
     import xml.etree.ElementTree as etree
-
+unichr = chr
 try:
     # Python 2
     from cStringIO import StringIO
@@ -48,7 +48,7 @@ try:
     import urllib2
     from htmlentitydefs import name2codepoint
     py3 = False
-    unichr = chr
+    
 except ImportError:
     # Python 3
     from io import StringIO
@@ -59,7 +59,6 @@ except ImportError:
     from email import message_from_string as Message
     from urllib.parse import quote
     from html.entities import name2codepoint
-    unichr = chr
     py3 = True
 
 
@@ -810,7 +809,7 @@ def find_wordpress_urls(crawler, site):
             try:
                 pgcontent = pgdoc.content
             except:
-                pgcontent = pgdoc.content.decode('utf-8')
+                pgcontent = pgdoc.content.decode('ascii') # py 2
             for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
                 url = replace_html_entities(url.split('#')[0])
                 if url.find('/category/') < 0 and not url.endswith('/feed/'):
