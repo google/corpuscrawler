@@ -790,7 +790,10 @@ def crawl_bibleis(crawler, out, bible):
         if doc.status != 200:
             continue
         try:
-            html = doc.content.decode('utf-8')
+            try:
+                html = doc.content.decode('utf-8')
+            except:
+                html = doc.content
         except AttributeError:
             html = doc.content
         if '<p>No text available for the selected Bible.</p>' in html:
