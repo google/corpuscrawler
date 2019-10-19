@@ -600,7 +600,7 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
         try:
             html = doc.content.decode('utf-8')
         except UnicodeDecodeError:
-            continue
+            html = doc.content
         pubdate = re.search(r'articleChangeDateShort: "(\d{8})"', html)
         if pubdate is not None:
             pubdate = pubdate.group(1)
@@ -683,7 +683,10 @@ def crawl_sputnik_news(crawler, out, host):
         response = crawler.fetch(urlencode(url))
         if response.status != 200:
             continue
-        html = response.content.decode('utf-8')
+        try:
+            html = response.content.decode('utf-8')
+        except AttributeError:
+            html = response.content
         title = re.search(r'<title>(.+?)</title>', html)
         if title is None:
             continue
@@ -767,7 +770,10 @@ def crawl_bibleis(crawler, out, bible):
     if init.status != 200:
         return
     try:
-        content = init.content.decode('utf-8')
+        try:
+            content = init.content.decode('utf-8')
+        except UnicodeEncodeError:
+            content = init.content.decode('ascii')
     except AttributeError:
         content = init.content
     jsonraw = json.loads(content.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
@@ -780,7 +786,10 @@ def crawl_bibleis(crawler, out, bible):
         pubdate = doc.headers.get('Last-Modified')
         if doc.status != 200:
             continue
-        html = doc.content.decode('utf-8')
+        try:
+            html = doc.content.decode('utf-8')
+        except AttributeError:
+            html = doc.content
         if '<p>No text available for the selected Bible.</p>' in html:
             continue
         jsonraw = json.loads(html.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
