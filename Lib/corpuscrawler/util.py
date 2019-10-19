@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
+from builtins import open, bytes
 import base64
 import codecs
 import collections
@@ -58,7 +59,7 @@ except ImportError:
     from urllib import quote
     from htmlentitydefs import name2codepoint
     py3 = False
-    unichr = unichr
+    unichr = chr
 
 
 FetchResult = collections.namedtuple('FetchResult',
