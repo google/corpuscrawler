@@ -63,6 +63,11 @@ except ImportError:
 
 
 
+# FetchResult: struct with information about a downloaded page
+# headers: instance of Message
+# content: byte string
+# status: integer
+# filepath: path to the cache file
 FetchResult = collections.namedtuple('FetchResult',
                                      ['headers', 'content', 'status', 'filepath'])
 
@@ -131,24 +136,29 @@ class Crawler(object):
             print('Skipped:        %s' % url)
             return FetchResult(headers='', content='', status=403, filepath=None)
         try:
-            digest = hashlib.sha256(url.encode('ascii')).digest()
+            digest = hashlib.sha256(url.encode('utf-8')).digest()
             filepath = os.path.join(self.cache_dir,
-                "f" + base64.urlsafe_b64encode(digest).decode('ascii'))
+                "f" + base64.urlsafe_b64encode(digest).decode('utf-8'))
         except:
             digest = hashlib.sha256(url).digest()
             filepath = os.path.join(self.cache_dir,
                 "f" + base64.urlsafe_b64encode(digest))
 
         try:
-            with open(filepath, 'r', encoding="utf-8-sig") as f:
-                if py3:
-                    cached = f.read().split('\r\n\r\n\r\n', 1)
-                else:
-                    cached = f.read().split(b'\r\n\r\n\r\n', 1)
+            with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
+                cached = f.read().split('\r\n\r\n\r\n', 1)
             if len(cached) == 2:
                 print('Cache-Hit:      %s' % url)
                 headers, content = cached
-                headers = Message(StringIO(headers))
+                try:
+                    content = content.encode('utf-8')
+                except:
+                    # already encoded as bytes
+                    pass
+                if py3:
+                    headers = Message(headers)
+                else:
+                    headers = Message(StringIO(headers))
                 status = int(headers.get('Status', '200').split()[0])
                 return FetchResult(headers, content, status, filepath)
         except IOError:
@@ -173,17 +183,10 @@ class Crawler(object):
         content = response.read()
         response.close()
         if status == 200 or status >= 400 and status <= 499:
-            with open(filepath, 'w', encoding="utf-8") as f:
-                f.write('Status: %d\r\n' % response.getcode())
-                if not py3:
-                    f.write(str(response.headers).rstrip().decode('utf-8'))
-                else:
-                    f.write(str(response.headers).rstrip())
-                f.write('\r\n\r\n\r\n')
-                try:
-                    content = content.decode('utf-8-sig', 'ignore')
-                except AttributeError:
-                    pass
+            with open(filepath, 'wb') as f:
+                f.write(b'Status: %d\r\n' % response.getcode())
+                f.write(str(response.headers).rstrip().encode('utf-8'))
+                f.write(b'\r\n\r\n\r\n')
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
@@ -191,9 +194,9 @@ class Crawler(object):
         doc = self.fetch(url)
         assert doc.status == 200, (doc.status, url)
         try:
-            return doc.content
-        except:
             return doc.content.decode('utf-8')
+        except:
+            return doc.content
 
     def fetch_sitemap(self, url, processed=set(), subsitemap_filter=lambda x: True):
         """'http://example.org/sitemap.xml' --> {url: lastmod}"""
@@ -253,7 +256,7 @@ class Crawler(object):
             robots_txt = doc.content if doc.status == 200 else ''
             checker = robotparser.RobotFileParser()
             checker.set_url(robots_txt_url)
-            checker.parse(robots_txt)
+            checker.parse(robots_txt.decode('utf-8'))
             self.robotcheckers[robots_txt_url] = checker
 
         # Work around a RobotFileParser bug which makes it crash when
