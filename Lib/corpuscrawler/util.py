@@ -858,7 +858,7 @@ def clean_paragraphs(html):
     text = re.sub(r'</(?:div|DIV|p|P|[hH][1-6]|table|TABLE|tr|td|article)>',
                   '\n', text)
     text = re.sub(r'<(?:br|BR)\s*/?>', '\n', text)
-    return filter(None, [cleantext(p) for p in text.split('\n')])
+    return list(filter(None, [cleantext(p) for p in text.split('\n')]))
 
 
 def extract(before, after, html):
