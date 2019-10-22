@@ -99,7 +99,7 @@ def urlencode(url):
     if py3:
         return urlunparse(p)
     else:
-        return urlunparse(p).encode('ascii')
+        return urlunparse(p).encode('utf-8')
 
 
 class Crawler(object):
@@ -469,6 +469,7 @@ class Crawler(object):
             try:
                 html = doc.content.decode('utf-8')
             except UnicodeDecodeError:
+                print('Unicode Error:  %s' % url)
                 continue
             title = re.search(r'<title>(.+?)</title>', html)
             title = title.group(1) if title else ''
@@ -603,7 +604,8 @@ def crawl_deutsche_welle(crawler, out, prefix, need_percent_in_url=False):
         try:
             html = doc.content.decode('utf-8')
         except UnicodeDecodeError:
-            html = doc.content
+            print('Unicode Error:  %s' % url)
+            continue
         pubdate = re.search(r'articleChangeDateShort: "(\d{8})"', html)
         if pubdate is not None:
             pubdate = pubdate.group(1)
@@ -688,8 +690,9 @@ def crawl_sputnik_news(crawler, out, host):
             continue
         try:
             html = response.content.decode('utf-8')
-        except AttributeError:
-            html = response.content
+        except UnicodeDecodeError:
+            print('Unicode Error:  %s' % url)
+            continue
         title = re.search(r'<title>(.+?)</title>', html)
         if title is None:
             continue
@@ -724,10 +727,7 @@ def crawl_udhr(crawler, out, filename):
     url = 'http://www.unicode.org/udhr/d/' + filename
     response = crawler.fetch(url)
     assert response.status == 200, (response.status, url)
-    try:
-        text = response.content.split('---', 1)[1]
-    except:
-        text = response.content.decode('utf-8').split('---', 1)[1]
+    text = response.content.decode('utf-8').split('---', 1)[1]
     out.write('# Location: %s\n' % url)
     out.write('# Genre: Legal\n')
     for paragraph in text.splitlines():
@@ -773,15 +773,10 @@ def crawl_bibleis(crawler, out, bible):
     if init.status != 200:
         return
     try:
-        try:
-            content = init.content.decode('utf-8')
-        except UnicodeEncodeError:
-            try:
-                content = init.content.decode('ascii')
-            except UnicodeEncodeError:
-                content = init.content
-    except AttributeError:
-        content = init.content
+        content = init.content.decode('utf-8')
+    except UnicodeEncodeError:
+        print('Unicode Error:  %s' % firsturl)
+        return
     jsonraw = json.loads(content.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
     for book in jsonraw.get('props').get('pageProps').get('books'):
         for chapter in book.get('chapters'):
@@ -793,12 +788,10 @@ def crawl_bibleis(crawler, out, bible):
         if doc.status != 200:
             continue
         try:
-            try:
-                html = doc.content.decode('utf-8')
-            except:
-                html = doc.content
-        except AttributeError:
-            html = doc.content
+            html = doc.content.decode('utf-8')
+        except:
+            print('Unicode Error:  %s' % url)
+            continue
         if '<p>No text available for the selected Bible.</p>' in html:
             continue
         jsonraw = json.loads(html.split('__NEXT_DATA__ = ')[1].split(';__NEXT_LOADED_PAGES__')[0])
@@ -817,17 +810,14 @@ def find_wordpress_urls(crawler, site):
         caturl = urljoin(site, category)
         catdoc = crawler.fetch(caturl)
         assert catdoc.status == 200, (catdoc.status, caturl)
-        pages = [int(n) for n in re.findall(r'/page/(\d)+/', catdoc.content)]
+        pages = [int(n) for n in re.findall(r'/page/(\d)+/', catdoc.content.decode('utf-8'))]
         for page in range(1, 1 + max([0] + pages)):
             pgurl = urljoin(caturl, 'page/%d/' % page) if page > 1 else caturl
             pgdoc = crawler.fetch(pgurl)
             if pgdoc.status != 200:
                 print('Error %3d:      %s' % (pgdoc.status, pgurl))
                 continue
-            try:
-                pgcontent = pgdoc.content
-            except:
-                pgcontent = pgdoc.content.decode('ascii') # py 2
+            pgcontent = pgdoc.content.decode('utf-8')
             for url in re.findall(r'"(%s[^"]+)"' % site, pgcontent):
                 url = replace_html_entities(url.split('#')[0])
                 if url.find('/category/') < 0 and not url.endswith('/feed/'):
