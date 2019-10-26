@@ -223,7 +223,7 @@ from corpuscrawler import (
     crawl_zad, crawl_zae, crawl_zap, crawl_zar, crawl_zas,
     crawl_zaw, crawl_zca, crawl_zia, crawl_ziw, crawl_zlm,
     crawl_zne, crawl_zpc, crawl_zpi, crawl_zpq, crawl_zpt,
-    crawl_zpz, crawl_zyp
+    crawl_zpz, crawl_zyp, crawl_th
 )
 from corpuscrawler.util import Crawler
 
