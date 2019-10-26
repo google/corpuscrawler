@@ -22,3 +22,4 @@ def crawl(crawler):
     crawl_udhr(crawler, out, filename='udhr_tha.txt')
     crawler.crawl_voice_of_america(out, host='www.voathai.com',
                                    ignore_ascii=True)
+    crawl_bibleis(crawler, out, bible='THATSV')
