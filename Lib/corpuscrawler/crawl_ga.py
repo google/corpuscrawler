@@ -61,7 +61,7 @@ def _rte_writable_paragraph(text):
     return True
 
 def _check_rte_sitemap(url):
-    urlmatch = re.search(r'http://www.rte.ie/sitemap-([0-9]+)0000.xml', url)
+    urlmatch = re.search(r'https?://www.rte.ie/sitemap-([0-9]+)0000.xml', url)
     try:
         if int(urlmatch.group(1)) < 40:
             return True
