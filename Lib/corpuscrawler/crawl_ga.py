@@ -58,6 +58,8 @@ def _rte_writable_paragraph(text):
         return False
     if text.find('is not responsible for the content') >= 0:
         return False
+    if text.find('RTÉ uses cookies in accordance with our Cookie Policy') >= 0:
+        return False
     return True
 
 def _check_rte_sitemap(url):
