@@ -38,7 +38,7 @@ def crawl(crawler):
     crawl_ainm_ie(crawler, out)
     crawl_blogspot(crawler, out, host='gaeltacht21.blogspot.com')
     crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
-
+    crawl_coislife_ie(crawler, out)
 
 # RTE has news sites both for its own Irish language news programme
 # and for Raidió na Gaeltachta
@@ -274,3 +274,44 @@ def crawl_tuairisc_ie(crawler, out):
             if pubdate:
                 out.write('# Publication-Date: %s\n' % pubdate)
             out.write('\n'.join(paras) + '\n')
+
+def crawl_coislife_ie(crawler, out):
+    links = set()
+    for num in range(1, 12):
+        if num > 1:
+            listurl = 'https://www.coislife.ie/product-category/ga/page/%s/' % num
+        else:
+            listurl = 'https://www.coislife.ie/product-category/ga/'
+        idxres = crawler.fetch(listurl)
+        if idxres.status != 200:
+            continue
+        idxhtml = idxres.content.decode('utf-8')
+        index = extract('<div class="products-archive--products">',
+                        '<nav class="woocommerce-pagination">', idxhtml)
+        for link in re.findall(r'<a href="(https://www.coislife.ie/product/[^"]+?)">', index):
+            links.add(link)
+    for url in sorted(links):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html)
+        title = title.group(1).split('&#8211;')[0].strip() if title else ''
+        desc = re.search(r'<meta property="og:description" content="([^"]+?)"', html)
+        desc = cleantext(desc.group(1))
+        body = extract('<div class="tab-content">',
+                       '<div class="entry-content in fade tab-pane" id="tab-additional_information">', html) or ''
+        paras = clean_paragraphs(title + '<br/>' + body)
+        pubdate = fetchresult.headers.get('Last-Modified')
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: Commerce\n')
+            if desc:
+                out.write ('# Description: %s\n' % desc)
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            for para in paras:
+                if para.find('Léigh sliocht as an leabhar') >= 0:
+                    continue
+                else:
+                    out.write(para + '\n')
