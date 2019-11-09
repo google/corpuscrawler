@@ -19,5 +19,11 @@ from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
 
 def crawl(crawler):
     out = crawler.get_output(language='id')
-    crawl_udhr(crawler, out, filename='udhr_ind.txt')
+    crawler.crawl_abc_net_au(out, program_id='indonesian')
+    crawler.crawl_voice_of_america(out, host='voaindonesia.com')
+    crawl_bbc_news(crawler, out, urlprefix='/indonesia/')
     crawl_deutsche_welle(crawler, out, prefix='/id/')
+    crawl_udhr(crawler, out, filename='udhr_ind.txt')
+    crawl_bibleis(crawler, out, bible='INDASV')   
+    crawl_bibleis(crawler, out, bible='INDWBT')
+    crawl_bibleis(crawler, out, bible='INDSHV')
