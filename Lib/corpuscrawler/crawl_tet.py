@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from corpuscrawler.util import crawl_udhr, crawl_bibleis
+from corpuscrawler.util import crawl_udhr
 
 def crawl(crawler):
     out = crawler.get_output(language='tet')
