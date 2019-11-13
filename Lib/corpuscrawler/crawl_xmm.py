@@ -14,7 +14,7 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_deutsche_welle, crawl_udhr
+from corpuscrawler.util import crawl_bibleis
 
 
 def crawl(crawler):
