@@ -119,7 +119,7 @@ def _irishtimes_section_list(crawler, out, url):
 
 def crawl_irishtimes(crawler, out):
     crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1_2))
-    start = 'https://www.irishtimes.com/culture/treibh'
+    start = 'https://www.irishtimes.com/culture/tuarasc%C3%A1il'
     pubdatere1 = re.compile(
         r'<meta itemprop="datePublished" content="([^"]*)"/>')
     pubdatere2 = re.compile(r'"datePublished": "([^"])"')
@@ -129,7 +129,7 @@ def crawl_irishtimes(crawler, out):
         if init.status != 200:
             continue
         shtml = init.content.decode('utf-8')
-        for doclink in re.findall('<p><a href="/culture/treibh/([^"]*)"', shtml):
+        for doclink in re.findall('<p><a href="/culture/tuarasc%C3%A1il/([^"]*)"', shtml):
             links.add('%s/%s' % (start, doclink))
     for url in links:
         res = crawler.fetch(url)
