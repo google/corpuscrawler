@@ -17,6 +17,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import re
 import sys
+import ssl
 from corpuscrawler.util import (
     crawl_udhr, clean_paragraphs, cleantext, extract, striptags, urlpath
 )
@@ -117,6 +118,7 @@ def _irishtimes_section_list(crawler, out, url):
 
 
 def crawl_irishtimes(crawler, out):
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1_2))
     start = 'https://www.irishtimes.com/culture/treibh'
     pubdatere1 = re.compile(
         r'<meta itemprop="datePublished" content="([^"]*)"/>')
@@ -148,6 +150,7 @@ def crawl_irishtimes(crawler, out):
                 html.split('<div class="article_bodycopy">')[1]):
             cleaned = cleantext(paragraph)
             out.write(cleaned + '\n')
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
 
 
 def crawl_chg(crawler, out):
