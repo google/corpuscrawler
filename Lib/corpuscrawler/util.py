@@ -113,6 +113,7 @@ class Crawler(object):
         self.useragent = 'LinguisticCorpusCrawler/1.0'
         self.useragent_for_robots_txt = self.useragent.split('/')[0]
         self.crawldelay = 15.0  # seconds between fetches
+        self.context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         for path in (output_dir, cache_dir):
             if not os.path.exists(path):
                 os.makedirs(path)
@@ -168,9 +169,8 @@ class Crawler(object):
         delay = random.uniform(self.crawldelay, self.crawldelay + 2)  # jitter
         time.sleep(delay)
         request = Request(url, headers={'User-Agent': self.useragent})
-        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
         try:
-            response = urlopen(request, context=context)
+            response = urlopen(request, context=self.context)
         except HTTPError as err:
             response = err
         except UnicodeDecodeError as err:
@@ -506,6 +506,10 @@ class Crawler(object):
                 if pubdate:
                     out.write('# Publication-Date: %s\n' % pubdate)
                 out.write('\n'.join(paragraphs) + '\n')
+
+
+    def set_context(self, context):
+        self.context = context
 
 
 # Normally we put site-specific logic into the language-specific scripts,
