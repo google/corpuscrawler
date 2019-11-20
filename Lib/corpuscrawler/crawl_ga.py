@@ -410,7 +410,7 @@ def crawl_peig_ie(crawler, out):
         read_more = re.search(r'<a.*href="([^"]+")[^>]*>Níos mó</a>', html)
         if read_more and skip_page(read_more.group(1)):
             continue
-        date = re.search(r'<time datetime="([^"]+)">', html)
+        date = re.search(r'<time datetime="([^"]+)">', html).group(1)
         body = extract('<div class="uk-margin-medium-top" property="text">', '<ul class="uk-pagination', html) or ''
         paras = clean_paragraphs(title + '<br/>' + body)
         genre = peig_cat(url)
