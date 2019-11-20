@@ -396,6 +396,8 @@ def crawl_peig_ie(crawler, out):
             return True
         elif site.find('//tuairisc.ie/') >= 0:
             return True
+        elif site.find('//meoneile.ie/') >= 0:
+            return True
         else:
             return False
     for url in sorted(sitemap.keys()):
@@ -409,13 +411,15 @@ def crawl_peig_ie(crawler, out):
         if read_more and skip_page(read_more.group(1)):
             continue
         date = re.search(r'<time datetime="([^"]+)">', html)
-        body = extract('<div itemprop="articleBody">', '<ul class="uk-pagination', html) or ''
+        body = extract('<div class="uk-margin-medium-top" property="text">', '<ul class="uk-pagination', html) or ''
         paras = clean_paragraphs(title + '<br/>' + body)
         genre = peig_cat(url)
         if paras:
             out.write('# Location: %s\n' % url)
             if genre:
                 out.write('# Genre: %s\n' % genre)
+            if date:
+                out.write('# Publication-Date: %s\n' % date)
             out.write('\n'.join(paras) + '\n')
     crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
 
