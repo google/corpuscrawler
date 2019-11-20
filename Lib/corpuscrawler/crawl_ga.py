@@ -30,16 +30,6 @@ except ImportError:
 
 def crawl(crawler):
     out = crawler.get_output(language='ga')
-    crawl_udhr(crawler, out, filename='udhr_gle.txt')
-    crawl_tuairisc_ie(crawler, out)
-    crawl_nuachtrte(crawler, out)
-    crawl_irishtimes(crawler, out)
-    crawl_chg(crawler, out)
-    crawl_ainm_ie(crawler, out)
-    crawl_blogspot(crawler, out, host='gaeltacht21.blogspot.com')
-    crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
-    crawl_coislife_ie(crawler, out)
-    crawl_meoneile_ie(crawler, out)
     crawl_peig_ie(crawler, out)
 
 # RTE has news sites both for its own Irish language news programme
@@ -376,8 +366,8 @@ def crawl_meoneile_ie(crawler, out):
                 else:
                     out.write(para + '\n')
 
-def _peig_filter_robots(url):
-    if url.find('/wp-') >= 0:
+def _peig_filter_robots(page):
+    if page.find('/wp-') >= 0:
         return False
     elif page.find('/tuairisc/') >= 0:
         return False
@@ -400,18 +390,15 @@ def crawl_peig_ie(crawler, out):
             return 'Job listings'
         else:
             return ''
-    # Skip robots.txt forbidden pages
     # Peig.ie has a lot of posts from other sites
-    def skip(page):
-        if page.find('//nos.ie/') >= 0:
+    def skip_page(site):
+        if site.find('//nos.ie/') >= 0:
             return True
-        elif page.find('//tuairisc.ie/') >= 0:
+        elif site.find('//tuairisc.ie/') >= 0:
             return True
         else:
             return False
     for url in sorted(sitemap.keys()):
-        if skip_robots(url):
-            continue
         fetchresult = crawler.fetch(url)
         if fetchresult.status != 200:
             continue
@@ -419,7 +406,7 @@ def crawl_peig_ie(crawler, out):
         title = re.search(r'<title>(.+?)</title>', html)
         title = title.group(1).split('|')[0].strip() if title else ''
         read_more = re.search(r'<a.*href="([^"]+")[^>]*>Níos mó</a>', html)
-        if read_more and skip(read_more):
+        if read_more and skip_page(read_more.group(1)):
             continue
         date = re.search(r'<time datetime="([^"]+)">', html)
         body = extract('<div itemprop="articleBody">', '<ul class="uk-pagination', html) or ''
