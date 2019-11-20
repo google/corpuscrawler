@@ -40,7 +40,7 @@ def crawl(crawler):
     crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
     crawl_coislife_ie(crawler, out)
     crawl_meoneile_ie(crawler, out)
-#    crawl_peig_ie(crawler, out)
+    crawl_peig_ie(crawler, out)
 
 # RTE has news sites both for its own Irish language news programme
 # and for Raidió na Gaeltachta
@@ -389,6 +389,7 @@ def _peig_filter_robots(url):
         return True
 
 def crawl_peig_ie(crawler, out):
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1_2))
     sitemap = crawler.fetch_sitemap('https://peig.ie/sitemap_index.xml', subsitemap_filter=_peig_filter_robots)
     def peig_cat(page):
         if page.find('/imeachtai/') >= 0:
@@ -429,5 +430,6 @@ def crawl_peig_ie(crawler, out):
             if genre:
                 out.write('# Genre: %s\n' % genre)
             out.write('\n'.join(paras) + '\n')
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
 
 
