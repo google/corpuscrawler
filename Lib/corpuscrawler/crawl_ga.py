@@ -38,7 +38,9 @@ def crawl(crawler):
     crawl_ainm_ie(crawler, out)
     crawl_blogspot(crawler, out, host='gaeltacht21.blogspot.com')
     crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
-
+    crawl_coislife_ie(crawler, out)
+    crawl_meoneile_ie(crawler, out)
+    crawl_peig_ie(crawler, out)
 
 # RTE has news sites both for its own Irish language news programme
 # and for Raidió na Gaeltachta
@@ -274,3 +276,161 @@ def crawl_tuairisc_ie(crawler, out):
             if pubdate:
                 out.write('# Publication-Date: %s\n' % pubdate)
             out.write('\n'.join(paras) + '\n')
+
+def crawl_coislife_ie(crawler, out):
+    links = set()
+    for num in range(1, 12):
+        if num > 1:
+            listurl = 'https://www.coislife.ie/product-category/ga/page/%s/' % num
+        else:
+            listurl = 'https://www.coislife.ie/product-category/ga/'
+        idxres = crawler.fetch(listurl)
+        if idxres.status != 200:
+            continue
+        idxhtml = idxres.content.decode('utf-8')
+        index = extract('<div class="products-archive--products">',
+                        '<nav class="woocommerce-pagination">', idxhtml)
+        for link in re.findall(r'<a href="(https://www.coislife.ie/product/[^"]+?)">', index):
+            links.add(link)
+    for url in sorted(links):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html)
+        title = title.group(1).split('&#8211;')[0].strip() if title else ''
+        desc = re.search(r'<meta property="og:description" content="([^"]+?)"', html)
+        desc = cleantext(desc.group(1))
+        body = extract('<div class="tab-content">',
+                       '<div class="entry-content in fade tab-pane" id="tab-additional_information">', html) or ''
+        paras = clean_paragraphs(title + '<br/>' + body)
+        pubdate = fetchresult.headers.get('Last-Modified')
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: Commerce\n')
+            if desc:
+                out.write ('# Description: %s\n' % desc)
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            for para in paras:
+                if para.find('Léigh sliocht as an leabhar') >= 0:
+                    continue
+                else:
+                    out.write(para + '\n')
+
+_ENGLISH_MONTHS = {
+    'january': 1,
+    'february': 2,
+    'march': 3,
+    'april': 4,
+    'may': 5,
+    'june': 6,
+    'july': 7,
+    'august': 8,
+    'september': 9,
+    'october': 10,
+    'november': 11,
+    'december': 12
+}
+
+def _byline_to_pubdate(byline):
+    date = re.search(r'(\d{1,2}) ([^ ]+?) (\d{4})', byline)
+    if not date:
+        return None
+    day = int(date.group(1))
+    year = int(date.group(3))
+    month = _ENGLISH_MONTHS[date.group(2).lower()]
+    if not month:
+        return None
+    out = "{}-{:0>2d}-{:0>2d}".format(year, month, day)
+    return out
+
+def crawl_meoneile_ie(crawler, out):
+    sitemap = crawler.fetch_sitemap('https://meoneile.ie/sitemap.xml')
+    for url in sorted(sitemap.keys()):
+        if url == 'https://meoneile.ie/':
+            continue
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = extract(r'<title>', '</title>', html).strip()
+        title = title.split('&lt;')[0].strip() if title else ''
+        video = re.search(r"<iframe.*src='(//player.vimeo.com/video/[0-9]+)[^>]*></iframe>", html)
+        body = extract("<div class='article-content'>", '</article>', html) or ''
+        byline = extract("<div class='byline'>", '</span>', html) or ''
+        byline = _byline_to_pubdate(byline)
+        if body.find('<strong>%s</strong>' % title) >= 0:
+            title = ''
+        paras = clean_paragraphs(title + '<br/>' + body)
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            if video:
+                out.write ('# Video: https:%s\n' % video.group(1))
+            if byline:
+                out.write('# Publication-Date: %s\n' % byline)
+            for para in paras:
+                if para == 'Roinn':
+                    continue
+                else:
+                    out.write(para + '\n')
+
+def _peig_filter_robots(page):
+    if page.find('/wp-') >= 0:
+        return False
+    elif page.find('/tuairisc/') >= 0:
+        return False
+    elif page.find('/nuacht/') >= 0:
+        return False
+    elif page.find('/nos/') >= 0:
+        return False
+    else:
+        return True
+
+def crawl_peig_ie(crawler, out):
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1_2))
+    sitemap = crawler.fetch_sitemap('https://peig.ie/sitemap_index.xml', subsitemap_filter=_peig_filter_robots)
+    def peig_cat(page):
+        if page.find('/imeachtai/') >= 0:
+            return 'Events'
+        elif page.find('peig.ie/20') >= 0:
+            return 'News'
+        elif page.find('/fol%C3%BAntais/') >= 0:
+            return 'Job listings'
+        else:
+            return ''
+    # Peig.ie has a lot of posts from other sites
+    def skip_page(site):
+        if site.find('//nos.ie/') >= 0:
+            return True
+        elif site.find('//tuairisc.ie/') >= 0:
+            return True
+        elif site.find('//meoneile.ie/') >= 0:
+            return True
+        else:
+            return False
+    for url in sorted(sitemap.keys()):
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        title = re.search(r'<title>(.+?)</title>', html)
+        title = title.group(1).split('|')[0].strip() if title else ''
+        read_more = re.search(r'<a.*href="([^"]+")[^>]*>Níos mó</a>', html)
+        if read_more and skip_page(read_more.group(1)):
+            continue
+        date = re.search(r'<time datetime="([^"]+)">', html).group(1)
+        body = extract('<div class="uk-margin-medium-top" property="text">', '<ul class="uk-pagination', html) or ''
+        paras = clean_paragraphs(title + '<br/>' + body)
+        genre = peig_cat(url)
+        if paras:
+            out.write('# Location: %s\n' % url)
+            if genre:
+                out.write('# Genre: %s\n' % genre)
+            if date:
+                out.write('# Publication-Date: %s\n' % date)
+            out.write('\n'.join(paras) + '\n')
+    crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
+
+
