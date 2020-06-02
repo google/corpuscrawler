@@ -13,9 +13,11 @@
 # limitations under the License.
 
 from __future__ import absolute_import, print_function, unicode_literals
-from corpuscrawler.util import crawl_bibleis
+from corpuscrawler.util import crawl_bibleis, crawl_udhr
 
 
 def crawl(crawler):
     out = crawler.get_output(language='su')
     crawl_bibleis(crawler, out, bible='SUNIBS')
+    crawl_bibleis(crawler, out, bible='SUNTSV')
+    crawl_udhr(crawler, out, filename='udhr_sun.txt')
