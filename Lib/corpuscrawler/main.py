@@ -164,7 +164,8 @@ from corpuscrawler import (
     crawl_os, crawl_osa, crawl_otd, crawl_ote, crawl_ozm,
     crawl_pa, crawl_pab, crawl_pad, crawl_pag, crawl_pah,
     crawl_pam, crawl_pau, crawl_pbc, crawl_pbi, crawl_pck,
-    crawl_pcm, crawl_pez, crawl_pib, crawl_pir, crawl_pis,
+    crawl_pcm, crawl_pez,
+    crawl_pi_Mymr, crawl_pib, crawl_pir, crawl_pis,
     crawl_pjt, crawl_pkb, crawl_pl, crawl_plw, crawl_pmf,
     crawl_pny, crawl_poh, crawl_poi, crawl_poy, crawl_ppk,
     crawl_ppo, crawl_prf, crawl_prk, crawl_ps, crawl_pss,
@@ -944,6 +945,7 @@ def main():
         'pck': crawl_pck.crawl,  # Paite Chin
         'pcm': crawl_pcm.crawl,  # Nigerian Pidgin
         'pez': crawl_pez.crawl,  # Eastern Penan
+        'pi-Mymr': crawl_pi_Mymr.crawl, # Pali in Myanmar script
         'pib': crawl_pib.crawl,  # Yine
         'pir': crawl_pir.crawl,  # Piratapuyo
         'pis': crawl_pis.crawl,  # Pijin
@@ -1242,9 +1244,12 @@ def main():
     parser.add_argument(
         '--cache', default='./cache-corpuscrawler',
         help='path to directory for caching fetched files')
+    parser.add_argument(
+        '--crawldelay', default='15',
+        help='number of seconds between fetches')
     args = parser.parse_args()
 
     crawler = Crawler(language=args.language, output_dir=args.output,
-                      cache_dir=args.cache)
+                      cache_dir=args.cache, crawldelay=float(args.crawldelay))
     crawls[args.language](crawler)
     crawler.close()
