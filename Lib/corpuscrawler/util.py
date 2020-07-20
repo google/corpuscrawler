@@ -191,9 +191,10 @@ class Crawler(object):
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
-    def fetch_content(self, url):
+    def fetch_content(self, url, allow_404=False):
         doc = self.fetch(url)
-        assert doc.status == 200, (doc.status, url)
+        if not allow_404:
+            assert doc.status == 200, (doc.status, url)
         try:
             return doc.content.decode('utf-8')
         except:
@@ -840,14 +841,14 @@ def crawl_tipitaka(crawler, out, script):
         out.write('\n'.join(''.join(p.itertext()) for p in paragraphs) + '\n')
 
 
-def find_wordpress_urls(crawler, site):
+def find_wordpress_urls(crawler, site, **kwargs):
     urls = set()
-    mainpage = crawler.fetch_content(site)
-    for category in re.findall(r'/(category/[^/"]+/)">', mainpage):
-        caturl = urljoin(site, category)
+    mainpage = crawler.fetch_content(site, **kwargs)
+    for category in re.findall(r'/(category/[^/"]+)/?">', mainpage):
+        caturl = urljoin(site, category) + '/'
         catdoc = crawler.fetch(caturl)
         assert catdoc.status == 200, (catdoc.status, caturl)
-        pages = [int(n) for n in re.findall(r'/page/(\d)+/', catdoc.content.decode('utf-8'))]
+        pages = [int(n) for n in re.findall(r'/page/(\d)+/?', catdoc.content.decode('utf-8'))]
         for page in range(1, 1 + max([0] + pages)):
             pgurl = urljoin(caturl, 'page/%d/' % page) if page > 1 else caturl
             pgdoc = crawler.fetch(pgurl)
