@@ -16,13 +16,42 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 import re
-from corpuscrawler.util import crawl_udhr, replace_html_entities, striptags
+from corpuscrawler.util import cleantext, crawl_udhr, find_wordpress_urls
 
 
 def crawl(crawler):
     out = crawler.get_output(language='shn')
     crawl_udhr(crawler, out, filename='udhr_shn.txt')
-    crawl_panglong(crawler, out)
+    # 2020-07: panglong.org redirects to shannews.org
+    # crawl_panglong(crawler, out)
+    crawl_shannews(crawler, out)
+
+
+def crawl_shannews(crawler, out):
+    urls = find_wordpress_urls(crawler, 'https://shannews.org/archives/', allow_404=True)
+    urls = [u for u in urls if re.match(r'^https://shannews.org/archives/\d+$', u)]
+    for url in sorted(urls):
+        doc = crawler.fetch(url)
+        assert doc.status == 200, (doc.status, url)
+        html = doc.content.decode('utf-8')
+        title = re.search(r'<h1 class="entry-title">(.+?)</h1>', html).group(1)
+        pubdate = re.search(r'<meta itemprop="datePublished" content="([^"]+)">', html)
+        pubdate = cleantext(pubdate.group(1)) if pubdate else None
+        try:
+            text = html.split('<div class="td-post-content">', 1)[1] \
+                .split('<div id="fb-root">')[1] \
+                .split("<div class='heateorFfcClear'>")[0] \
+                .replace('\n', ' ').replace('</p>', '\n')
+        except Exception as e:
+            print('No content:     %s' % url)
+            continue
+        paras = [cleantext(p) for p in [title] + text.splitlines()]
+        paras = filter(None, paras)
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: News\n')
+        if pubdate:
+            out.write('# Publication-Date: %s\n' % pubdate)
+        out.write('\n'.join(paras) + '\n')
 
 
 def crawl_panglong(crawler, out):

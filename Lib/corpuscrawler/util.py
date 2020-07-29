@@ -103,7 +103,7 @@ def urlencode(url):
 
 
 class Crawler(object):
-    def __init__(self, language, output_dir, cache_dir):
+    def __init__(self, language, output_dir, cache_dir, crawldelay):
         assert len(language) >= 2
         self.language = language
         self.cache_dir = cache_dir
@@ -112,8 +112,9 @@ class Crawler(object):
         self.robotcheckers = {}
         self.useragent = 'LinguisticCorpusCrawler/1.0'
         self.useragent_for_robots_txt = self.useragent.split('/')[0]
-        self.crawldelay = 15.0  # seconds between fetches
-        self.context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        self.crawldelay = crawldelay  # seconds between fetches (default 15)
+        # Set this to ssl.SSLContext(ssl.PROTOCOL_TLSv1) if necessary for your site:
+        self.context = None
         for path in (output_dir, cache_dir):
             if not os.path.exists(path):
                 os.makedirs(path)
@@ -132,7 +133,7 @@ class Crawler(object):
         for writer in self.outputs.values():
             writer.close()
 
-    def fetch(self, url, redirections=None):
+    def fetch(self, url, redirections=None, fetch_encoding='utf-8'):
         if not self.is_fetch_allowed_by_robots_txt(url):
             print('Skipped:        %s' % url)
             return FetchResult(headers='', content='', status=403, filepath=None)
@@ -180,7 +181,7 @@ class Crawler(object):
             # error here, and return it as '400 Bad Request' to our caller.
             return FetchResult({}, 'Bad Request: UnicodeDecodeError', 400, None)
         status = response.getcode()
-        content = response.read()
+        content = response.read().decode(fetch_encoding).encode('utf-8')
         response.close()
         if status == 200 or status >= 400 and status <= 499:
             with open(filepath, 'wb') as f:
@@ -190,9 +191,10 @@ class Crawler(object):
                 f.write(content)
         return FetchResult(response.headers, content, status, filepath)
 
-    def fetch_content(self, url):
+    def fetch_content(self, url, allow_404=False):
         doc = self.fetch(url)
-        assert doc.status == 200, (doc.status, url)
+        if not allow_404:
+            assert doc.status == 200, (doc.status, url)
         try:
             return doc.content.decode('utf-8')
         except:
@@ -807,14 +809,46 @@ def crawl_bibleis(crawler, out, bible):
         out.write('\n'.join(verses) + '\n')
 
 
-def find_wordpress_urls(crawler, site):
+def crawl_tipitaka(crawler, out, script):
+    tocs_to_crawl = []
+    content_to_crawl = []
+    tocs_to_crawl.append('https://tipitaka.org/%s/tipitaka_toc.xml' % script)
+    while tocs_to_crawl:
+        url = tocs_to_crawl.pop()
+        fetchresult = crawler.fetch(url, fetch_encoding='utf-16')
+        assert fetchresult.status == 200, (fetchresult.status, url)
+        root = etree.fromstring(fetchresult.content.decode('utf-8'))
+        for tree in root.findall('.//tree[@src]'):
+            src = tree.get('src')
+            tocs_to_crawl.append('https://tipitaka.org/%s/%s' % (script, src))
+        for tree in root.findall('.//tree[@action]'):
+            action = tree.get('action')
+            content_to_crawl.append('https://tipitaka.org/%s/%s' % (script, action))
+    for url in content_to_crawl:
+        doc = crawler.fetch(url, fetch_encoding='utf-16')
+        pubdate = doc.headers.get('Last-Modified')
+        if doc.status != 200:
+            continue
+        try:
+            root = etree.fromstring(doc.content.decode('utf-8'))
+        except:
+            print('Unicode Error:  %s' % url)
+            continue
+        paragraphs = root.findall('.//p')
+        out.write('# Location: %s\n' % url)
+        out.write('# Genre: Religion\n')
+        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
+        out.write('\n'.join(''.join(p.itertext()) for p in paragraphs) + '\n')
+
+
+def find_wordpress_urls(crawler, site, **kwargs):
     urls = set()
-    mainpage = crawler.fetch_content(site)
-    for category in re.findall(r'/(category/[^/"]+/)">', mainpage):
-        caturl = urljoin(site, category)
+    mainpage = crawler.fetch_content(site, **kwargs)
+    for category in re.findall(r'/(category/[^/"]+)/?">', mainpage):
+        caturl = urljoin(site, category) + '/'
         catdoc = crawler.fetch(caturl)
         assert catdoc.status == 200, (catdoc.status, caturl)
-        pages = [int(n) for n in re.findall(r'/page/(\d)+/', catdoc.content.decode('utf-8'))]
+        pages = [int(n) for n in re.findall(r'/page/(\d)+/?', catdoc.content.decode('utf-8'))]
         for page in range(1, 1 + max([0] + pages)):
             pgurl = urljoin(caturl, 'page/%d/' % page) if page > 1 else caturl
             pgdoc = crawler.fetch(pgurl)

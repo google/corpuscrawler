@@ -99,7 +99,8 @@ from corpuscrawler import (
     crawl_jbu, crawl_jic, crawl_jiv, crawl_jmc, crawl_jun,
     crawl_jv, crawl_jvn, crawl_ka, crawl_kaa, crawl_kab,
     crawl_kab_Arab, crawl_kab_Tfng,
-    crawl_kac, crawl_kao, crawl_kaq, crawl_kbh, crawl_kbm,
+    crawl_kac, crawl_kao, crawl_kaq, crawl_kar,
+    crawl_kbh, crawl_kbm,
     crawl_kbp, crawl_kbq, crawl_kbr, crawl_kcg, crawl_kdc,
     crawl_kdi, crawl_kdj, crawl_kdn, crawl_kek, crawl_ken,
     crawl_keo, crawl_ker, crawl_kew, crawl_kez, crawl_kgf,
@@ -164,7 +165,8 @@ from corpuscrawler import (
     crawl_os, crawl_osa, crawl_otd, crawl_ote, crawl_ozm,
     crawl_pa, crawl_pab, crawl_pad, crawl_pag, crawl_pah,
     crawl_pam, crawl_pau, crawl_pbc, crawl_pbi, crawl_pck,
-    crawl_pcm, crawl_pez, crawl_pib, crawl_pir, crawl_pis,
+    crawl_pcm, crawl_pez,
+    crawl_pi_Mymr, crawl_pib, crawl_pir, crawl_pis,
     crawl_pjt, crawl_pkb, crawl_pl, crawl_plw, crawl_pmf,
     crawl_pny, crawl_poh, crawl_poi, crawl_poy, crawl_ppk,
     crawl_ppo, crawl_prf, crawl_prk, crawl_ps, crawl_pss,
@@ -628,6 +630,7 @@ def main():
         'kac': crawl_kac.crawl,  # Kachin
         'kao': crawl_kao.crawl,  # Xaasongaxango
         'kaq': crawl_kaq.crawl,  # Capanahua
+        'kar': crawl_kar.crawl,  # Karen (language family)
         'kbh': crawl_kbh.crawl,  # Camsá
         'kbm': crawl_kbm.crawl,  # Iwal
         'kbp': crawl_kbp.crawl,  # Kabiyè
@@ -944,6 +947,7 @@ def main():
         'pck': crawl_pck.crawl,  # Paite Chin
         'pcm': crawl_pcm.crawl,  # Nigerian Pidgin
         'pez': crawl_pez.crawl,  # Eastern Penan
+        'pi-Mymr': crawl_pi_Mymr.crawl, # Pali in Myanmar script
         'pib': crawl_pib.crawl,  # Yine
         'pir': crawl_pir.crawl,  # Piratapuyo
         'pis': crawl_pis.crawl,  # Pijin
@@ -1242,9 +1246,12 @@ def main():
     parser.add_argument(
         '--cache', default='./cache-corpuscrawler',
         help='path to directory for caching fetched files')
+    parser.add_argument(
+        '--crawldelay', default='15',
+        help='number of seconds between fetches')
     args = parser.parse_args()
 
     crawler = Crawler(language=args.language, output_dir=args.output,
-                      cache_dir=args.cache)
+                      cache_dir=args.cache, crawldelay=float(args.crawldelay))
     crawls[args.language](crawler)
     crawler.close()
