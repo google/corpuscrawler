@@ -1039,3 +1039,5 @@ Unicode’s [Unilex project](https://github.com/unicode-org/unilex).
 ```sh
 ./corpuscrawler --language=yo --output=./corpus
 ```
+my`                | Burmese                      |  1,007K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my.txt)                |
+| `my-t-d0-zawgyi`    | Burmese (Zawgyi encoding)    |    593K  [💾](http://www.gstatic.com/i18n/corpora/wordcounts/my-t-d0-zawgyi.txt)
