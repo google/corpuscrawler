@@ -34,20 +34,29 @@ def crawl(crawler):
     crawl_tuairisc_ie(crawler, out)
     crawl_nuachtrte(crawler, out)
     crawl_irishtimes(crawler, out)
-    crawl_chg(crawler, out)
     crawl_ainm_ie(crawler, out)
     crawl_blogspot(crawler, out, host='gaeltacht21.blogspot.com')
     crawl_blogspot(crawler, out, host='aonghus.blogspot.com')
+    crawl_blogspot(crawler, out, host='nimill.blogspot.com')
+    crawl_blogspot(crawler, out, host='turasailse.blogspot.com')
+    crawl_blogspot(crawler, out, host='caomhach.blogspot.com')
+    crawl_blogspot(crawler, out, host='breacleabhar.blogspot.com')
+    crawl_blogspot(crawler, out, host='gearoid.blogspot.com')
+    crawl_blogspot(crawler, out, host='philo-celtic.blogspot.com')
+    crawl_blogspot(crawler, out, host='iomhannablag.blogspot.com')
+    crawl_blogspot(crawler, out, host='smaointefanacha.blogspot.com')
+    crawl_blogspot(crawler, out, host='imeall.blogspot.com')
     crawl_coislife_ie(crawler, out)
     crawl_meoneile_ie(crawler, out)
     crawl_peig_ie(crawler, out)
+    crawl_forasnagaeilge_ie(crawler, out)
 
 # RTE has news sites both for its own Irish language news programme
 # and for Raidió na Gaeltachta
 def _rtenuacht_path(url):
     rtenuacht = urlpath(url).startswith('/news/nuacht/')
-    rnagnuacht = urlpath(url).startswith('/rnag/nuacht-gaeltachta')
-    return rtenuacht or rnagnuacht
+    rnag = '/rnag/nuacht' in url or '/rnag/articles' in url
+    return rtenuacht or rnag
 
 
 def _rte_writable_paragraph(text):
@@ -63,6 +72,8 @@ def _rte_writable_paragraph(text):
         return False
     if text.find('RTÉ uses cookies in accordance with our Cookie Policy') >= 0:
         return False
+    if re.match('^[\*\+]+$', text):
+        return False
     return True
 
 def _check_rte_sitemap(url):
@@ -75,14 +86,34 @@ def _check_rte_sitemap(url):
     except AttributeError:
         return True
 
+def _rte_cleanall(html):
+    section_article_regex = re.compile(r'<section[^>]+itemprop="articleBody"[^>]*>')
+    search = section_article_regex.search(html)
+    out = []
+    if search:
+        body = extract(search.group(0), '</section>', html)
+        for para in clean_paragraphs(body):
+            if _rte_writable_paragraph(para):
+                out.append(para)
+        return '\n'.join(out)
+    for paragraph in re.findall(r'<p>(.+?)</p>', html):
+        cleaned = cleantext(paragraph)
+        if _rte_writable_paragraph(cleaned):
+            out.append(cleaned)
+        else:
+            continue
+    return '\n'.join(out)
+
 def crawl_nuachtrte(crawler, out):
     sitemap = crawler.fetch_sitemap(
-        'http://www.rte.ie/sitemap.xml',
+        'https://www.rte.ie/sitemap.xml',
         subsitemap_filter=lambda x: _check_rte_sitemap(x)
         )
     pubdate_regex = re.compile(r'name="DC.date" (?:scheme="DCTERMS.URI" )?content="([0-9T:+\-]{19,25})"')
     for url in sorted(sitemap.keys()):
         if not _rtenuacht_path(url):
+            continue
+        if '/programmes' in url:
             continue
         fetchresult = crawler.fetch(url)
         if fetchresult.status != 200:
@@ -93,18 +124,16 @@ def crawl_nuachtrte(crawler, out):
         if pubdate is None: pubdate = fetchresult.headers.get('Last-Modified')
         if pubdate is None: pubdate = sitemap[url]
         out.write('# Location: %s\n' % url)
-        out.write('# Genre: News\n')
+        if 'nuacht' in url:
+            out.write('# Genre: News\n')
         if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
         title = re.search(r'<title>(.+?)</title>', html)
         if title: title = striptags(title.group(1).split('- RTÉ')[0]).strip()
         if title: out.write(cleantext(title) + '\n')
-        for paragraph in re.findall(r'<p>(.+?)</p>', html):
-            cleaned = cleantext(paragraph)
-            if _rte_writable_paragraph(cleaned):
-                out.write(cleaned + '\n')
-            else:
-                continue
-
+        cleaned = _rte_cleanall(html)
+        if '/sceala/' in url and '\n____' in cleaned:
+            cleaned = cleaned.split('\n____')[0]
+        out.write(cleaned + '\n')
 
 def _irishtimes_section_list(crawler, out, url):
     page = crawler.fetch(url)
@@ -131,7 +160,7 @@ def crawl_irishtimes(crawler, out):
         if init.status != 200:
             continue
         shtml = init.content.decode('utf-8')
-        for doclink in re.findall('<p><a href="/culture/tuarasc%C3%A1il/([^"]*)"', shtml):
+        for doclink in re.findall('<a href="/culture/tuarasc%C3%A1il/([^"]*)"', shtml):
             links.add('%s/%s' % (start, doclink))
     for url in links:
         res = crawler.fetch(url)
@@ -155,36 +184,6 @@ def crawl_irishtimes(crawler, out):
     crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
 
 
-def crawl_chg(crawler, out):
-    def _chg_content(page):
-        return page.split('<div class="container" id="article">')[1].split('<!-- /.right columns -->')[0]
-    sitemap = 'https://www.chg.gov.ie/ga/help/sitemap/'
-    res = crawler.fetch(sitemap)
-    if res.status != 200:
-        return
-    links = set()
-    html = res.content.decode('utf-8')
-    body = _chg_content(html)
-    for pagelink in re.findall('<a href="([^"]*)">', body):
-        if pagelink.startswith('https://www.chg.gov.ie/ga/'):
-            links.add(pagelink)
-    for link in links:
-        pres = crawler.fetch(link)
-        if pres.status != 200:
-            continue
-        phtml = pres.content.decode('utf-8')
-        ptext = _chg_content(phtml)
-        title = re.search(r'<title>(.+?)</title>', phtml)
-        if title: title = striptags(title.group(1).split('|')[0]).strip()
-        pubdate = pres.headers.get('Last-Modified')
-        out.write('# Location: %s\n' % link)
-        out.write('# Genre: Government\n')
-        if pubdate: out.write('# Publication-Date: %s\n' % pubdate)
-        for paragraph in re.findall(r'<p>(.+?)</p>', ptext):
-            cleaned = cleantext(paragraph)
-            out.write(cleaned + '\n')
-
-
 def crawl_blogspot(crawler, out, host):
     sitemap = crawler.fetch_sitemap('https://%s/sitemap.xml' % host)
     pubdate_regex = re.compile(
@@ -203,6 +202,12 @@ def crawl_blogspot(crawler, out, host):
         title = title.group(1) if title else ''
         post = extract("<div class='post-body entry-content'>",
                        "<div class='post-footer'>", html)
+        if post == None:
+            post = extract("<div class='post-header'>",
+                           "<div class='post-footer'>", html)
+        if post == None:
+            post = extract('<div class="post-body">',
+                           '<p class="post-footer">', html)
         paras = clean_paragraphs(title + '<br/>' + post)
         if paras:
             out.write('# Location: %s\n' % url)
@@ -290,7 +295,7 @@ def crawl_coislife_ie(crawler, out):
         idxhtml = idxres.content.decode('utf-8')
         index = extract('<div class="products-archive--products">',
                         '<nav class="woocommerce-pagination">', idxhtml)
-        for link in re.findall(r'<a href="(https://www.coislife.ie/product/[^"]+?)">', index):
+        for link in re.findall(r'<a href="(https://coislife.ie/product/[^"]+)"', index):
             links.add(link)
     for url in sorted(links):
         fetchresult = crawler.fetch(url)
@@ -411,6 +416,8 @@ def crawl_peig_ie(crawler, out):
         else:
             return False
     for url in sorted(sitemap.keys()):
+        if url == 'https://peig.ie/':
+            continue
         fetchresult = crawler.fetch(url)
         if fetchresult.status != 200:
             continue
@@ -420,7 +427,10 @@ def crawl_peig_ie(crawler, out):
         read_more = re.search(r'<a.*href="([^"]+")[^>]*>Níos mó</a>', html)
         if read_more and skip_page(read_more.group(1)):
             continue
-        date = re.search(r'<time datetime="([^"]+)">', html).group(1)
+        if '<meta property="article:modified_time"' in html:
+            date = re.search(r'<meta property="article:modified_time" content="([^"]+)"', html).group(1)
+        else:
+            date = re.search(r'"datePublished":"([^"]+)"', html).group(1)
         body = extract('<div class="uk-margin-medium-top" property="text">', '<ul class="uk-pagination', html) or ''
         paras = clean_paragraphs(title + '<br/>' + body)
         genre = peig_cat(url)
@@ -432,5 +442,45 @@ def crawl_peig_ie(crawler, out):
                 out.write('# Publication-Date: %s\n' % date)
             out.write('\n'.join(paras) + '\n')
     crawler.set_context(ssl.SSLContext(ssl.PROTOCOL_TLSv1))
+
+def crawl_forasnagaeilge_ie(crawler, out):
+    sitemap = crawler.fetch_sitemap('https://www.forasnagaeilge.ie/sitemap_index.xml')
+    pubdate_regex = re.compile(r'"datePublished":"([^"]+)",')
+    for url in sorted(sitemap.keys()):
+        orig_url = url
+        if '?lang=en' in url:
+            ga_url = url.replace('?lang=en', '')
+            if ga_url in sitemap.keys():
+                continue
+        if '/blog-en/' in url:
+            continue
+        if '/corporate-information/' in url:
+            continue
+        fetchresult = crawler.fetch(url)
+        if fetchresult.status != 200:
+            continue
+        html = fetchresult.content.decode('utf-8')
+        if '<html class="no-js" lang="en">' in html:
+            continue
+        title = extract('<title>', ' - www.forasnagaeilge.ie</title>',
+                        html) or ''
+        pubdate_match = pubdate_regex.search(html)
+        if pubdate_match:
+            pubdate = pubdate_match.group(1)
+        else:
+            pubdate = sitemap.get(url) or sitemap[orig_url]
+        body = extract(
+            '<div id="main" class="container">',
+            '</div><!-- /.content -->', html)
+        if not body:
+            continue
+        paras = clean_paragraphs(body)
+        if paras:
+            out.write('# Location: %s\n' % url)
+            out.write('# Genre: News\n')
+            out.write('# Title: %s\n' % title)
+            if pubdate:
+                out.write('# Publication-Date: %s\n' % pubdate)
+            out.write('\n'.join(paras) + '\n')
 
 
