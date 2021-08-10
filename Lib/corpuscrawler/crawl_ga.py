@@ -456,6 +456,8 @@ def crawl_forasnagaeilge_ie(crawler, out):
             continue
         if '/corporate-information/' in url:
             continue
+        if '/torthai-cuardaigh/' in url:
+            continue
         fetchresult = crawler.fetch(url)
         if fetchresult.status != 200:
             continue
