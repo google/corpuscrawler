@@ -649,8 +649,8 @@ def crawl_radio_free_asia(crawler, out, edition, start_year=1998):
             if response.status != 200:
                 continue
             html = response.content.decode('utf-8')
-            teaser = html.split('<div class="listingBar">')[0]
-            for t in teaser.split('class="sectionteaser"')[1:]:
+            teaser = html.split('<nav class="pagination">')[0]
+            for t in teaser.split('class="sectionteaser')[1:]:
                 for url in article_re.findall(t):
                   if edition == 'cantonese':
                       url = url.replace('encoding=simplified',
