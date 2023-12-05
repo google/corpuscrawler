@@ -255,7 +255,7 @@ class Crawler(object):
         checker = self.robotcheckers.get(robots_txt_url)
         if checker is None:
             doc = self.fetch(robots_txt_url)
-            robots_txt = doc.content if doc.status == 200 else ''
+            robots_txt = doc.content if doc.status == 200 else b''
             checker = robotparser.RobotFileParser()
             checker.set_url(robots_txt_url)
             checker.parse(robots_txt.decode('utf-8'))
