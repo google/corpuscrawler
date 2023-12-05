@@ -730,7 +730,7 @@ def crawl_sputnik_news(crawler, out, host):
 
 
 def crawl_udhr(crawler, out, filename):
-    url = 'http://www.unicode.org/udhr/d/' + filename
+    url = 'https://sffc.github.io/udhr/d/' + filename
     response = crawler.fetch(url)
     assert response.status == 200, (response.status, url)
     text = response.content.decode('utf-8').split('---', 1)[1]
