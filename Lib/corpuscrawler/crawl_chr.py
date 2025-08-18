@@ -20,4 +20,4 @@ from corpuscrawler.util import crawl_udhr
 def crawl(crawler):
     out = crawler.get_output(language='chr')
     crawl_udhr(crawler, out, filename='udhr_chr_uppercase.txt')
-    crawler.crawl_churchio(out, bible_id='chr-cherokee')
+    # TODO(#93): Add a Cherokee bible from a different source
